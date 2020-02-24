@@ -7,6 +7,22 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from "vue-router";
+
+// Plugins
+import GlobalComponents from "./globalComponents";
+import GlobalDirectives from "./globalDirectives";
+import Notifications from "./components/NotificationPlugin";
+import MaterialDashboard from "./material-dashboard";
+import Chartist from "chartist";
+
+Vue.prototype.$Chartist = Chartist;
+
+
+Vue.use(MaterialDashboard);
+Vue.use(GlobalComponents);
+Vue.use(GlobalDirectives);
+Vue.use(Notifications);
 
 /**
  * The following block of code may be used to automatically register your
@@ -16,11 +32,18 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+ //Global Components
+ Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').default);
+ Vue.component('top-navbar-component', require('./pages/Layout/TopNavbarComponent.vue').default);
+ Vue.component('content-footer-component', require('./pages/Layout/ContentFooter.vue').default);
+ Vue.component('dashboard-content-component', require('./pages/Layout/Content.vue').default);
+ Vue.component('mobile-menu-component', require('./pages/Layout/MobileMenu.vue').default);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+ const router = new VueRouter({
+    //routes, // short for routes: routes
+    linkExactActiveClass: "nav-item active"
+  });
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -29,4 +52,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router,
+    data: {
+        Chartist: Chartist
+    },
 });
