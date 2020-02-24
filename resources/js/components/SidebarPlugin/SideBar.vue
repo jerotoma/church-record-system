@@ -39,7 +39,6 @@
 </template>
 <script>
 import SidebarLink from "./SidebarLink.vue";
-const assetsPath = '../../sass';
 export default {
   components: {
     SidebarLink

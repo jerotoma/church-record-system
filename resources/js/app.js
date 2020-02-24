@@ -38,6 +38,7 @@ Vue.use(Notifications);
  Vue.component('content-footer-component', require('./pages/Layout/ContentFooter.vue').default);
  Vue.component('dashboard-content-component', require('./pages/Layout/Content.vue').default);
  Vue.component('mobile-menu-component', require('./pages/Layout/MobileMenu.vue').default);
+ Vue.component('user-profile-component', require('./pages/UserProfile.vue').default);
 
 
  const router = new VueRouter({

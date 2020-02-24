@@ -2,7 +2,7 @@
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">{{ 'App Name' }}</h3>
+        <h3 class="md-title">{{ currentPageTitle }}</h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -75,7 +75,6 @@
                 </div>
               </a>
             </li>
-
             <md-list-item href="#/user">
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
@@ -89,26 +88,32 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedEmployee: null,
-      employees: [
-        "Jim Halpert",
-        "Dwight Schrute",
-        "Michael Scott",
-        "Pam Beesly",
-        "Angela Martin",
-        "Kelly Kapoor",
-        "Ryan Howard",
-        "Kevin Malone"
-      ]
-    };
-  },
-  methods: {
-    toggleSidebar() {
-      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    props: {
+        currentPageTitle: {
+            type: String,
+            default: 'Dashboard',
+        }
+    },
+    data() {
+        return {
+            selectedEmployee: null,
+            employees: [
+                "Jim Halpert",
+                "Dwight Schrute",
+                "Michael Scott",
+                "Pam Beesly",
+                "Angela Martin",
+                "Kelly Kapoor",
+                "Ryan Howard",
+                "Kevin Malone"
+            ]
+        };
+    },
+    methods: {
+        toggleSidebar() {
+            this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+        }
     }
-  }
 };
 </script>
 
