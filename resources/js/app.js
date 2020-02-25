@@ -34,11 +34,13 @@ Vue.use(Notifications);
 
  //Global Components
  Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').default);
- Vue.component('top-navbar-component', require('./pages/Layout/TopNavbarComponent.vue').default);
- Vue.component('content-footer-component', require('./pages/Layout/ContentFooter.vue').default);
- Vue.component('dashboard-content-component', require('./pages/Layout/Content.vue').default);
- Vue.component('mobile-menu-component', require('./pages/Layout/MobileMenu.vue').default);
- Vue.component('user-profile-component', require('./pages/UserProfile.vue').default);
+ Vue.component('top-navbar-component', require('./pages/layout/TopNavbarComponent.vue').default);
+ Vue.component('content-footer-component', require('./pages/layout/FooterComponent.vue').default);
+ Vue.component('dashboard-content-component', require('./pages/layout/Content.vue').default);
+ Vue.component('mobile-menu-component', require('./pages/layout/MobileMenuComponent.vue').default);
+
+ Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
+ Vue.component('user-create-component', require('./pages/users/UserCreateComponent.vue').default);
 
 
  const router = new VueRouter({

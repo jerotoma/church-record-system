@@ -1,8 +1,9 @@
 <template>
   <li class="md-list-item">
     <a class="md-list-item-router md-list-item-container md-button-clean"
-      @click="hideSidebar"
-      :href="to">
+        :class="{ active: isActive == 'active' ? true : false }"
+        :href="to"
+       @click="hideSidebar">
         <div class="md-list-item-content md-ripple">
             <slot>
                 <md-icon>{{ link.icon }}</md-icon>
@@ -38,6 +39,10 @@ export default {
       type: String,
       default: ''
     },
+    isActive: {
+        type: String,
+        default: 'inactive'
+    }
   },
   methods: {
     hideSidebar() {

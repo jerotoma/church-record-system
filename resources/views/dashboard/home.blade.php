@@ -1,4 +1,6 @@
 @extends('layouts.app')
+
 @section('content')
-    <user-profile-component></user-profile-component>
+<dashboard-component></dashboard-component>
 @endsection
+

@@ -50,7 +50,7 @@ export default {
     },
     backgroundImage: {
       type: String,
-      default: '',
+      default: '/storage/assets/img/sidebar-2.jpg',
     },
     imgLogo: {
       type: String,

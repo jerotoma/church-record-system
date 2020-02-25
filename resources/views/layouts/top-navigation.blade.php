@@ -1,1 +1,3 @@
-<top-navbar-component></top-navbar-component>
+<top-navbar-component
+current-page-title="Dashboard"
+></top-navbar-component>
