@@ -4,7 +4,12 @@
             <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
                 <md-card>
                    <md-card-content>
-                        <md-button class="md-primary md-raised" @click="createUserModal()">Create User</md-button>
+                        <div class="md-layout">
+                            <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
+                                <md-button class="md-raised md-success">Update Profile</md-button>
+                                <md-button class="md-raised md-success" @click="createUserModal()">Add User</md-button>
+                            </div>
+                        </div>
                         <vue-good-table
                             :columns="columns"
                             :rows="users"

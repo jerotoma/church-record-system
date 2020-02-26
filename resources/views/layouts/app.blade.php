@@ -8,6 +8,7 @@
         <title>{{ config('app.name', 'Church Record System') }}</title>
         <!-- Styles -->
         @include('layouts.styles')
+        @include('layouts.scripts')
     </head>
     <body>
         <div id="app">
@@ -22,6 +23,5 @@
             </div>
         </div>
         <!-- Scripts -->
-        @include('layouts.scripts')
     </body>
 </html>
