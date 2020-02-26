@@ -3,21 +3,16 @@
         <div class="md-layout">
             <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
                 <md-card>
-                    <md-card-header data-background-color="green">
-                        <div class="md-title">Employees Stats</div>
-                        <p class="category">New employees on 15th September, 2016</p>
+                   <md-card-content>
                         <md-button class="md-primary md-raised" @click="createUserModal()">Create User</md-button>
-                    </md-card-header>
-                    <md-card-content>
-                       <md-table v-model="users" :table-header-color="tableHeaderColor">
-                            <md-table-row slot="md-table-row" slot-scope="{ item }">
-                                <md-table-cell md-label="ID">{{ item.id }}</md-table-cell>
-                                <md-table-cell md-label="Name">{{ item.name }}</md-table-cell>
-                                <md-table-cell md-label="Salary">{{ item.salary }}</md-table-cell>
-                                <md-table-cell md-label="Country">{{ item.country }}</md-table-cell>
-                                <md-table-cell md-label="City">{{ item.city }}</md-table-cell>
-                            </md-table-row>
-                        </md-table>
+                        <vue-good-table
+                            :columns="columns"
+                            :rows="users"
+                            :search-options="{
+                                enabled: true,
+                                placeholder: 'Search this table',
+                            }">
+                        </vue-good-table>
                     </md-card-content>
                 </md-card>
                 <user-create-component
@@ -45,6 +40,29 @@ export default {
     return {
       selected: [],
       showCreateModal: false,
+      columns: [
+        {
+          label: 'ID',
+          field: 'id',
+          type: Number
+        },
+        {
+          label: 'Name',
+          field: 'name',
+        },
+        {
+          label: 'Salary',
+          field: 'salary',
+        },
+        {
+          label: 'Country',
+          field: 'country',
+        },
+        {
+          label: 'City',
+          field: 'city',
+        },
+      ],
       users: [
         {
           id: 1,
@@ -87,3 +105,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+    .main-panel > .content {
+        padding:0;
+    }
+</style>
