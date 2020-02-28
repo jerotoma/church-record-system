@@ -12,8 +12,10 @@
 */
 
 Route::get('/', 'DashboardController@index');
-Auth::routes();
 
+Route::group(['prefix' => 'auth'], function () {
+    Auth::routes();
+});
 Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@index');
     Route::resource('/users', 'UserController');

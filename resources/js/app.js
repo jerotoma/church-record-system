@@ -44,6 +44,8 @@ Vue.use(Notifications);
  Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
  Vue.component('user-create-component', require('./pages/users/UserCreateComponent.vue').default);
 
+ Vue.component('login-component', require('./auth/LoginComponent.vue').default);
+
 
  const router = new VueRouter({
     //routes, // short for routes: routes

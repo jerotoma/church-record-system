@@ -157,7 +157,7 @@ export default {
             this.form.firstName = null;
             this.form.lastName = null;
             this.form.emailAddress = null;
-            this.form.gender = null;
+            this.form.gender = "male"
             this.form.username = null;
             this.form.password = null;
             this.form.confirmPassword = null;
@@ -173,7 +173,7 @@ export default {
             // Send a POST request
             axios({
                 method: 'POST',
-                url: '/dashboard/users',
+                url: '/api/users',
                 data: this.form,
             })
             .then((response) => {
@@ -182,10 +182,14 @@ export default {
                 this.userSaved = true
                 this.sending = false
                 this.clearForm();
+            }).catch((error) => {
+                // handle error
+                this.sending = false
+                console.log(error);
             });
         },
         validateUser() {
-            console.log(this.$v);
+            //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 this.saveUser();

@@ -16,12 +16,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name',
-        'middle_names',
-        'last_name',
         'username',
         'password',
         'confirmed',
+        'enebled',
+        'locked'
     ];
 
     /**
@@ -30,7 +29,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -41,4 +41,8 @@ class User extends Authenticatable
     protected $casts = [
         'username_verified_at' => 'datetime',
     ];
+
+    public function member() {
+        return $this->hasOne('App\Member');
+    }
 }

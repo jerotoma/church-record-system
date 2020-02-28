@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\User;
+use App\Address;
+use App\Member;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +14,16 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     private $baseDirViewPath = 'dashboard.users';
+
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+       $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,9 +66,50 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        dd($request);
+    public function store(Request $request) {
+
+        $data = $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'username' => 'required',
+            'emailAddress' => 'required',
+            'password' => 'required',
+            'gender' => 'required',
+            'confirmPassword' => 'required',
+            'streetAddress' => 'required',
+            'unitNumber' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'postalCode' => 'required',
+        ]);
+
+        $user = User::create([
+            'username' => $data['username'],
+            'password' =>  Hash::make($data['password']),
+            'enabled' => false,
+            'locked' => false,
+            'confirmed' => false
+        ]);
+
+        $member = Member::create([
+            'user_id' => $user->id,
+            'first_name' => $data['firstName'],
+            'last_name' => $data['lastName'],
+            'email_address' => $data['emailAddress'],
+            'gender' => $data['username'],
+        ]);
+
+        $address = Address::create([
+            'member_id' => $member['id'],
+            'street_address' => $data['streetAddress'],
+            'unit_number' => $data['unitNumber'],
+            'city' => $data['city'],
+            'country' => $data['country'],
+            'state' => $data['state'],
+            'postal_code' => $data['postalCode'],
+        ]);
+      return response()->json($user);
     }
 
     /**

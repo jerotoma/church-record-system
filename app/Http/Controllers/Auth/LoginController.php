@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,28 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function username() {
+        return 'username';
+    }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
+    public function authenticate(Request $request) {
+        $credentials = $request->only('username', 'password');
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return response()->json([
+                'user' => Auth::user(),
+                'redirectTo' => $this->redirectTo,
+            ]);
+        }
+        return response()->json(['error'=> "Access Dinied" ], 403);
     }
 }
