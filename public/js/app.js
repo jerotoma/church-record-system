@@ -3014,6 +3014,255 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _parish_form_criteria__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parish-form-criteria */ "./resources/js/pages/church-directories/parish/parish-form-criteria.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'parish-create-component',
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_0__["validationMixin"]],
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['isLoading', 'message', 'isMessage']), {
+    hasMessage: {
+      get: function get() {
+        return this.isMessage;
+      },
+      set: function set(value) {
+        this.$store.commit('setHasMessage', value);
+      }
+    }
+  }),
+  props: {
+    showDialog: {
+      type: Boolean,
+      "default": false
+    },
+    dataBackgroundColor: {
+      type: String,
+      "default": 'green'
+    }
+  },
+  data: function data() {
+    return {
+      form: _parish_form_criteria__WEBPACK_IMPORTED_MODULE_1__["parishForm"],
+      userSaved: false,
+      sending: false,
+      lastUser: null
+    };
+  },
+  validations: {
+    form: _parish_form_criteria__WEBPACK_IMPORTED_MODULE_1__["parishRequiredFields"]
+  },
+  methods: {
+    closeDialog: function closeDialog() {
+      this.$emit("onDialogClose", {
+        showDialog: false
+      });
+    },
+    getValidationClass: function getValidationClass(fieldName) {
+      var field = this.$v.form[fieldName];
+
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty
+        };
+      }
+    },
+    clearForm: function clearForm() {
+      this.$v.$reset();
+      this.form.parishName = null;
+      this.form.parishCode = null;
+      this.form.parishID = null;
+    },
+    createParish: function createParish() {
+      var _this = this;
+
+      this.$store.dispatch('postParish', this.form).then(function (response) {
+        _this.clearForm();
+      })["catch"](function (error) {
+        _this.$store.commit('setMessage', error.data.message);
+      });
+    },
+    validateUser: function validateUser() {
+      //console.log(this.$v);
+      this.$v.$touch();
+
+      if (!this.$v.$invalid) {
+        this.createParish();
+      }
+    },
+    closeSnackBar: function closeSnackBar() {
+      this.$store.commit('setHasMessage', false);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ParishCreateComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParishCreateComponent.vue */ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "parish-table",
+  props: {
+    tableHeaderColor: {
+      type: String,
+      "default": "green"
+    }
+  },
+  components: {
+    'parish-create-component': _ParishCreateComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      selected: [],
+      showCreateModal: false,
+      columns: [{
+        label: 'ID',
+        field: 'id',
+        type: Number
+      }, {
+        label: 'Parish Name',
+        field: 'parishName'
+      }, {
+        label: 'Parish Code',
+        field: 'parishCode'
+      }],
+      parishes: [{
+        id: 1,
+        parishName: "St. Pauls",
+        parishCode: "ST-89"
+      }, {
+        id: 1,
+        parishName: "St. Pauls",
+        parishCode: "ST-89"
+      }, {
+        id: 1,
+        parishName: "St. Pauls",
+        parishCode: "ST-89"
+      }]
+    };
+  },
+  methods: {
+    createParishModal: function createParishModal() {
+      this.showCreateModal = true;
+    },
+    onDialogClosed: function onDialogClosed() {
+      this.showCreateModal = false;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/layout/Content.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/layout/Content.vue?vue&type=script&lang=js& ***!
@@ -3473,6 +3722,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UserCreateComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserCreateComponent.vue */ "./resources/js/pages/users/UserCreateComponent.vue");
 //
 //
 //
@@ -3503,7 +3753,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//import { UserCreateComponent } from './UserCreateComponent.vue';
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "users-table",
   props: {
@@ -3512,7 +3762,8 @@ __webpack_require__.r(__webpack_exports__);
       "default": "green"
     }
   },
-  components: {//UserCreateComponent,
+  components: {
+    'user-create-component': _UserCreateComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -12719,6 +12970,25 @@ exports.push([module.i, ".list-move {\n  transition: transform 0.3s, opacity 0.4
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".md-dialog[data-v-068aa47a] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-068aa47a] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/layout/TopNavbarComponent.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/layout/TopNavbarComponent.vue?vue&type=style&index=0&lang=scss& ***!
@@ -12789,6 +13059,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n@media screen and (min-width: 991px) {\n.nav-mobile-menu {\n    display: none;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.main-panel > .content[data-v-54e2593a] {\n    padding:0;\n}\n", ""]);
 
 // exports
 
@@ -44960,6 +45249,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/layout/TopNavbarComponent.vue?vue&type=style&index=0&lang=scss&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/layout/TopNavbarComponent.vue?vue&type=style&index=0&lang=scss& ***!
@@ -45043,6 +45362,36 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -62084,6 +62433,357 @@ var render = function() {
             ],
             2
           )
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "md-dialog",
+        {
+          attrs: {
+            "md-click-outside-to-close": false,
+            "md-active": _vm.showDialog
+          },
+          on: {
+            "md-closed": function($event) {
+              return _vm.closeDialog()
+            },
+            "update:mdActive": function($event) {
+              _vm.showDialog = $event
+            },
+            "update:md-active": function($event) {
+              _vm.showDialog = $event
+            }
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "md-layout",
+              attrs: { novalidate: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.validateUser()
+                }
+              }
+            },
+            [
+              _c(
+                "md-card",
+                [
+                  _c(
+                    "md-card-header",
+                    {
+                      attrs: {
+                        "data-background-color": _vm.dataBackgroundColor
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "md-title" }, [
+                        _vm._v("Add New Parish")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "md-subhead" }, [
+                        _vm._v("Please fill all required details")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "md-card-content",
+                    [
+                      _c("md-content", { staticClass: "md-scrollbar" }, [
+                        _c("div", { staticClass: "md-layout" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-100"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                { class: _vm.getValidationClass("firstName") },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "form-fparishName" } },
+                                    [_vm._v("Parish Name")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("md-input", {
+                                    attrs: {
+                                      id: "form-parishName",
+                                      type: "text",
+                                      disabled: _vm.sending
+                                    },
+                                    model: {
+                                      value: _vm.form.parishName,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "parishName", $$v)
+                                      },
+                                      expression: "form.parishName"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.$v.form.parishName.required
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("The parish name is required")
+                                      ])
+                                    : !_vm.$v.form.parishName.minlength
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("Invalid parish name")
+                                      ])
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-100"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                { class: _vm.getValidationClass("lastName") },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "form-parishCode" } },
+                                    [_vm._v("Parish Code")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("md-input", {
+                                    attrs: {
+                                      id: "form-parishCode",
+                                      type: "text",
+                                      disabled: _vm.isLoading
+                                    },
+                                    model: {
+                                      value: _vm.form.parishCode,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "parishCode", $$v)
+                                      },
+                                      expression: "form.parishCode"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.$v.form.parishCode.required
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("The parish code is required")
+                                      ])
+                                    : !_vm.$v.form.parishCode.minlength
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("Invalid parish")
+                                      ])
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "md-card-actions",
+                    [
+                      _c(
+                        "md-button",
+                        {
+                          staticClass: "md-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.closeDialog()
+                            }
+                          }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "md-button",
+                        {
+                          staticClass: "md-primary",
+                          attrs: { type: "submit", disabled: _vm.isLoading }
+                        },
+                        [_vm._v("Create Parish")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "md-snackbar",
+                {
+                  staticClass: "md-accent md-position-top",
+                  attrs: {
+                    "md-position": "center",
+                    "md-duration": 80000,
+                    "md-active": _vm.hasMessage
+                  },
+                  on: {
+                    "update:mdActive": function($event) {
+                      _vm.hasMessage = $event
+                    },
+                    "update:md-active": function($event) {
+                      _vm.hasMessage = $event
+                    }
+                  }
+                },
+                [
+                  _c("span", [_vm._v(" " + _vm._s(_vm.message) + "! ")]),
+                  _vm._v(" "),
+                  _c(
+                    "md-button",
+                    {
+                      staticClass: "md-primary md-just-icon md-simple",
+                      on: {
+                        click: function($event) {
+                          return _vm.closeSnackBar()
+                        }
+                      }
+                    },
+                    [_c("md-icon", [_vm._v("close")])],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "md-layout" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+        },
+        [
+          _c(
+            "md-card",
+            [
+              _c(
+                "md-card-content",
+                [
+                  _c("div", { staticClass: "md-layout" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "md-layout-item md-size-100 text-right",
+                        staticStyle: { "padding-right": "0" }
+                      },
+                      [
+                        _c(
+                          "md-button",
+                          {
+                            staticClass: "md-raised md-success",
+                            on: {
+                              click: function($event) {
+                                return _vm.createParishModal()
+                              }
+                            }
+                          },
+                          [_vm._v("Add Parish")]
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("vue-good-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      rows: _vm.parishes,
+                      "search-options": {
+                        enabled: true,
+                        placeholder: "Search this parish"
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("parish-create-component", {
+            attrs: { "show-dialog": _vm.showCreateModal },
+            on: { onDialogClose: _vm.onDialogClosed }
+          })
         ],
         1
       )
@@ -114350,7 +115050,7 @@ Vue.component('content-footer-component', __webpack_require__(/*! ./pages/layout
 Vue.component('dashboard-content-component', __webpack_require__(/*! ./pages/layout/Content.vue */ "./resources/js/pages/layout/Content.vue")["default"]);
 Vue.component('mobile-menu-component', __webpack_require__(/*! ./pages/layout/MobileMenuComponent.vue */ "./resources/js/pages/layout/MobileMenuComponent.vue")["default"]);
 Vue.component('user-view-component', __webpack_require__(/*! ./pages/users/UserViewComponent.vue */ "./resources/js/pages/users/UserViewComponent.vue")["default"]);
-Vue.component('user-create-component', __webpack_require__(/*! ./pages/users/UserCreateComponent.vue */ "./resources/js/pages/users/UserCreateComponent.vue")["default"]);
+Vue.component('parish-view-component', __webpack_require__(/*! ./pages/church-directories/parish/ParishViewComponent.vue */ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue")["default"]);
 Vue.component('login-component', __webpack_require__(/*! ./auth/LoginComponent.vue */ "./resources/js/auth/LoginComponent.vue")["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   //routes, // short for routes: routes
@@ -115647,6 +116347,212 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishCreateComponent.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ParishCreateComponent_vue_vue_type_template_id_068aa47a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true& */ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true&");
+/* harmony import */ var _ParishCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParishCreateComponent.vue?vue&type=script&lang=js& */ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true& */ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ParishCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ParishCreateComponent_vue_vue_type_template_id_068aa47a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ParishCreateComponent_vue_vue_type_template_id_068aa47a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "068aa47a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/church-directories/parish/ParishCreateComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishCreateComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true&":
+/*!******************************************************************************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true& ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=style&index=0&id=068aa47a&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_style_index_0_id_068aa47a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true& ***!
+  \***************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_template_id_068aa47a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishCreateComponent.vue?vue&type=template&id=068aa47a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_template_id_068aa47a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishCreateComponent_vue_vue_type_template_id_068aa47a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishViewComponent.vue ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ParishViewComponent_vue_vue_type_template_id_54e2593a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true& */ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true&");
+/* harmony import */ var _ParishViewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParishViewComponent.vue?vue&type=script&lang=js& */ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css& */ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ParishViewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ParishViewComponent_vue_vue_type_template_id_54e2593a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ParishViewComponent_vue_vue_type_template_id_54e2593a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "54e2593a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/church-directories/parish/ParishViewComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishViewComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=style&index=0&id=54e2593a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_style_index_0_id_54e2593a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true& ***!
+  \*************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_template_id_54e2593a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/church-directories/parish/ParishViewComponent.vue?vue&type=template&id=54e2593a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_template_id_54e2593a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParishViewComponent_vue_vue_type_template_id_54e2593a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/church-directories/parish/parish-form-criteria.js":
+/*!******************************************************************************!*\
+  !*** ./resources/js/pages/church-directories/parish/parish-form-criteria.js ***!
+  \******************************************************************************/
+/*! exports provided: parishRequiredFields, parishForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parishRequiredFields", function() { return parishRequiredFields; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parishForm", function() { return parishForm; });
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+
+var parishRequiredFields = {
+  parishName: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+    minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+  },
+  parishCode: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+    minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+  }
+};
+var parishForm = {
+  parishName: null,
+  parishCode: null,
+  parishID: null
+};
+
+/***/ }),
+
 /***/ "./resources/js/pages/layout/Content.vue":
 /*!***********************************************!*\
   !*** ./resources/js/pages/layout/Content.vue ***!
@@ -116338,6 +117244,73 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/parish.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/modules/parish.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var state = {
+  parish: null,
+  pashes: []
+};
+var getters = {
+  parish: function parish(state) {
+    return state.parish;
+  },
+  parishes: function parishes(state) {
+    return state.parishes;
+  }
+};
+var actions = {
+  postParish: function postParish(_ref, parish) {
+    var commit = _ref.commit;
+    commit('setLoading', true);
+    commit('setMessage', '');
+    commit('setHasMessage', false);
+    var url = '/rest/secured/parishes';
+    return new Promise(function (resolve, reject) {
+      axios.post(url, parish).then(function (response) {
+        var data = response.data;
+
+        if (data) {
+          commit('setLoading', false);
+          resolve(data);
+        }
+      })["catch"](function (error) {
+        var resp = error.response; //console.log(resp);
+
+        commit('setMessage', resp.data.message);
+        commit('setLoading', false);
+        commit('setHasMessage', true);
+        reject(resp);
+      });
+    });
+  }
+};
+
+var mutations = _defineProperty({
+  setParish: function setParish(state, parish) {
+    state.parish = parish;
+  }
+}, "setParish", function setParish(state, parishes) {
+  state.parishes = parishes;
+});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/users.js":
 /*!*********************************************!*\
   !*** ./resources/js/store/modules/users.js ***!
@@ -116367,7 +117340,7 @@ var actions = {
     var commit = _ref.commit;
     axios({
       method: 'GET',
-      url: '/api/users'
+      url: '/rest/secured/users'
     }).then(function (response) {
       var data = response.data;
       commit('setUsers', data.users);
@@ -116455,6 +117428,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
 /* harmony import */ var _modules_users__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/users */ "./resources/js/store/modules/users.js");
+/* harmony import */ var _modules_parish__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/parish */ "./resources/js/store/modules/parish.js");
+
 
 
 
@@ -116467,7 +117442,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     users: _modules_users__WEBPACK_IMPORTED_MODULE_7__["default"],
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_6__["default"]
+    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_6__["default"],
+    parish: _modules_parish__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],
   getters: _getters__WEBPACK_IMPORTED_MODULE_4__["default"],

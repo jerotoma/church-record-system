@@ -29,7 +29,8 @@
   </div>
 </template>
 <script>
-//import { UserCreateComponent } from './UserCreateComponent.vue';
+import UserCreateComponent from './UserCreateComponent.vue';
+
 export default {
   name: "users-table",
   props: {
@@ -39,7 +40,7 @@ export default {
     }
   },
   components: {
-      //UserCreateComponent,
+      'user-create-component': UserCreateComponent,
   },
   data() {
     return {

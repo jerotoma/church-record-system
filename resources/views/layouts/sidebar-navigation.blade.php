@@ -17,10 +17,10 @@
         <p>Users</p>
     </sidebar-link>
     <sidebar-link
-        is-active="{{ Request::is('dashboard/table') ? 'active' : 'inactive' }}"
-        to="/dashboard/table">
+        is-active="{{ Request::is('dashboard/parishes') ? 'active' : 'inactive' }}"
+        to="/dashboard/parishes">
         <md-icon>content_paste</md-icon>
-        <p>Table list</p>
+        <p>Parishes</p>
     </sidebar-link>
     <sidebar-link
         is-active="{{ Request::is('dashboard/typography') ? 'active' : 'inactive' }}"

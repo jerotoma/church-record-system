@@ -15,7 +15,7 @@ const state = {
     getUsers ({ commit }) {
         axios({
             method: 'GET',
-            url: '/api/users',
+            url: '/rest/secured/users',
         })
         .then((response) => {
             const data = response.data;

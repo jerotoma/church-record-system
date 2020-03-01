@@ -7,6 +7,7 @@ import actions from './actions';
 
 import auth from './modules/auth';
 import users from './modules/users';
+import parish from './modules/parish';
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   modules: {
     users,
     auth,
+    parish,
   },
   state,
   getters,

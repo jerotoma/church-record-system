@@ -43,7 +43,7 @@ Vue.use(Notifications);
  Vue.component('mobile-menu-component', require('./pages/layout/MobileMenuComponent.vue').default);
 
  Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
- Vue.component('user-create-component', require('./pages/users/UserCreateComponent.vue').default);
+ Vue.component('parish-view-component', require('./pages/church-directories/parish/ParishViewComponent.vue').default);
 
  Vue.component('login-component', require('./auth/LoginComponent.vue').default);
 
