@@ -52,51 +52,92 @@ export default {
           type: Number
         },
         {
-          label: 'Name',
-          field: 'name',
+          label: 'Full Name',
+          field: 'fullName',
         },
         {
-          label: 'Salary',
-          field: 'salary',
+          label: 'Gender',
+          field: 'gender',
         },
         {
-          label: 'Country',
-          field: 'country',
+          label: 'Phone Number',
+          field: 'phoneNumber',
         },
         {
-          label: 'City',
-          field: 'city',
+          label: 'Community',
+          field: 'community',
+        },
+        {
+          label: 'Zone',
+          field: 'zone',
         },
       ],
       users: [
         {
           id: 1,
-          name: "Dakota Rice",
-          salary: "$36,738",
-          country: "Niger",
-          city: "Oud-Turnhout"
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
         },
         {
-          id: 2,
-          name: "Minerva Hooper",
-          salary: "$23,738",
-          country: "Curaçao",
-          city: "Sinaai-Waas"
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
         },
         {
-          id: 3,
-          name: "Sage Rodriguez",
-          salary: "$56,142",
-          country: "Netherlands",
-          city: "Overland Park"
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
         },
         {
-          id: 4,
-          name: "Philip Chaney",
-          salary: "$38,735",
-          country: "Korea, South",
-          city: "Gloucester"
-        }
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
+        },
+        {
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
+        },
+        {
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
+        },
+        {
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
+        },
+        {
+          id: 1,
+          fullName: "Dakota Rice",
+          gender: "Male",
+          phoneNumber: "+255768908785",
+          community: "St. Micheal Community",
+          zone: "St. Marry Zone"
+        },
+
       ]
     };
   },

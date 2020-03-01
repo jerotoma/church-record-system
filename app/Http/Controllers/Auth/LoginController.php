@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -44,21 +46,25 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle an authentication attempt.
+     * The user has been authenticated.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
      */
-    public function authenticate(Request $request) {
-        $credentials = $request->only('username', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return response()->json([
-                'user' => Auth::user(),
-                'redirectTo' => $this->redirectTo,
-            ]);
+    protected function authenticated(Request $request, $user) {
+        return response()
+            ->json([
+                'user' => $user,
+                'success' => true,
+                ]);
+    }
+
+    public function logout(Request $request) {
+        if (Auth::check()) {
+            Auth::logout();
         }
-        return response()->json(['error'=> "Access Dinied" ], 403);
+        return response()
+            ->json(['success' => true]);
     }
 }

@@ -12,11 +12,7 @@
         </div>
       </a>
 
-      <a
-        href="https://www.creative-tim.com/product/vue-material-dashboard"
-        target="_blank"
-        class="simple-text logo-normal"
-      >
+      <a href="/dashboard" class="simple-text logo-normal">
         {{ title }}
       </a>
     </div>
@@ -46,7 +42,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Vue MD"
+      default: "C-Record System"
     },
     backgroundImage: {
       type: String,
@@ -54,7 +50,7 @@ export default {
     },
     imgLogo: {
       type: String,
-      default: ''
+      default: '/storage/assets/img/vue-logo.png',
     },
     activeColor: {
       type: String,

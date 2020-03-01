@@ -9,7 +9,7 @@
           data-background-color="blue"
         >
           <template slot="content">
-            <h4 class="title">Daily Sales</h4>
+            <h4 class="title">Parish Stats</h4>
             <p class="category">
               <span class="text-success"
                 ><i class="fas fa-long-arrow-alt-up"></i> 55%
@@ -37,7 +37,7 @@
           data-background-color="red"
         >
           <template slot="content">
-            <h4 class="title">Email Subscription</h4>
+            <h4 class="title">Zone Stats</h4>
             <p class="category">
               Last Campaign Performance
             </p>
@@ -61,7 +61,7 @@
           data-background-color="green"
         >
           <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
+            <h4 class="title">Community Stats</h4>
             <p class="category">
               Last Campaign Performance
             </p>

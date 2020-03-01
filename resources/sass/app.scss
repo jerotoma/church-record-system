@@ -1,10 +1,10 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+@import "~vue-material/dist/vue-material.min.css";
+@import "material-dashboard";
+
 // Variables
 @import 'variables';
-
 @import 'auth';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'partials/partials';

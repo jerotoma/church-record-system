@@ -8,6 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import VueRouter from "vue-router";
+import 'es6-promise/auto';
+import store from './store/store';
 
 // Plugins
 import GlobalComponents from "./globalComponents";
@@ -18,7 +20,6 @@ import GlobalVueGoodTable from "./global-vue-good-table";
 import Chartist from "chartist";
 
 Vue.prototype.$Chartist = Chartist;
-
 
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
@@ -60,6 +61,7 @@ Vue.use(Notifications);
 const app = new Vue({
     el: '#app',
     router,
+    store,
     data: {
         Chartist: Chartist
     },

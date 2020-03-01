@@ -10,6 +10,11 @@
         @include('layouts.styles')
         @yield('styles')
         @include('layouts.scripts')
+        <style lang="css">
+            .main-panel {
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         <div id="app">

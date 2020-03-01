@@ -24,9 +24,11 @@ $white-color: #FFFFFF !default;
 $white-transparent: rgba($white-color, .8);
 
 $gray-color:  #999999 !default;
+$accent-color: #ff5252 !default;
 
 $brand-primary: $blue !default;
 $brand-success: $green !default;
+$brand-accent: $accent-color !default;
 $brand-danger: $red !default;
 $brand-warning: $orange !default;
 $brand-info: $cyan !default;

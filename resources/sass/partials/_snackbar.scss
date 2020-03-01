@@ -1,0 +1,20 @@
+@import '../md/variables';
+
+
+.md-snackbar.md-accent.md-theme-default  {
+    background-color: $brand-accent !important;
+}
+
+.md-snackbar.md-success.md-theme-default  {
+    background-color: $brand-success !important;
+}
+.md-snackbar.md-position-top {
+    top: 0 !important;
+    margin-top: 4px !important;
+}
+
+.md-snackbar.md-position-top-left {
+    top: 0 !important;
+    left: none !important;
+    margin-top: 4px !important;
+}

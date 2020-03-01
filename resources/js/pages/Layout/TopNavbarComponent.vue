@@ -30,55 +30,28 @@
               <i class="material-icons">dashboard</i>
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
-
-            <!-- <md-list-item href="#/notifications" class="dropdown">
-              <drop-down>
-                <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="hidden-lg hidden-md">Notifications</p>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="#">Mike John responded to your email</a></li>
-                  <li><a href="#">You have 5 new tasks</a></li>
-                  <li><a href="#">You're now friend with Andrew</a></li>
-                  <li><a href="#">Another Notification</a></li>
-                  <li><a href="#">Another One</a></li>
-                </ul>
-              </drop-down>
-            </md-list-item> -->
-
             <li class="md-list-item">
-              <a
-                href="/notifications"
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
+              <div class="md-list-item-container md-button-clean dropdown">
                 <div class="md-list-item-content">
-                  <drop-down>
-                    <md-button
-                      slot="title"
-                      class="md-button md-just-icon md-simple"
-                      data-toggle="dropdown"
-                    >
-                      <md-icon>notifications</md-icon>
-                      <span class="notification">5</span>
-                      <p class="hidden-lg hidden-md">Notifications</p>
-                    </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
-                      <li><a href="#">You're now friend with Andrew</a></li>
-                      <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
-                    </ul>
-                  </drop-down>
+                    <div class="md-list-item-content">
+                        <md-menu md-size="medium" md-align-trigger>
+                            <md-button md-menu-trigger class="md-button md-just-icon md-simple">
+                                <md-avatar class="md-small">
+                                    <img src="https://vuematerial.io/assets/examples/avatar.jpg" alt="Marcos Moura">
+                                </md-avatar>
+                                <p class="hidden-lg hidden-md">Profile</p>
+                            </md-button>
+                            <md-menu-content>
+                                <md-menu-item @click="goToLink('my-profile')">My Profile</md-menu-item>
+                                <md-menu-item @click="goToLink('my-profile')">Settings</md-menu-item>
+                                <md-divider class="md-inset"></md-divider>
+                                <md-menu-item @click="goToLink('logout')">Logout</md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
                 </div>
-              </a>
+              </div>
             </li>
-            <md-list-item href="">
-              <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
-            </md-list-item>
           </md-list>
         </div>
       </div>
@@ -111,10 +84,49 @@ export default {
     },
     methods: {
         toggleSidebar() {
+            console.log(this.$sidebar.showSidebar);
             this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+        },
+        goToLink(path) {
+            if (path == 'logout') {
+                this.logout()
+            } else {
+                 window.location.replace('/dashboard/' + path);
+            }
+        },
+        logout () {
+            this.$store.dispatch('postLogout').then(() => {
+                window.location.replace('/auth/login');
+            }).catch( error => {
+                console.log(error);
+            });
         }
     }
 };
 </script>
 
-<style lang="css"></style>
+<style lang="scss">
+    .author-card {
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        .md-avatar {
+            margin-right: 16px;
+        }
+        .author-card-info {
+            display: flex;
+            flex-flow: column;
+            flex: 1;
+        }
+        span {
+            font-size: 16px;
+        }
+        .author-card-links {
+        display: flex;
+            a + a {
+                margin-left: 8px;
+            }
+        }
+    }
+
+</style>
