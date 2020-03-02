@@ -7,7 +7,6 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import VueRouter from "vue-router";
 import 'es6-promise/auto';
 import store from './store/store';
 
@@ -43,15 +42,14 @@ Vue.use(Notifications);
  Vue.component('mobile-menu-component', require('./pages/layout/MobileMenuComponent.vue').default);
 
  Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
- Vue.component('parish-view-component', require('./pages/church-directories/parish/ParishViewComponent.vue').default);
+
+ Vue.component('parish-view-component', require('./pages/parishes/ParishViewComponent.vue').default);
+ Vue.component('parish-show-component', require('./pages/parishes/ParishShowComponent.vue').default);
 
  Vue.component('login-component', require('./auth/LoginComponent.vue').default);
 
 
- const router = new VueRouter({
-    //routes, // short for routes: routes
-    linkExactActiveClass: "nav-item active"
-  });
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -60,7 +58,6 @@ Vue.use(Notifications);
 
 const app = new Vue({
     el: '#app',
-    router,
     store,
     data: {
         Chartist: Chartist

@@ -7,26 +7,26 @@
             <form novalidate class="md-layout" @submit.prevent="validateUser()">
                 <md-card>
                     <md-card-header  :data-background-color="dataBackgroundColor">
-                        <div class="md-title">Add New Parish</div>
+                        <div class="md-title">Add New Community</div>
                         <div class="md-subhead">Please fill all required details</div>
                     </md-card-header>
                     <md-card-content>
                         <md-content class="md-scrollbar">
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('firstName')">
-                                        <label for="form-fparishName">Parish Name</label>
-                                        <md-input id="form-parishName" v-model="form.parishName" type="text" :disabled="sending"></md-input>
-                                        <span class="md-error" v-if="!$v.form.parishName.required">The parish name is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.parishName.minlength">Invalid parish name</span>
+                                    <md-field :class="getValidationClass('name')">
+                                        <label for="form-fname">Community Name</label>
+                                        <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
+                                        <span class="md-error" v-if="!$v.form.name.required">The community name is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid community name</span>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('lastName')">
-                                        <label for="form-parishCode" >Parish Code</label>
-                                        <md-input id="form-parishCode" v-model="form.parishCode" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.parishCode.required">The parish code is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.parishCode.minlength">Invalid parish</span>
+                                    <md-field :class="getValidationClass('code')">
+                                        <label for="form-code" >Community Code</label>
+                                        <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
+                                        <span class="md-error" v-if="!$v.form.code.required">The community code is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid community</span>
                                     </md-field>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Parish</md-button>
+                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Community</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-snackbar
@@ -54,11 +54,11 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import { parishForm, parishRequiredFields } from './parish-form-criteria';
+import { communityForm, communityRequiredFields } from './community-form-criteria';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'parish-create-component',
+    name: 'community-create-component',
     mixins: [validationMixin],
     computed: {
         ...mapGetters([
@@ -82,13 +82,13 @@ export default {
         }
     },
     data: () => ({
-        form: parishForm,
+        form: communityForm,
         userSaved: false,
         sending: false,
         lastUser: null,
     }),
     validations: {
-        form: parishRequiredFields,
+        form: communityRequiredFields,
     },
     methods: {
         closeDialog() {
@@ -105,12 +105,12 @@ export default {
         },
         clearForm () {
             this.$v.$reset()
-            this.form.parishName = null;
-            this.form.parishCode = null;
-            this.form.parishID= null;
+            this.form.name = null;
+            this.form.code = null;
+            this.form.id= null;
         },
-        createParish () {
-             this.$store.dispatch('postParish', this.form)
+        createCommunity () {
+             this.$store.dispatch('postCommunity', this.form)
              .then((response) => {
                  this.clearForm();
              }).catch((error) => {
@@ -121,7 +121,7 @@ export default {
             //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
-                this.createParish();
+                this.createCommunity();
             }
         },
         closeSnackBar(){

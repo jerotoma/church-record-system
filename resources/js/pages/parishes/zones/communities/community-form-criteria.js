@@ -5,19 +5,19 @@ import {
     maxLength,
     sameAs,
 } from 'vuelidate/lib/validators';
-export const parishRequiredFields = {
-    parishName: {
+export const communityRequiredFields = {
+    name: {
         required: required,
         minLength: minLength(3)
     },
-    parishCode: {
+    code: {
         required: required,
         minLength: minLength(3)
     },
 };
 
-export const parishForm = {
-    parishName: null,
-    parishCode: null,
-    parishID: null,
+export const communityForm = {
+    name: null,
+    code: null,
+    id: null,
 }

@@ -24,6 +24,10 @@ Route::prefix('dashboard')->group(function () {
 Route::prefix('rest/secured')->group(function () {
     Route::get('/', 'DashboardController@index');
     Route::resource('/users', 'UserController');
-    Route::resource('/parishes', 'ParishController');
+    Route::post('/parishes', 'ParishController@store');
+    Route::get('/parishes', 'ParishController@loadParishes');
+    Route::get('/parishes/{parishId}', 'ParishController@loadParish');
+    Route::get('/parishes/{parishId}/zones', 'ParishController@loadZones');
+    Route::post('/parishes/{parishId}/zones', 'ParishController@createZone');
 });
 
