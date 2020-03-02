@@ -208,7 +208,7 @@ import {
   NavTabsCard,
   NavTabsTable,
   OrderedTable
-} from "../components";
+} from "../shared";
 
 export default {
   components: {

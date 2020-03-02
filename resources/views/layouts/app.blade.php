@@ -18,7 +18,7 @@
                 <div class="main-panel">
                     @include('layouts.top-navigation')
                     @yield('content')
-                    <content-footer-component></content-footer-component>
+                    <footer-component></footer-component>
                 </div>
             </div>
         </div>
