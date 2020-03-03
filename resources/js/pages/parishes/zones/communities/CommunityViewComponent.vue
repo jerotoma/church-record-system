@@ -11,7 +11,7 @@
                         </div>
                         <vue-good-table
                             :columns="columns"
-                            :rows="parishes"
+                            :rows="communities"
                             :search-options="{
                                 enabled: true,
                                 placeholder: 'Search this parish',
@@ -48,6 +48,7 @@
                 <community-create-component
                     :show-dialog = "showCreateModal"
                     @onDialogClose = "onDialogClosed"
+                    :zone="zone"
                 ></community-create-component>
             </div>
         </div>
@@ -59,7 +60,7 @@ import { mapGetters } from 'vuex';
 
 
 export default {
-  name: "community-table",
+  name: "community-view-commponent",
   computed:{
       ...mapGetters([
           'communities',
@@ -69,6 +70,11 @@ export default {
     tableHeaderColor: {
       type: String,
       default: "green"
+    },
+    zone: {
+        type: Object,
+        required: true,
+        default: null,
     }
   },
   components: {
@@ -105,14 +111,14 @@ export default {
       },
       onDialogClosed() {
           this.showCreateModal =  false;
-          this.loadPolishes();
+          this.loadCommunities();
       },
-      loadPolishes() {
-          this.$store.dispatch('loadCommunities');
+      loadCommunities() {
+          this.$store.dispatch('loadCommunities', this.zone);
       },
   },
   created() {
-      this.loadPolishes();
+      this.loadCommunities();
   }
 };
 </script>

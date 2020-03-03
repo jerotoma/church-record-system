@@ -1,20 +1,20 @@
 <template>
 <div class="content">
-    <template  v-if="parish && parish !== null && parish !== 'undefined'">
-        <zone-view-component
-            :parish="parish"
-        ></zone-view-component>
+    <template  v-if="zone && zone !== null && zone !== 'undefined'">
+        <community-view-component
+            :zone="zone"
+        ></community-view-component>
     </template>
 </div>
 </template>
 <script>
-import ZoneViewComponent from './zones/ZoneViewComponent.vue';
+import CommunityViewComponent from './communities/CommunityViewComponent.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'parish-view-component',
+    name: 'zone-show-component',
     props: {
-        parish: {
+        zone: {
             type: Object,
             required:true,
             default: null
@@ -26,7 +26,7 @@ export default {
         ]),
     },
     components: {
-        ZoneViewComponent
+        CommunityViewComponent
     },
     data(){
         return {
@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         loadParish(parishId) {
-            this.$store.dispatch('loadParish', parishId);
+            this.$store.dispatch('loadZone', { zoneId: this.zone.id, parishId: this.zone.parishId});
         }
     },
     created() {

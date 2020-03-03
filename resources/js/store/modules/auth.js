@@ -23,9 +23,9 @@ const state = {
         .then((response) => {
             if(response.data.success){
                 const data = response.data;
-                commit('setAuthUser', data.user)
-                commit('setLoading', false);
                 window.location.replace('/dashboard');
+                commit('setAuthUser', data.user)
+                //commit('setLoading', false);
             }
         }).catch((error) => {
             const resp = error.response;
@@ -42,9 +42,7 @@ const state = {
         .then((response) => {
             const data = response.data;
             if(data){
-                commit('setAuthUser', null)
-                commit('setLoading', false);
-                resolve(data);
+               resolve(data);
             }
         }).catch((error) => {
            reject(error.response);

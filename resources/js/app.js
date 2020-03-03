@@ -41,6 +41,7 @@ Vue.component('mobile-menu-component', require('./layout/MobileMenuComponent.vue
 
 Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').default);
 Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
+Vue.component('zone-show-component', require('./pages/parishes/zones/ZoneShowComponent.vue').default);
 Vue.component('parish-view-component', require('./pages/parishes/ParishViewComponent.vue').default);
 Vue.component('parish-show-component', require('./pages/parishes/ParishShowComponent.vue').default);
 

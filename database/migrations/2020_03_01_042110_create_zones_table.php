@@ -19,8 +19,8 @@ class CreateZonesTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->foreign('parish_id')
-            ->references('id')->on('parishes')
-            ->onDelete('cascade');
+                ->references('id')->on('parishes')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

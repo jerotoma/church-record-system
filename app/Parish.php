@@ -11,4 +11,11 @@ class Parish extends Model {
         'code'
     ];
     //
+
+    /**
+     * Get all of the addresses for the member.
+     */
+    public function zones() {
+        return $this->hasMany('App\Zone');
+    }
 }

@@ -5,7 +5,10 @@
                 <md-card>
                    <md-card-content>
                         <div class="md-layout">
-                            <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
+                            <div class="md-layout-item md-size-50 text-left">
+                                <h4 class="md-title text-sucess">Parish Name: {{parish.name}}</h4>
+                            </div>
+                            <div class="md-layout-item md-size-50 text-right" style="padding-right:0;">
                                 <md-button class="md-raised md-success" @click="createZoneModal()">Add Zone</md-button>
                             </div>
                         </div>
@@ -23,15 +26,15 @@
                                             <md-icon>menu</md-icon>
                                         </md-button>
                                         <md-menu-content>
-                                            <md-menu-item>
+                                            <md-menu-item @click="performAction('view', props.row.id)">
                                                 <md-icon>visibility</md-icon>
                                                 <span>View</span>
                                             </md-menu-item>
-                                            <md-menu-item>
+                                            <md-menu-item @click="performAction('edit', props.row.id)">
                                                 <md-icon>edit</md-icon>
                                                 <span>Edit</span>
                                             </md-menu-item>
-                                            <md-menu-item>
+                                            <md-menu-item @click="performAction('delete', props.row.id)">
                                                 <md-icon>delete</md-icon>
                                                 <span>Delete</span>
                                             </md-menu-item>
@@ -48,6 +51,7 @@
                 <zone-create-component
                     :show-dialog = "showCreateModal"
                     @onDialogClose = "onDialogClosed"
+                    :parishId="parish.id"
                 ></zone-create-component>
             </div>
         </div>
@@ -70,12 +74,8 @@ export default {
       type: String,
       default: "green"
     },
-    parishName: {
-        type: String,
-        required: true,
-    },
-    parishId: {
-        type: Number,
+    parish: {
+        type: Object,
         required: true,
     }
   },
@@ -116,8 +116,27 @@ export default {
           this.loadZones();
       },
       loadZones() {
-          this.$store.dispatch('loadZones');
+          this.$store.dispatch('loadZones', this.parish.id);
       },
+      performAction(actionType, zoneId) {
+        switch(actionType) {
+        case 'view':
+            window.location.assign('/dashboard/parishes/'+ this.parish.id + '/zones/' + zoneId);
+            break;
+        case 'edit':
+            this.editModal(zoneId);
+            break;
+        case 'delete':
+             this.deleteModal(zoneId);
+            break;
+        }
+    },
+    editModal(zoneId) {
+
+    },
+    deleteModal(zoneId) {
+
+    }
   },
   created() {
       this.loadZones();

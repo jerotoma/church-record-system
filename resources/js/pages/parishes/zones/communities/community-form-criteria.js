@@ -20,4 +20,6 @@ export const communityForm = {
     name: null,
     code: null,
     id: null,
+    zoneId: null,
+    parishId: null,
 }

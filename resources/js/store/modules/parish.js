@@ -9,8 +9,10 @@ const state = {
 const getters = {
     parish: state => state.parish,
     parishes: state => state.parishes,
-    Community: state => state.Community,
-    Communities: state => state.Communities,
+    zone: state => state.zone,
+    zones: state => state.zones,
+    community: state => state.community,
+    communities: state => state.communities,
 };
 const actions = {
     postParish({commit}, parish) {
@@ -70,10 +72,11 @@ const actions = {
         });
     },
     loadCommunities({commit}, data){
-        const url = '/rest/secured/parishes/' + data.parishId + '/zones/' + data.zoneId + '/communities';
+        const url = '/rest/secured/parishes/' + data.parish_id + '/zones/' + data.id + '/communities';
         axios.get(url)
         .then((response) => {
-          commit("setCommunities", response.data.communities);
+            console.log(response.data);
+            commit("setCommunities", response.data.communities);
         }).catch((error) => {
             console.log(error);
         });
@@ -101,7 +104,7 @@ const actions = {
         });
         });
     },
-    loadCommunities({commit}, parishId){
+    loadZones({commit}, parishId){
         const url = '/rest/secured/parishes/' + parishId + '/zones';
         axios.get(url)
         .then((response) => {
@@ -124,6 +127,12 @@ const mutations = {
     },
     setCommunity(state, community){
         state.community = community;
+    },
+    setZone(state, zone){
+        state.zone = zone;
+    },
+    setZones(state, zones){
+        state.zones = zones;
     },
 };
 

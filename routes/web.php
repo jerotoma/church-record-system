@@ -19,6 +19,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@index');
     Route::resource('/users', 'UserController');
     Route::resource('/parishes', 'ParishController');
+    Route::get('/parishes/{parishId}/zones/{zoneId}', 'ParishController@viewCommunities');
 });
 
 Route::prefix('rest/secured')->group(function () {
@@ -27,7 +28,9 @@ Route::prefix('rest/secured')->group(function () {
     Route::post('/parishes', 'ParishController@store');
     Route::get('/parishes', 'ParishController@loadParishes');
     Route::get('/parishes/{parishId}', 'ParishController@loadParish');
-    Route::get('/parishes/{parishId}/zones', 'ParishController@loadZones');
+    Route::get('/parishes/{parishId}/zones', 'ParishController@loadZonesByParishId');
     Route::post('/parishes/{parishId}/zones', 'ParishController@createZone');
+    Route::get('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@loadCommunitiesByZoneId');
+    Route::post('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@createCommunity');
 });
 

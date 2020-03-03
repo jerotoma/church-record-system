@@ -79,6 +79,10 @@ export default {
         dataBackgroundColor: {
             type: String,
             default: 'green'
+        },
+        zone: {
+            type:Object,
+            required: true,
         }
     },
     data: () => ({
@@ -107,12 +111,17 @@ export default {
             this.$v.$reset()
             this.form.name = null;
             this.form.code = null;
-            this.form.id= null;
+            this.form.id = null;
+            this.form.zoneId = null;
+            this.form.parishId = null;
         },
         createCommunity () {
+            this.form.zoneId = this.zone.id;
+            this.form.parishId = this.zone.parish_id;
              this.$store.dispatch('postCommunity', this.form)
              .then((response) => {
                  this.clearForm();
+                 this.closeDialog();
              }).catch((error) => {
                  this.$store.commit('setMessage', error.data.message);
              });

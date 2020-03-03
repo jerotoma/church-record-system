@@ -20,4 +20,5 @@ export const zoneForm = {
     name: null,
     code: null,
     id: null,
+    parishId: null,
 }

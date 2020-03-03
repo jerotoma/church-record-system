@@ -79,6 +79,10 @@ export default {
         dataBackgroundColor: {
             type: String,
             default: 'green'
+        },
+        parishId: {
+            type: Number,
+            required: true,
         }
     },
     data: () => ({
@@ -108,11 +112,14 @@ export default {
             this.form.name = null;
             this.form.code = null;
             this.form.id= null;
+            this.form.parishId = null;
         },
         createZone () {
-             this.$store.dispatch('postZone', this.form)
+            this.form.parishId = this.parishId;
+            this.$store.dispatch('postZone', this.form)
              .then((response) => {
                  this.clearForm();
+                 this.closeDialog();
              }).catch((error) => {
                  this.$store.commit('setMessage', error.data.message);
              });

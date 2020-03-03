@@ -25,7 +25,7 @@ class ParishController extends Controller {
      */
     public function index()
     {
-        return view('dashboard.parishes.view');
+        return view('dashboard.parishes.parishes');
     }
 
     /**
@@ -33,9 +33,31 @@ class ParishController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function viewCommunities($parishId, $zoneId) {
+        return view('dashboard.parishes.communities', [
+            'zone' => Zone::find($zoneId),
+        ]);
+    }
+
+
+    public function loadCommunitiesByZoneId($parishId, $zoneId) {
+        $communities = Community::where('zone_id', $zoneId)->get();
+        return response()->json(['communities' => $communities]);
+    }
+
+    public function  createCommunity(Request $request, $parishId, $zoneId) {
+        $request->validate([
+            'name' => 'required|min:3',
+            'code' => 'required|min:2',
+            'zoneId' => 'required'
+        ]);
+        $community = Community::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'zone_id' => $request->zoneId,
+        ]);
+
+     return response()->json(['community'=> $community]);
     }
 
     /**
@@ -65,7 +87,7 @@ class ParishController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        return view('dashboard.parishes.show', [
+        return view('dashboard.parishes.zones', [
             'parish' => Parish::find($id),
         ]);
     }
@@ -121,18 +143,17 @@ class ParishController extends Controller {
             'code' => 'required|min:2',
             'parishId' => 'required'
         ]);
-
         $zone = Zone::create([
             'name' => $request->name,
             'code' => $request->code,
-            'parish_id' => $request->parishId
+            'parish_id' => $request->parishId,
         ]);
 
      return response()->json(['zone'=> $zone]);
     }
 
-    public function loadZones() {
-        $zones = Zone::all();
+    public function loadZonesByParishId($parishId) {
+        $zones = Zone::where('parish_id', $parishId)->get();
         return response()->json(['zones' => $zones]);
     }
 }
