@@ -107,7 +107,7 @@ export default {
         this.showCreateModal =  false;
         this.loadPolishes();
     },
-    loadPolishes() {
+    loadParishes() {
         this.$store.dispatch('loadParishes');
     },
     performAction(actionType, parishId) {
@@ -131,7 +131,7 @@ export default {
     }
   },
   created() {
-      this.loadPolishes();
+      this.loadParishes();
   }
 };
 </script>

@@ -46,6 +46,15 @@ export const userRequiredFields = {
     postalCode: {
         required: required,
     },
+    parishId: {
+        required: required,
+    },
+    zoneId: {
+        required: required,
+    },
+    communityId: {
+        required: required,
+    }
 };
 
 export const userForm = {
@@ -57,6 +66,9 @@ export const userForm = {
     gender: 'male',
     confirmPassword: null,
     streetAddress: null,
+    parishId: null,
+    zoneId: null,
+    communityId: null,
     unitNumber: null,
     city: null,
     country: null,

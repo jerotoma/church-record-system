@@ -58,6 +58,54 @@
                                         <span class="md-error" v-if="!$v.form.confirmPassword.sameAsPassword">Password don't match</span>
                                     </md-field>
                                 </div>
+                                <div class="md-layout-item md-small-size-100 md-size-33">
+                                    <md-field>
+                                        <label for="parish-id">Parish</label>
+                                        <md-select
+                                            v-model="form.parishId"
+                                            @md-selected="loadZones(form.parishId)"
+                                            name="form.parishId"
+                                            id="parish-id">
+                                            <md-option
+                                                v-for="(parish, parishIndex) in parishes" :key="parishIndex"
+                                                :value="parish.id">
+                                                    {{parish.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-field>
+                                </div>
+                                <div class="md-layout-item md-small-size-100 md-size-33">
+                                    <md-field>
+                                        <label for="zone-id">Zone</label>
+                                        <md-select
+                                            v-model="form.zoneId"
+                                            @md-selected="loadCommunities(form.parishId, form.zoneId)"
+                                            name="form.zoneId" id="zone-id"
+                                            placeholder="Zone">
+                                            <md-option
+                                                v-for="(zone, zoneIndex) in zones" :key="zoneIndex"
+                                                :value="zone.id">
+                                                    {{zone.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-field>
+                                </div>
+                                <div class="md-layout-item md-small-size-100 md-size-33">
+                                    <md-field>
+                                        <label for="community-id">Community</label>
+                                        <md-select
+                                            v-model="form.communityId"
+                                            name="form.communityId"
+                                            id="community-id"
+                                            placeholder="Community">
+                                            <md-option
+                                                v-for="(community, communityIndex) in communities" :key="communityIndex"
+                                                :value="community.id">
+                                                    {{community.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-field>
+                                </div>
                                 <div class="md-layout-item md-small-size-100 md-size-50">
                                     <md-field :class="getValidationClass('streetAddress')">
                                         <label for="form-streetAddress">Street Address</label>
@@ -116,6 +164,7 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { userForm, userRequiredFields } from './user-form-criteria';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'FormValidation',
@@ -129,6 +178,13 @@ export default {
             type: String,
             default: 'green'
         }
+    },
+    computed:{
+      ...mapGetters([
+          'parishes',
+          'communities',
+          'zones'
+      ]),
     },
     data: () => ({
         form: userForm,
@@ -194,8 +250,19 @@ export default {
             if (!this.$v.$invalid) {
                 this.saveUser();
             }
-        }
-
+        },
+        loadParishes() {
+            this.$store.dispatch('loadParishes');
+        },
+        loadZones(parishId) {
+          this.$store.dispatch('loadZones', parishId);
+        },
+        loadCommunities(parishId, zoneId) {
+          this.$store.dispatch('loadCommunities', { id: zoneId, parish_id: parishId});
+        },
+    },
+    created(){
+        this.loadParishes();
     }
 }
 </script>

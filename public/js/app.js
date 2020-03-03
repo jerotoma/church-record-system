@@ -2825,7 +2825,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.showCreateModal = false;
       this.loadPolishes();
     },
-    loadPolishes: function loadPolishes() {
+    loadParishes: function loadParishes() {
       this.$store.dispatch('loadParishes');
     },
     performAction: function performAction(actionType, parishId) {
@@ -2847,7 +2847,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteModal: function deleteModal(parishId) {}
   },
   created: function created() {
-    this.loadPolishes();
+    this.loadParishes();
   }
 });
 
@@ -3534,6 +3534,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _user_form_criteria__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-form-criteria */ "./resources/js/pages/users/user-form-criteria.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3649,6 +3656,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3664,6 +3720,7 @@ __webpack_require__.r(__webpack_exports__);
       "default": 'green'
     }
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['parishes', 'communities', 'zones'])),
   data: function data() {
     return {
       form: _user_form_criteria__WEBPACK_IMPORTED_MODULE_1__["userForm"],
@@ -3735,7 +3792,22 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.$invalid) {
         this.saveUser();
       }
+    },
+    loadParishes: function loadParishes() {
+      this.$store.dispatch('loadParishes');
+    },
+    loadZones: function loadZones(parishId) {
+      this.$store.dispatch('loadZones', parishId);
+    },
+    loadCommunities: function loadCommunities(parishId, zoneId) {
+      this.$store.dispatch('loadCommunities', {
+        id: zoneId,
+        parish_id: parishId
+      });
     }
+  },
+  created: function created() {
+    this.loadParishes();
   }
 });
 
@@ -65045,6 +65117,196 @@ var render = function() {
                             "div",
                             {
                               staticClass:
+                                "md-layout-item md-small-size-100 md-size-33"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                [
+                                  _c("label", { attrs: { for: "parish-id" } }, [
+                                    _vm._v("Parish")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "md-select",
+                                    {
+                                      attrs: {
+                                        name: "form.parishId",
+                                        id: "parish-id"
+                                      },
+                                      on: {
+                                        "md-selected": function($event) {
+                                          return _vm.loadZones(
+                                            _vm.form.parishId
+                                          )
+                                        }
+                                      },
+                                      model: {
+                                        value: _vm.form.parishId,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "parishId", $$v)
+                                        },
+                                        expression: "form.parishId"
+                                      }
+                                    },
+                                    _vm._l(_vm.parishes, function(
+                                      parish,
+                                      parishIndex
+                                    ) {
+                                      return _c(
+                                        "md-option",
+                                        {
+                                          key: parishIndex,
+                                          attrs: { value: parish.id }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                  " +
+                                              _vm._s(parish.name) +
+                                              "\n                                          "
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-33"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                [
+                                  _c("label", { attrs: { for: "zone-id" } }, [
+                                    _vm._v("Zone")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "md-select",
+                                    {
+                                      attrs: {
+                                        name: "form.zoneId",
+                                        id: "zone-id",
+                                        placeholder: "Zone"
+                                      },
+                                      on: {
+                                        "md-selected": function($event) {
+                                          return _vm.loadCommunities(
+                                            _vm.form.parishId,
+                                            _vm.form.zoneId
+                                          )
+                                        }
+                                      },
+                                      model: {
+                                        value: _vm.form.zoneId,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "zoneId", $$v)
+                                        },
+                                        expression: "form.zoneId"
+                                      }
+                                    },
+                                    _vm._l(_vm.zones, function(
+                                      zone,
+                                      zoneIndex
+                                    ) {
+                                      return _c(
+                                        "md-option",
+                                        {
+                                          key: zoneIndex,
+                                          attrs: { value: zone.id }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                  " +
+                                              _vm._s(zone.name) +
+                                              "\n                                          "
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-33"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "community-id" } },
+                                    [_vm._v("Community")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "md-select",
+                                    {
+                                      attrs: {
+                                        name: "form.communityId",
+                                        id: "community-id",
+                                        placeholder: "Community"
+                                      },
+                                      model: {
+                                        value: _vm.form.communityId,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form, "communityId", $$v)
+                                        },
+                                        expression: "form.communityId"
+                                      }
+                                    },
+                                    _vm._l(_vm.communities, function(
+                                      community,
+                                      communityIndex
+                                    ) {
+                                      return _c(
+                                        "md-option",
+                                        {
+                                          key: communityIndex,
+                                          attrs: { value: community.id }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                  " +
+                                              _vm._s(community.name) +
+                                              "\n                                          "
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
                                 "md-layout-item md-small-size-100 md-size-50"
                             },
                             [
@@ -115764,6 +116026,15 @@ var userRequiredFields = {
   },
   postalCode: {
     required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+  },
+  parishId: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+  },
+  zoneId: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+  },
+  communityId: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
   }
 };
 var userForm = {
@@ -115775,6 +116046,9 @@ var userForm = {
   gender: 'male',
   confirmPassword: null,
   streetAddress: null,
+  parishId: null,
+  zoneId: null,
+  communityId: null,
   unitNumber: null,
   city: null,
   country: null,
