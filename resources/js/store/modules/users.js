@@ -24,7 +24,7 @@ const state = {
         }).catch((error) => {
             console.log(error);
         });
-    }
+    },
   }
 
   // mutations

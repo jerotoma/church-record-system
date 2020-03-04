@@ -13,11 +13,14 @@ class Member extends Model {
     protected $fillable = [
         'user_id',
         'first_name',
-        'middle_names',
+        'middle_name',
         'last_name',
-        'email_address',
+        'email',
         'gender',
-        'occupation'
+        'occupation',
+        'phone_number',
+        'community_id'
+
     ];
 
     /**
@@ -28,11 +31,11 @@ class Member extends Model {
     }
 
     /**
-     * Get the user that owns the member.
+     * Get the community that owns the member.
      */
-    public function user()
+    public function community()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Community');
     }
 
 }

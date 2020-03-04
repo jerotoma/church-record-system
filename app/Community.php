@@ -19,4 +19,11 @@ class Community extends Model {
         return $this->belongTo('App\Zone');
     }
 
+    /**
+     * Get the member record associated with the user.
+     */
+    public function members() {
+        return $this->hasMany('App\Member');
+    }
+
 }

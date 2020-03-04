@@ -14,22 +14,19 @@ export const memberRequiredFields = {
         required: required,
         minLength: minLength(3)
     },
-    username: {
+    middleName: {
         required: required,
-        maxLength: minLength(3)
     },
     emailAddress: {
         required: required,
         email: email
     },
-    password: {
+    phoneNumber: {
         required: required,
         minLength: minLength(3)
     },
-    confirmPassword: {
+    occupation: {
         required: required,
-        minLength: minLength(3),
-        sameAsPassword: sameAs('password')
     },
     streetAddress: {
         required: required,
@@ -45,18 +42,30 @@ export const memberRequiredFields = {
     },
     postalCode: {
         required: required,
+    },
+    parishId: {
+        required: required,
+    },
+    zoneId: {
+        required: required,
+    },
+    communityId: {
+        required: required,
     }
 };
 
 export const memberForm = {
     firstName: null,
     lastName: null,
-    username: null,
+    middleName: null,
     emailAddress: null,
-    password: null,
+    phoneNumber: null,
     gender: 'male',
-    confirmPassword: null,
+    occupation: null,
     streetAddress: null,
+    parishId: null,
+    zoneId: null,
+    communityId: null,
     unitNumber: null,
     city: null,
     country: null,

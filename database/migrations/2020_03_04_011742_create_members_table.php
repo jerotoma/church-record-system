@@ -15,15 +15,16 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('community_id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('middle_names')->nullable();
-            $table->string('email_address')->nullable();
+            $table->string('middle_name')->nullable();
+            $table->string('email')->nullable();
             $table->string('gender');
             $table->string('occupation')->nullable();
-            $table->foreign('user_id')
-                ->references('id')->on('users')
+            $table->string('phone_number')->nullable();
+            $table->foreign('community_id')
+                ->references('id')->on('communities')
                 ->onDelete('cascade');
             $table->timestamps();
         });

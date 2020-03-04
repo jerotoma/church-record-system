@@ -7,32 +7,32 @@
                         <div class="md-layout">
                             <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
                                 <md-button class="md-raised md-success">Update Profile</md-button>
-                                <md-button class="md-raised md-success" @click="createUserModal()">Add User</md-button>
+                                <md-button class="md-raised md-success" @click="createMemberModal()">Add Member</md-button>
                             </div>
                         </div>
                         <vue-good-table
                             :columns="columns"
-                            :rows="users"
+                            :rows="members"
                             :search-options="{
                                 enabled: true,
-                                placeholder: 'Search this table',
+                                placeholder: 'Search for a member',
                             }">
                         </vue-good-table>
                     </md-card-content>
                 </md-card>
-                <user-create-component
+                <member-create-component
                     :show-dialog = "showCreateModal"
                     @onDialogClose = "onDialogClosed"
-                ></user-create-component>
+                ></member-create-component>
             </div>
         </div>
   </div>
 </template>
 <script>
-import UserCreateComponent from './UserCreateComponent.vue';
+import MemberCreateComponent from './MemberCreateComponent.vue';
 
 export default {
-  name: "users-table",
+  name: "member-view-component",
   props: {
     tableHeaderColor: {
       type: String,
@@ -40,7 +40,7 @@ export default {
     }
   },
   components: {
-      'user-create-component': UserCreateComponent,
+      'member-create-component': MemberCreateComponent,
   },
   data() {
     return {
@@ -73,7 +73,7 @@ export default {
           field: 'zone',
         },
       ],
-      users: [
+      members: [
         {
           id: 1,
           fullName: "Dakota Rice",
@@ -143,7 +143,7 @@ export default {
     };
   },
   methods: {
-      createUserModal() {
+      createMemberModal() {
           this.showCreateModal =  true;
       },
       onDialogClosed() {

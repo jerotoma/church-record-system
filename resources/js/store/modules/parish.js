@@ -55,20 +55,20 @@ const actions = {
         const url = '/rest/secured/parishes/' + community.parishId + '/zones/' + community.zoneId + '/communities';
         return new Promise((resolve, reject) => {
             axios.post(url, community)
-        .then((response) => {
-            const data = response.data;
-            if(data){
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+            const resp = error.response;
+            //console.log(resp);
+                commit('setMessage', resp.data.message);
                 commit('setLoading', false);
-                resolve(data);
-            }
-        }).catch((error) => {
-        const resp = error.response;
-        //console.log(resp);
-            commit('setMessage', resp.data.message);
-            commit('setLoading', false);
-            commit('setHasMessage', true);
-            reject(resp);
-        });
+                commit('setHasMessage', true);
+                reject(resp);
+            });
         });
     },
     loadCommunities({commit}, data){

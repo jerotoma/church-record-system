@@ -11,9 +11,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class MemberController extends Controller
 {
-    private $baseDirViewPath = 'dashboard.users';
+    private $baseDirViewPath = 'dashboard.members';
 
      /**
      * Create a new controller instance.
@@ -68,14 +68,14 @@ class UserController extends Controller
      */
     public function store(Request $request) {
 
-        $data = $request->validate([
+        $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
-            'username' => 'required',
+            'communityId' => 'required',
             'emailAddress' => 'required',
-            'password' => 'required',
+            'phoneNumber' => 'required',
             'gender' => 'required',
-            'confirmPassword' => 'required',
+            'occupation' => 'required',
             'streetAddress' => 'required',
             'unitNumber' => 'required',
             'city' => 'required',
@@ -84,32 +84,27 @@ class UserController extends Controller
             'postalCode' => 'required',
         ]);
 
-        $user = User::create([
-            'username' => $data['username'],
-            'password' =>  Hash::make($data['password']),
-            'enabled' => false,
-            'locked' => false,
-            'confirmed' => false
-        ]);
-
         $member = Member::create([
-            'user_id' => $user->id,
-            'first_name' => $data['firstName'],
-            'last_name' => $data['lastName'],
-            'email_address' => $data['emailAddress'],
-            'gender' => $data['username'],
+            'first_name' => $request->firstName,
+            'last_name' => $request->lastName,
+            'middle_name' => $request->middleName,
+            'email' => $request->emailAddress,
+            'gender' => $$request->username,
+            'occupation' => $request->occupation,
+            'phone_number' => $request->phoneNumber,
+            'community_id' => $request->communityId,
         ]);
 
         $address = Address::create([
             'member_id' => $member['id'],
-            'street_address' => $data['streetAddress'],
-            'unit_number' => $data['unitNumber'],
-            'city' => $data['city'],
-            'country' => $data['country'],
-            'state' => $data['state'],
-            'postal_code' => $data['postalCode'],
+            'street_address' => $request->streetAddress,
+            'unit_number' => $request->unitNumber,
+            'city' => $request->city,
+            'country' => $request->country,
+            'state' => $request->state,
+            'postal_code' => $request->postalCode,
         ]);
-      return response()->json($user);
+      return response()->json($member);
     }
 
     /**
@@ -118,9 +113,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id) {
+
     }
 
     /**
