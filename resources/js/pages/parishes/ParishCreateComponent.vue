@@ -113,6 +113,7 @@ export default {
              this.$store.dispatch('postParish', this.form)
              .then((response) => {
                  this.clearForm();
+                 this.$emit("onDialogClose", {showDialog: false});
              }).catch((error) => {
                  this.$store.commit('setMessage', error.data.message);
              });

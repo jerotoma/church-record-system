@@ -105,7 +105,7 @@ export default {
     },
     onDialogClosed() {
         this.showCreateModal =  false;
-        this.loadPolishes();
+        this.loadParishes();
     },
     loadParishes() {
         this.$store.dispatch('loadParishes');

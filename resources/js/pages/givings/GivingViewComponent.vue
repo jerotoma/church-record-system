@@ -105,7 +105,7 @@ export default {
     },
     onDialogClosed() {
         this.showCreateModal =  false;
-        this.loadPolishes();
+        this.loadGivings();
     },
     loadGivings() {
         this.$store.dispatch('loadGivings');

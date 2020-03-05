@@ -242,6 +242,7 @@ export default {
         createMember() {
            this.$store.dispatch('postMember', this.form).then((response) => {
                 this.clearForm();
+                this.$emit("onDialogClose", {showDialog: false});
             }).catch((error) => {
                 this.$store.commit('setMessage', error.data.message);
             });

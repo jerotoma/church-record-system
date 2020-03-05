@@ -2573,6 +2573,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2628,7 +2656,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearForm: function clearForm() {
       this.$v.$reset();
       this.form.name = null;
-      this.form.code = null;
+      this.form.amount = null;
+      this.form.minAmount = null;
+      this.form.maxAmount = null;
+      this.form.description = null;
       this.form.id = null;
     },
     createGiving: function createGiving() {
@@ -2768,7 +2799,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     onDialogClosed: function onDialogClosed() {
       this.showCreateModal = false;
-      this.loadPolishes();
+      this.loadGivings();
     },
     loadGivings: function loadGivings() {
       this.$store.dispatch('loadGivings');
@@ -3060,6 +3091,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$store.dispatch('postMember', this.form).then(function (response) {
         _this.clearForm();
+
+        _this.$emit("onDialogClose", {
+          showDialog: false
+        });
       })["catch"](function (error) {
         _this.$store.commit('setMessage', error.data.message);
       });
@@ -3290,6 +3325,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     onDialogClosed: function onDialogClosed() {
       this.showCreateModal = false;
+      this.loadMembers();
     },
     loadMembers: function loadMembers() {
       this.$store.dispatch('getMembers');
@@ -3455,6 +3491,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$store.dispatch('postParish', this.form).then(function (response) {
         _this.clearForm();
+
+        _this.$emit("onDialogClose", {
+          showDialog: false
+        });
       })["catch"](function (error) {
         _this.$store.commit('setMessage', error.data.message);
       });
@@ -3642,7 +3682,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     onDialogClosed: function onDialogClosed() {
       this.showCreateModal = false;
-      this.loadPolishes();
+      this.loadParishes();
     },
     loadParishes: function loadParishes() {
       this.$store.dispatch('loadParishes');
@@ -63859,12 +63899,12 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "md-layout-item md-small-size-100 md-size-100"
+                                "md-layout-item md-small-size-100 md-size-50"
                             },
                             [
                               _c(
                                 "md-field",
-                                { class: _vm.getValidationClass("firstName") },
+                                { class: _vm.getValidationClass("name") },
                                 [
                                   _c(
                                     "label",
@@ -63907,15 +63947,15 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "md-layout-item md-small-size-100 md-size-100"
+                                "md-layout-item md-small-size-100 md-size-50"
                             },
                             [
                               _c(
                                 "md-field",
-                                { class: _vm.getValidationClass("lastName") },
+                                { class: _vm.getValidationClass("amount") },
                                 [
                                   _c("label", { attrs: { for: "form-code" } }, [
-                                    _vm._v("Giving Code")
+                                    _vm._v("Giving Amount")
                                   ]),
                                   _vm._v(" "),
                                   _c("md-input", {
@@ -63925,21 +63965,173 @@ var render = function() {
                                       disabled: _vm.isLoading
                                     },
                                     model: {
-                                      value: _vm.form.code,
+                                      value: _vm.form.amount,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "code", $$v)
+                                        _vm.$set(_vm.form, "amount", $$v)
                                       },
-                                      expression: "form.code"
+                                      expression: "form.amount"
                                     }
                                   }),
                                   _vm._v(" "),
-                                  !_vm.$v.form.code.required
+                                  !_vm.$v.form.amount.required
                                     ? _c("span", { staticClass: "md-error" }, [
                                         _vm._v("The giving code is required")
                                       ])
-                                    : !_vm.$v.form.code.minlength
+                                    : !_vm.$v.form.amount.minlength
                                     ? _c("span", { staticClass: "md-error" }, [
                                         _vm._v("Invalid giving")
+                                      ])
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "md-layout" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-50"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                { class: _vm.getValidationClass("minAmount") },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "form-fname" } },
+                                    [_vm._v("Giving minimum amount")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("md-input", {
+                                    attrs: {
+                                      id: "form-name",
+                                      type: "text",
+                                      disabled: _vm.isLoading
+                                    },
+                                    model: {
+                                      value: _vm.form.minAmount,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "minAmount", $$v)
+                                      },
+                                      expression: "form.minAmount"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.$v.form.minAmount.required
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v(
+                                          "The giving minimum amount is required"
+                                        )
+                                      ])
+                                    : !_vm.$v.form.minAmount.minlength
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("Invalid giving minimum amount")
+                                      ])
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-50"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                { class: _vm.getValidationClass("maxAmount") },
+                                [
+                                  _c("label", { attrs: { for: "form-code" } }, [
+                                    _vm._v("Giving maximum amount")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("md-input", {
+                                    attrs: {
+                                      id: "form-code",
+                                      type: "text",
+                                      disabled: _vm.isLoading
+                                    },
+                                    model: {
+                                      value: _vm.form.maxAmount,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "maxAmount", $$v)
+                                      },
+                                      expression: "form.maxAmount"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.$v.form.maxAmount.required
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v(
+                                          "The giving maximum amount is required"
+                                        )
+                                      ])
+                                    : !_vm.$v.form.maxAmount.minlength
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("Invalid maximum amount")
+                                      ])
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "md-layout" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "md-layout-item md-small-size-100 md-size-100"
+                            },
+                            [
+                              _c(
+                                "md-field",
+                                {
+                                  class: _vm.getValidationClass("description")
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "form-fname" } },
+                                    [_vm._v("Giving description")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("md-input", {
+                                    attrs: {
+                                      id: "form-name",
+                                      type: "text",
+                                      disabled: _vm.isLoading
+                                    },
+                                    model: {
+                                      value: _vm.form.description,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "description", $$v)
+                                      },
+                                      expression: "form.description"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.$v.form.description.required
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("The giving name is required")
+                                      ])
+                                    : !_vm.$v.form.description.minlength
+                                    ? _c("span", { staticClass: "md-error" }, [
+                                        _vm._v("Invalid giving name")
                                       ])
                                     : _vm._e()
                                 ],
@@ -116392,15 +116584,30 @@ var givingRequiredFields = {
     required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
     minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
   },
-  code: {
+  amount: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+    minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+  },
+  minAmount: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+    minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+  },
+  maxAmount: {
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+    minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
+  },
+  description: {
     required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
     minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(3)
   }
 };
 var givingForm = {
+  id: null,
   name: null,
-  code: null,
-  id: null
+  amount: null,
+  maxAmount: null,
+  minAmount: null,
+  description: null
 };
 
 /***/ }),

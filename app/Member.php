@@ -33,9 +33,15 @@ class Member extends Model {
     /**
      * Get the community that owns the member.
      */
-    public function community()
-    {
+    public function community() {
         return $this->belongsTo('App\Community');
+    }
+
+    /**
+     * The givings that belong to the member.
+     */
+    public function givings() {
+        return $this->belongsToMany('App\Giving');
     }
 
 }

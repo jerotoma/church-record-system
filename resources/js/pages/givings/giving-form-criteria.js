@@ -10,14 +10,30 @@ export const givingRequiredFields = {
         required: required,
         minLength: minLength(3)
     },
-    code: {
+    amount: {
+        required: required,
+        minLength: minLength(3)
+    },
+    minAmount: {
+        required: required,
+        minLength: minLength(3)
+    },
+    maxAmount: {
+        required: required,
+        minLength: minLength(3)
+    },
+    description: {
         required: required,
         minLength: minLength(3)
     },
 };
 
 export const givingForm = {
-    name: null,
-    code: null,
     id: null,
+    name: null,
+    amount: null,
+    maxAmount: null,
+    minAmount: null,
+    description: null,
+
 }

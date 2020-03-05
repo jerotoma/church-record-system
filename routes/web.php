@@ -26,6 +26,7 @@ Route::prefix('dashboard')->group(function () {
 Route::prefix('rest/secured')->group(function () {
     Route::get('/', 'DashboardController@index');
     Route::get('/members', 'MemberController@loadMembers');
+    Route::post('/members', 'MemberController@store');
     Route::post('/parishes', 'ParishController@store');
     Route::get('/parishes', 'ParishController@loadParishes');
     Route::get('/parishes/{parishId}', 'ParishController@loadParish');

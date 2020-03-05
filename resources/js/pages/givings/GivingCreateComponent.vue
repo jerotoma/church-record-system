@@ -13,20 +13,48 @@
                     <md-card-content>
                         <md-content class="md-scrollbar">
                             <div class="md-layout">
-                                <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('firstName')">
+                                <div class="md-layout-item md-small-size-100 md-size-50">
+                                    <md-field :class="getValidationClass('name')">
                                         <label for="form-fname">Giving Name</label>
                                         <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
                                         <span class="md-error" v-if="!$v.form.name.required">The giving name is required</span>
                                         <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid giving name</span>
                                     </md-field>
                                 </div>
+                                <div class="md-layout-item md-small-size-100 md-size-50">
+                                    <md-field :class="getValidationClass('amount')">
+                                        <label for="form-code" >Giving Amount</label>
+                                        <md-input id="form-code" v-model="form.amount" type="text" :disabled="isLoading"></md-input>
+                                        <span class="md-error" v-if="!$v.form.amount.required">The giving code is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.amount.minlength">Invalid giving</span>
+                                    </md-field>
+                                </div>
+                            </div>
+                            <div class="md-layout">
+                                <div class="md-layout-item md-small-size-100 md-size-50">
+                                    <md-field :class="getValidationClass('minAmount')">
+                                        <label for="form-fname">Giving minimum amount</label>
+                                        <md-input id="form-name" v-model="form.minAmount" type="text" :disabled="isLoading"></md-input>
+                                        <span class="md-error" v-if="!$v.form.minAmount.required">The giving minimum amount is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.minAmount.minlength">Invalid giving minimum amount</span>
+                                    </md-field>
+                                </div>
+                                <div class="md-layout-item md-small-size-100 md-size-50">
+                                    <md-field :class="getValidationClass('maxAmount')">
+                                        <label for="form-code" >Giving maximum amount</label>
+                                        <md-input id="form-code" v-model="form.maxAmount" type="text" :disabled="isLoading"></md-input>
+                                        <span class="md-error" v-if="!$v.form.maxAmount.required">The giving maximum amount is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.maxAmount.minlength">Invalid maximum amount</span>
+                                    </md-field>
+                                </div>
+                            </div>
+                            <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('lastName')">
-                                        <label for="form-code" >Giving Code</label>
-                                        <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.code.required">The giving code is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid giving</span>
+                                    <md-field :class="getValidationClass('description')">
+                                        <label for="form-fname">Giving description</label>
+                                        <md-input id="form-name" v-model="form.description" type="text" :disabled="isLoading"></md-input>
+                                        <span class="md-error" v-if="!$v.form.description.required">The giving name is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.description.minlength">Invalid giving name</span>
                                     </md-field>
                                 </div>
                             </div>
@@ -106,8 +134,11 @@ export default {
         clearForm () {
             this.$v.$reset()
             this.form.name = null;
-            this.form.code = null;
-            this.form.id= null;
+            this.form.amount = null;
+            this.form.minAmount = null;
+            this.form.maxAmount = null;
+            this.form.description = null;
+            this.form.id = null;
         },
         createGiving () {
              this.$store.dispatch('postGiving', this.form)

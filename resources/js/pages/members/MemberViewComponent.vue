@@ -135,6 +135,7 @@ export default {
         },
         onDialogClosed() {
             this.showCreateModal =  false;
+            this.loadMembers();
         },
         loadMembers() {
             this.$store.dispatch('getMembers');

@@ -108,7 +108,7 @@ class MemberController extends Controller
             'state' => $request->state,
             'postal_code' => $request->postalCode,
         ]);
-      return response()->json(['member' => $member]);
+      return response()->json(['member' => MemberUtility::mapMember(Member::find($member['id']))]);
     }
 
     /**
