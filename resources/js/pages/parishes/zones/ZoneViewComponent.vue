@@ -147,4 +147,7 @@ export default {
     .main-panel > .content {
         padding:0;
     }
+    .md-ripple > span {
+        position: relative;
+    }
 </style>

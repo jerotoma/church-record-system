@@ -19,14 +19,14 @@
     <sidebar-link
         is-active="{{ Request::is('dashboard/parishes') ? 'active' : 'inactive' }}"
         to="/dashboard/parishes">
-        <md-icon>content_paste</md-icon>
+        <md-icon>home_work</md-icon>
         <p>Parishes</p>
     </sidebar-link>
     <sidebar-link
-        is-active="{{ Request::is('dashboard/typography') ? 'active' : 'inactive' }}"
-        to="/dashboard/typography">
-        <md-icon>library_books</md-icon>
-        <p>Typography</p>
+        is-active="{{ Request::is('dashboard/givings') ? 'active' : 'inactive' }}"
+        to="/dashboard/givings">
+        <md-icon>money</md-icon>
+        <p>Givings</p>
     </sidebar-link>
     <sidebar-link
         is-active="{{ Request::is('dashboard/icons') ? 'active' : 'inactive' }}"

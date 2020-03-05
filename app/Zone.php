@@ -12,6 +12,7 @@ class Zone extends Model {
             'parish_id'
         ];
 
+    protected $with = ['parish'];
 
      /**
      * Get the member that owns the address.

@@ -6,15 +6,15 @@
                    <md-card-content>
                         <div class="md-layout">
                             <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
-                                <md-button class="md-raised md-success" @click="createParishModal()">Add Parish</md-button>
+                                <md-button class="md-raised md-success" @click="createGivingModal()">Add Giving</md-button>
                             </div>
                         </div>
                         <vue-good-table
                             :columns="columns"
-                            :rows="parishes"
+                            :rows="givings"
                             :search-options="{
                                 enabled: true,
-                                placeholder: 'Search this parish',
+                                placeholder: 'Search this giving',
                             }">
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'action'">
@@ -45,24 +45,24 @@
                         </vue-good-table>
                     </md-card-content>
                 </md-card>
-                <parish-create-component
+                <giving-create-component
                     :show-dialog = "showCreateModal"
                     @onDialogClose = "onDialogClosed"
-                ></parish-create-component>
+                ></giving-create-component>
             </div>
         </div>
   </div>
 </template>
 <script>
-import ParishCreateComponent from './ParishCreateComponent.vue';
+import GivingCreateComponent from './GivingCreateComponent.vue';
 import { mapGetters } from 'vuex';
 
 
 export default {
-  name: "parish-table",
+  name: "giving-table",
   computed:{
       ...mapGetters([
-          'parishes',
+          'givings',
       ]),
   },
   props: {
@@ -72,7 +72,7 @@ export default {
     }
   },
   components: {
-      'parish-create-component': ParishCreateComponent,
+      'giving-create-component': GivingCreateComponent,
   },
   data() {
     return {
@@ -85,11 +85,11 @@ export default {
           type: Number
         },
         {
-          label: 'Parish Name',
+          label: 'Giving Name',
           field: 'name',
         },
         {
-          label: 'Parish Code',
+          label: 'Giving Code',
           field: 'code',
         },
         {
@@ -100,38 +100,38 @@ export default {
     };
   },
   methods: {
-    createParishModal() {
+    createGivingModal() {
         this.showCreateModal =  true;
     },
     onDialogClosed() {
         this.showCreateModal =  false;
         this.loadPolishes();
     },
-    loadParishes() {
-        this.$store.dispatch('loadParishes');
+    loadGivings() {
+        this.$store.dispatch('loadGivings');
     },
-    performAction(actionType, parishId) {
+    performAction(actionType, givingId) {
         switch(actionType) {
         case 'view':
-            window.location.assign('/dashboard/parishes/'+ parishId);
+            window.location.assign('/dashboard/givings/'+ givingId);
             break;
         case 'edit':
-            this.editModal(parishId);
+            this.editModal(givingId);
             break;
         case 'delete':
-             this.deleteModal(parishId);
+             this.deleteModal(givingId);
             break;
         }
     },
-    editModal(parishId) {
+    editModal(givingId) {
 
     },
-    deleteModal(parishId) {
+    deleteModal(givingId) {
 
     }
   },
   created() {
-      this.loadParishes();
+      this.loadGivings();
   }
 };
 </script>

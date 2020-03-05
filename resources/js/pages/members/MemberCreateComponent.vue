@@ -201,7 +201,7 @@ export default {
     data: () => ({
         form: memberForm,
         userSaved: false,
-        isLoading: false,
+        //isLoading: false,
         lastUser: null,
     }),
     validations: {
@@ -237,11 +237,10 @@ export default {
             this.form.postalCode = null;
             this.form.parishId = null;
             this.form.zoneId = null;
-            this.form.zoneId = null;
+            this.form.communityId = null;
         },
         createMember() {
-           this.$store.dispatch('postMember', this.form)
-           .then((response) => {
+           this.$store.dispatch('postMember', this.form).then((response) => {
                 this.clearForm();
             }).catch((error) => {
                 this.$store.commit('setMessage', error.data.message);
@@ -258,16 +257,20 @@ export default {
             this.$store.dispatch('loadParishes');
         },
         loadZones(parishId) {
-            this.form.zoneId = null;
-            this.form.communityId = null;
-            this.$store.commit('setZones', []);
-            this.$store.commit('setCommunities', []);
-            this.$store.dispatch('loadZones', parishId);
+            if (parishId) {
+                this.form.zoneId = null;
+                this.form.communityId = null;
+                this.$store.commit('setZones', []);
+                this.$store.commit('setCommunities', []);
+                this.$store.dispatch('loadZones', parishId);
+            }
         },
         loadCommunities(parishId, zoneId) {
-            this.form.communityId = null;
-            this.$store.commit('setCommunities', []);
-            this.$store.dispatch('loadCommunities', { id: zoneId, parish_id: parishId});
+            if (parishId && zoneId) {
+                this.form.communityId = null;
+                this.$store.commit('setCommunities', []);
+                this.$store.dispatch('loadCommunities', { id: zoneId, parish_id: parishId});
+            }
         },
     },
     created(){

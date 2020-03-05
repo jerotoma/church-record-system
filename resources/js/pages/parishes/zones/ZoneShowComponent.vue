@@ -44,8 +44,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .main-panel > .content {
         padding:0;
+    }
+    .md-ripple > span {
+        position: relative;
     }
 </style>

@@ -19,12 +19,13 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@index');
     Route::resource('/members', 'MemberController');
     Route::resource('/parishes', 'ParishController');
+    Route::get('/givings', 'GivingController@index');
     Route::get('/parishes/{parishId}/zones/{zoneId}', 'ParishController@viewCommunities');
 });
 
 Route::prefix('rest/secured')->group(function () {
     Route::get('/', 'DashboardController@index');
-    Route::resource('/members', 'MemberController');
+    Route::get('/members', 'MemberController@loadMembers');
     Route::post('/parishes', 'ParishController@store');
     Route::get('/parishes', 'ParishController@loadParishes');
     Route::get('/parishes/{parishId}', 'ParishController@loadParish');

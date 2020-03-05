@@ -40,10 +40,16 @@ Vue.component('footer-component', require('./layout/FooterComponent.vue').defaul
 Vue.component('mobile-menu-component', require('./layout/MobileMenuComponent.vue').default);
 
 Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').default);
+
 Vue.component('member-view-component', require('./pages/members/MemberViewComponent.vue').default);
+Vue.component('member-show-component', require('./pages/members/MemberShowComponent.vue').default);
+
 Vue.component('zone-show-component', require('./pages/parishes/zones/ZoneShowComponent.vue').default);
+
 Vue.component('parish-view-component', require('./pages/parishes/ParishViewComponent.vue').default);
 Vue.component('parish-show-component', require('./pages/parishes/ParishShowComponent.vue').default);
+
+Vue.component('giving-view-component', require('./pages/givings/GivingViewComponent.vue').default);
 
 Vue.component('login-component', require('./auth/LoginComponent.vue').default);
 

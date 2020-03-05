@@ -11,6 +11,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Helpers\MemberUtility;
+
 class MemberController extends Controller
 {
     private $baseDirViewPath = 'dashboard.members';
@@ -72,6 +74,8 @@ class MemberController extends Controller
             'firstName' => 'required',
             'lastName' => 'required',
             'communityId' => 'required',
+            'zoneId' => 'required',
+            'parishId' => 'required',
             'emailAddress' => 'required',
             'phoneNumber' => 'required',
             'gender' => 'required',
@@ -89,7 +93,7 @@ class MemberController extends Controller
             'last_name' => $request->lastName,
             'middle_name' => $request->middleName,
             'email' => $request->emailAddress,
-            'gender' => $$request->username,
+            'gender' => $request->gender,
             'occupation' => $request->occupation,
             'phone_number' => $request->phoneNumber,
             'community_id' => $request->communityId,
@@ -104,7 +108,7 @@ class MemberController extends Controller
             'state' => $request->state,
             'postal_code' => $request->postalCode,
         ]);
-      return response()->json($member);
+      return response()->json(['member' => $member]);
     }
 
     /**
@@ -114,6 +118,9 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
+        return view($this->baseDirViewPath . '.show', [
+            'member'=> MemberUtility::mapMember(Member::find($id)),
+        ]);
 
     }
 
@@ -150,4 +157,15 @@ class MemberController extends Controller
     {
         //
     }
+
+    public function loadMembers() {
+        $items = array();
+        $members = Member::with(['community', 'addresses'])->get();
+        foreach ($members as $member) {
+            $items[] = MemberUtility::mapMember($member);
+        }
+
+        return response()->json(['members' => $items]);
+    }
+
 }

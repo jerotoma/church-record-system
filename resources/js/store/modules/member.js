@@ -28,14 +28,12 @@ const state = {
         });
     },
     postMember({ commit }, member) {
-
         return new Promise((resolve, reject) => {
                 axios({
                 method: 'POST',
                 url: '/rest/secured/members',
                 data: member
-            })
-            .then((response) => {
+            }).then((response) => {
                 const data = response.data;
                 commit('setMembers', data.member);
                 resolve(data);

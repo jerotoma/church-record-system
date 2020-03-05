@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    <member-view-component></member-view-component>
+<giving-view-component></giving-view-component>
 @endsection

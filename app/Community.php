@@ -16,7 +16,7 @@ class Community extends Model {
      * Get all of the addresses for the member.
      */
     public function zone() {
-        return $this->belongTo('App\Zone');
+        return $this->belongsTo('App\Zone');
     }
 
     /**
