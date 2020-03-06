@@ -85,12 +85,24 @@ export default {
           type: Number
         },
         {
-          label: 'Giving Name',
+          label: 'Name',
           field: 'name',
         },
         {
-          label: 'Giving Code',
-          field: 'code',
+          label: 'Amount',
+          field: 'amount',
+        },
+        {
+          label: 'Max Amount',
+          field: 'maxAmount',
+        },
+        {
+          label: 'Min Amount',
+          field: 'minAmount',
+        },
+        {
+          label: 'Target Number',
+          field: 'targetNumber',
         },
         {
           label: 'Action',

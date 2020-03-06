@@ -2,6 +2,7 @@
 namespace  App\Helpers;
 
 use App\Member;
+use App\Address;
 
 class AddressUtility {
 
@@ -9,18 +10,22 @@ class AddressUtility {
         $mAddresses = array();
         if ($member != null && $member->addresses != null) {
             foreach ($member->addresses as $address) {
-                $mAddresses[] = [
-                    'streetAddress' => $address->street_address,
-                    'unitNumber' => $address->unit_number,
-                    'city' => $address->city,
-                    'country' => $address->country,
-                    'state' => $address->state,
-                    'postalCode' => $address->postal_code,
-                ];
+                $mAddresses[] = self::mapAddress($address);
             }
            return $mAddresses;
         }
         return [];
+    }
+
+    public static function mapAddress(Address $address){
+        return [
+            'streetAddress' => $address->street_address,
+            'unitNumber' => $address->unit_number,
+            'city' => $address->city,
+            'country' => $address->country,
+            'state' => $address->state,
+            'postalCode' => $address->postal_code,
+        ];
     }
 
 }

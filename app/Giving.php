@@ -8,9 +8,9 @@ class Giving extends Model {
     protected $fillable = [
         'name',
         'amount',
-        'minAmount',
-        'maxAmount',
-        'targetNumber',
+        'min_amount',
+        'max_amount',
+        'target_number',
         'description'
     ];
 

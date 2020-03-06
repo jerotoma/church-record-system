@@ -14,6 +14,10 @@ export const givingRequiredFields = {
         required: required,
         minLength: minLength(3)
     },
+    targetNumber: {
+        required: required,
+        minLength: minLength(3)
+    },
     minAmount: {
         required: required,
         minLength: minLength(3)
@@ -35,5 +39,6 @@ export const givingForm = {
     maxAmount: null,
     minAmount: null,
     description: null,
+    targetNumber: null,
 
 }
