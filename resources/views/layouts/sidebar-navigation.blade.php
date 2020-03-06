@@ -29,10 +29,10 @@
         <p>Givings</p>
     </sidebar-link>
     <sidebar-link
-        is-active="{{ Request::is('dashboard/icons') ? 'active' : 'inactive' }}"
-        to="/dashboard/icons">
+        is-active="{{ Request::is('dashboard/patrons') ? 'active' : 'inactive' }}"
+        to="/dashboard/patrons">
         <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
+        <p>Patrons</p>
     </sidebar-link>
     <sidebar-link
         is-active="{{ Request::is('dashboard/maps') ? 'active' : 'inactive' }}"

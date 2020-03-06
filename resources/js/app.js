@@ -51,6 +51,8 @@ Vue.component('parish-show-component', require('./pages/parishes/ParishShowCompo
 
 Vue.component('giving-view-component', require('./pages/givings/GivingViewComponent.vue').default);
 
+Vue.component('patron-view-component', require('./pages/patrons/PatronViewComponent.vue').default);
+
 Vue.component('login-component', require('./auth/LoginComponent.vue').default);
 
 

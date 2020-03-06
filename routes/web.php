@@ -30,6 +30,9 @@ Route::prefix('dashboard')->group(function () {
 
     //Giving Routes
     Route::get('/givings', 'GivingController@index');
+
+    //Patrons
+    Route::resource('patrons', 'PatronController');
 });
 
 Route::prefix('rest/secured')->group(function () {
