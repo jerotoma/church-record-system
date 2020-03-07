@@ -15,6 +15,16 @@ class CreatePatronsTable extends Migration
     {
         Schema::create('patrons', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('giving_id');
+            $table->double('amount', 8, 2);
+            $table->dateTime('date_paid', 0);
+            $table->foreign('member_id')
+                ->references('id')->on('members')
+                ->onDelete('cascade');
+            $table->foreign('giving_id')
+                ->references('id')->on('givings')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -14,10 +14,12 @@ class Giving extends Model {
         'description'
     ];
 
+
+
     /**
-     * The members that belong to the giving.
+     * The patrons that belong to the giving.
      */
-    public function members() {
-        return $this->belongsToMany('App\Member');
+    public function patrons() {
+        return $this->hasMany('App\Patron');
     }
 }

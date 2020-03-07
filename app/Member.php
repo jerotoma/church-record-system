@@ -38,10 +38,10 @@ class Member extends Model {
     }
 
     /**
-     * The givings that belong to the member.
+     * The patrons that belong to the member.
      */
-    public function givings() {
-        return $this->belongsToMany('App\Giving');
+    public function patrons() {
+        return $this->hasMany('App\Patron');
     }
 
 }

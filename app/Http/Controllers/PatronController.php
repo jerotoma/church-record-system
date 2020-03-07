@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use  App\Helpers\PatronUtility;
+use  App\Patron;
 
 class PatronController extends Controller {
 
@@ -33,9 +35,9 @@ class PatronController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function findPatrons() {
+
+        return response()->json(['patrons'=> PatronUtility::mapPatrons(Patron::all())]);
     }
 
     /**
@@ -44,9 +46,18 @@ class PatronController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $request->validate([
+            'memberId' => 'required|min:1',
+            'givingId' => 'required|min:1'
+        ]);
+
+        $patron = Patron::create([
+            'member_id' => $request->memberId,
+            'giving_id' => $request->givingId,
+        ]);
+
+     return response()->json(['patron'=> $patron]);
     }
 
     /**

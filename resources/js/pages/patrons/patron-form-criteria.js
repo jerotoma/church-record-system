@@ -5,8 +5,12 @@ import {
     maxLength,
     sameAs,
 } from 'vuelidate/lib/validators';
-export const givingRequiredFields = {
-    name: {
+export const patronRequiredFields = {
+    memberId: {
+        required: required,
+        minLength: minLength(3)
+    },
+    givingId: {
         required: required,
         minLength: minLength(3)
     },
@@ -14,31 +18,16 @@ export const givingRequiredFields = {
         required: required,
         minLength: minLength(3)
     },
-    targetNumber: {
-        required: required,
-        minLength: minLength(3)
-    },
-    minAmount: {
-        required: required,
-        minLength: minLength(3)
-    },
-    maxAmount: {
-        required: required,
-        minLength: minLength(3)
-    },
-    description: {
+    datePaid: {
         required: required,
         minLength: minLength(3)
     },
 };
 
-export const givingForm = {
+export const patronForm = {
     id: null,
-    name: null,
+    memberId: null,
+    givingId: null,
     amount: null,
-    maxAmount: null,
-    minAmount: null,
-    description: null,
-    targetNumber: null,
-
+    datePaid: null,
 }

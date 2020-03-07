@@ -9,6 +9,7 @@ import auth from './modules/auth';
 import users from './modules/users';
 import member from './modules/member';
 import parish from './modules/parish';
+import patron from './modules/patron';
 import giving from './modules/giving';
 
 Vue.use(Vuex)
@@ -19,7 +20,8 @@ export default new Vuex.Store({
     auth,
     parish,
     member,
-    giving
+    giving,
+    patron,
   },
   state,
   getters,

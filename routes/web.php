@@ -22,10 +22,14 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@index');
 
     //Member
-    Route::resource('/members', 'MemberController');
+    Route::resource('/members', 'MemberController')->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 
     //Parish Routes
-    Route::resource('/parishes', 'ParishController');
+    Route::resource('/parishes', 'ParishController')->only([
+        'index', 'show'
+    ]);
     Route::get('/parishes/{parishId}/zones/{zoneId}', 'ParishController@viewCommunities');
 
     //Giving Routes
@@ -52,5 +56,9 @@ Route::prefix('rest/secured')->group(function () {
     //Giving Routes
     Route::get('/givings', 'GivingController@findGivings');
     Route::post('/givings', 'GivingController@store');
+
+     //Patron Routes
+    Route::get('/patrons', 'PatronController@findPatrons');
+    Route::post('/patrons', 'PatronController@store');
 });
 
