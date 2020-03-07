@@ -12,7 +12,7 @@
             </md-field>
             <md-field md-has-password>
             <label>Password</label>
-            <md-input v-model="login.password" type="password"></md-input>
+            <md-input v-model="login.password" @keyup.enter="auth()" type="password"></md-input>
             </md-field>
         </div>
         <div class="actions md-layout md-alignment-center-space-between">

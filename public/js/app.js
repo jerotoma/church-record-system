@@ -14559,7 +14559,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".md-dialog[data-v-39532660] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-39532660] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}\n.md-card[data-v-39532660] {\n  width: 450px;\n}\n.md-dialog-content[data-v-39532660] {\n  padding: 0;\n}", ""]);
+exports.push([module.i, ".md-dialog[data-v-39532660] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-39532660] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}\n.md-card[data-v-39532660] {\n  width: 450px;\n  margin-bottom: 0;\n}\n.md-dialog-content[data-v-39532660] {\n  padding: 0;\n}", ""]);
 
 // exports
 
@@ -14578,7 +14578,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".md-dialog[data-v-3c310bb8] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-3c310bb8] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
+exports.push([module.i, ".md-card[data-v-3c310bb8] {\n  margin-bottom: 0;\n}\n.md-dialog[data-v-3c310bb8] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-3c310bb8] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -14597,7 +14597,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".md-dialog[data-v-76ab58ee] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-76ab58ee] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
+exports.push([module.i, ".md-card[data-v-76ab58ee] {\n  margin-bottom: 0;\n}\n.md-dialog[data-v-76ab58ee] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-76ab58ee] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -14616,7 +14616,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".md-dialog[data-v-34efc51c] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-34efc51c] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
+exports.push([module.i, ".md-card[data-v-34efc51c] {\n  margin-bottom: 0;\n}\n.md-dialog[data-v-34efc51c] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-34efc51c] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -14635,7 +14635,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".md-dialog[data-v-1ffd661a] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-1ffd661a] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
+exports.push([module.i, ".md-card[data-v-1ffd661a] {\n  margin-bottom: 0;\n}\n.md-dialog[data-v-1ffd661a] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-1ffd661a] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -14654,7 +14654,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".md-dialog[data-v-10a3f160] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-10a3f160] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
+exports.push([module.i, ".md-card[data-v-10a3f160] {\n  margin-bottom: 0;\n}\n.md-dialog[data-v-10a3f160] {\n  max-width: 100%;\n  max-height: 100%;\n}\n.md-progress-bar[data-v-10a3f160] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -63265,6 +63265,17 @@ var render = function() {
               _vm._v(" "),
               _c("md-input", {
                 attrs: { type: "password" },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.auth()
+                  }
+                },
                 model: {
                   value: _vm.login.password,
                   callback: function($$v) {

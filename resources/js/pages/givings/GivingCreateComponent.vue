@@ -187,6 +187,7 @@ export default {
   }
   .md-card {
       width: 450px;
+      margin-bottom: 0;
   }
   .md-dialog-content{
       padding: 0;
