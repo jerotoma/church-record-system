@@ -1,9 +1,24 @@
 const state = {
-    parish: null,
+    parish: {
+        name: null,
+        code: null,
+        id: null,
+    },
     parishes: [],
-    community: null,
+    community: {
+        name: null,
+        code: null,
+        id: null,
+        zoneId: null,
+        parishId: null,
+    },
     communities: [],
-    zone: null,
+    zone: {
+        name: null,
+        code: null,
+        id: null,
+        parishId: null,
+    },
     zones: [],
 };
 const getters = {
@@ -22,20 +37,43 @@ const actions = {
         const url = '/rest/secured/parishes';
         return new Promise((resolve, reject) => {
             axios.post(url, parish)
-        .then((response) => {
-            const data = response.data;
-            if(data){
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
                 commit('setLoading', false);
-                resolve(data);
-            }
-        }).catch((error) => {
-        const resp = error.response;
-        //console.log(resp);
-            commit('setMessage', resp.data.message);
-            commit('setLoading', false);
-            commit('setHasMessage', true);
-            reject(resp);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
         });
+    },
+    updateParish({commit}, parish) {
+        commit('setLoading', true);
+        commit('setMessage', '');
+        commit('setHasMessage', false);
+        const url = '/rest/secured/parishes';
+        return new Promise((resolve, reject) => {
+            axios.put(url, parish)
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
         });
     },
     loadParishes({commit}){
@@ -55,6 +93,29 @@ const actions = {
         const url = '/rest/secured/parishes/' + community.parishId + '/zones/' + community.zoneId + '/communities';
         return new Promise((resolve, reject) => {
             axios.post(url, community)
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+            const resp = error.response;
+            //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
+        });
+    },
+    updateCommunity({commit}, community) {
+        commit('setLoading', true);
+        commit('setMessage', '');
+        commit('setHasMessage', false);
+        const url = '/rest/secured/parishes/' + community.parishId + '/zones/' + community.zoneId + '/communities';
+        return new Promise((resolve, reject) => {
+            axios.put(url, community)
             .then((response) => {
                 const data = response.data;
                 if(data){
@@ -102,6 +163,29 @@ const actions = {
             commit('setHasMessage', true);
             reject(resp);
         });
+        });
+    },
+    updateZone({commit}, zone) {
+        commit('setLoading', true);
+        commit('setMessage', '');
+        commit('setHasMessage', false);
+        const url = '/rest/secured/parishes/' + zone.parishId + '/zones';
+        return new Promise((resolve, reject) => {
+            axios.put(url, zone)
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
         });
     },
     loadZones({commit}, parishId){

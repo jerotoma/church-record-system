@@ -136,6 +136,7 @@ export default {
     methods: {
         closeDialog() {
             this.$emit("onDialogClose", {showEditDialog: false});
+            this.clearForm();
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];
@@ -155,12 +156,11 @@ export default {
             this.form.targetNumber = null;
             this.form.description = null;
             this.form.id = null;
-            this.closeDialog();
         },
         editGiving () {
              this.$store.dispatch('updateGiving', this.form)
              .then((response) => {
-                 this.clearForm();
+                this.closeDialog();
              }).catch((error) => {
                  this.$store.commit('setMessage', error.data.message);
              });

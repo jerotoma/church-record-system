@@ -37,10 +37,10 @@ class GivingController extends Controller {
 
         $request->validate([
             'name'  => 'required',
-            'amount' => 'required',
-            'minAmount' => 'required',
-            'maxAmount' => 'required',
-            'targetNumber' => 'required',
+            'amount' => 'required|numeric',
+            'minAmount' => 'required|numeric',
+            'maxAmount' => 'required|numeric',
+            'targetNumber' => 'required|numeric',
             'description' => 'required'
         ]);
 
@@ -80,7 +80,7 @@ class GivingController extends Controller {
             return response()->json([
                 'givingId' => $request->id,
                 'success' => false,
-                'message' => 'Giving of ID: '.$request->id. ' doesn\'t  exist.'
+                'message' => 'The Giving of ID: '.$request->id. ' doesn\'t  exist.'
             ], 404);
         }
         $giving->name  = $request->name;
