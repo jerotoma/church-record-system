@@ -2,6 +2,8 @@ const state = {
     isLoading: false,
     isMessage: false,
     message: '',
+    showEditDialog: false,
+    showCreateDialog: false,
     pagination: {
         currentPage: 1,
         firstPageUrl: '',

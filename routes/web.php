@@ -45,20 +45,24 @@ Route::prefix('rest/secured')->group(function () {
     Route::post('/members', 'MemberController@store');
 
     //Parish Routes
-    Route::post('/parishes', 'ParishController@store');
-    Route::get('/parishes', 'ParishController@loadParishes');
     Route::get('/parishes/{parishId}', 'ParishController@loadParish');
+    Route::get('/parishes', 'ParishController@loadParishes');
+    Route::post('/parishes', 'ParishController@store');
+
     Route::get('/parishes/{parishId}/zones', 'ParishController@loadZonesByParishId');
     Route::post('/parishes/{parishId}/zones', 'ParishController@createZone');
+
     Route::get('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@loadCommunitiesByZoneId');
     Route::post('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@createCommunity');
 
     //Giving Routes
     Route::get('/givings', 'GivingController@findGivings');
     Route::post('/givings', 'GivingController@store');
+    Route::put('/givings', 'GivingController@update');
 
      //Patron Routes
     Route::get('/patrons', 'PatronController@findPatrons');
     Route::post('/patrons', 'PatronController@store');
+    Route::put('/patrons', 'PatronController@update');
 });
 

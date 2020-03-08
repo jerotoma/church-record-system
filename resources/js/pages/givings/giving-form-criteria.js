@@ -40,5 +40,4 @@ export const givingForm = {
     minAmount: null,
     description: null,
     targetNumber: null,
-
 }

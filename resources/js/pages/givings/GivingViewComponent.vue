@@ -23,15 +23,15 @@
                                             <md-icon>menu</md-icon>
                                         </md-button>
                                         <md-menu-content>
-                                            <md-menu-item @click="performAction('view', props.row.id)">
+                                            <md-menu-item @click="performAction('view', props.row)">
                                                 <md-icon>visibility</md-icon>
                                                 <span>View</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('edit', props.row.id)">
+                                            <md-menu-item @click="performAction('edit', props.row)">
                                                 <md-icon>edit</md-icon>
                                                 <span>Edit</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('delete', props.row.id)">
+                                            <md-menu-item @click="performAction('delete', props.row)">
                                                 <md-icon>delete</md-icon>
                                                 <span>Delete</span>
                                             </md-menu-item>
@@ -46,105 +46,116 @@
                     </md-card-content>
                 </md-card>
                 <giving-create-component
-                    :show-dialog = "showCreateModal"
+                    :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
                 ></giving-create-component>
+                <giving-edit-component
+                    v-if="giving.id"
+                    :giving="giving"
+                    :show-edit-dialog = "showEditDialog"
+                    @onDialogClose = "onDialogClosed"
+                ></giving-edit-component>
             </div>
         </div>
   </div>
 </template>
 <script>
 import GivingCreateComponent from './GivingCreateComponent.vue';
+import GivingEditComponent from './GivingEditComponent.vue';
 import { mapGetters } from 'vuex';
 
-
 export default {
-  name: "giving-table",
-  computed:{
-      ...mapGetters([
-          'givings',
-      ]),
-  },
-  props: {
-    tableHeaderColor: {
-      type: String,
-      default: "green"
-    }
-  },
-  components: {
-      'giving-create-component': GivingCreateComponent,
-  },
-  data() {
-    return {
-      selected: [],
-      showCreateModal: false,
-      columns: [
-        {
-          label: 'ID',
-          field: 'id',
-          type: Number
-        },
-        {
-          label: 'Name',
-          field: 'name',
-        },
-        {
-          label: 'Amount',
-          field: 'amount',
-        },
-        {
-          label: 'Max Amount',
-          field: 'maxAmount',
-        },
-        {
-          label: 'Min Amount',
-          field: 'minAmount',
-        },
-        {
-          label: 'Target Number',
-          field: 'targetNumber',
-        },
-        {
-          label: 'Action',
-          field: 'action',
-        }
-      ],
-    };
-  },
-  methods: {
-    createGivingModal() {
-        this.showCreateModal =  true;
+    name: "giving-view-table",
+    computed:{
+        ...mapGetters([
+            'givings',
+            'giving',
+            'showCreateDialog',
+            'showEditDialog'
+        ]),
     },
-    onDialogClosed() {
-        this.showCreateModal =  false;
+    props: {
+        tableHeaderColor: {
+        type: String,
+        default: "green"
+        }
+    },
+    components: {
+            'giving-create-component': GivingCreateComponent,
+            'giving-edit-component': GivingEditComponent,
+    },
+    data() {
+        return {
+            selected: [],
+            columns: [
+                {
+                label: 'ID',
+                field: 'id',
+                type: Number
+                },
+                {
+                label: 'Name',
+                field: 'name',
+                },
+                {
+                label: 'Amount',
+                field: 'amount',
+                },
+                {
+                label: 'Max Amount',
+                field: 'maxAmount',
+                },
+                {
+                label: 'Min Amount',
+                field: 'minAmount',
+                },
+                {
+                label: 'Target Number',
+                field: 'targetNumber',
+                },
+                {
+                label: 'Action',
+                field: 'action',
+                }
+            ],
+        };
+    },
+    methods: {
+        createGivingModal() {
+            this.$store.commit('setShowCreateDialog', true);
+        },
+        onDialogClosed() {
+            this.$store.commit('setShowEditDialog', false);
+            this.$store.commit('setShowCreateDialog', false);
+            this.loadGivings();
+        },
+        loadGivings() {
+            this.$store.dispatch('loadGivings');
+        },
+        performAction(actionType, giving) {
+            switch(actionType) {
+            case 'view':
+                window.location.assign('/dashboard/givings/'+ giving.id);
+                break;
+            case 'edit':
+                this.editModal(giving);
+                break;
+            case 'delete':
+                this.deleteModal(giving);
+                break;
+            }
+        },
+        editModal(giving) {
+            this.$store.commit('setGiving', giving);
+            this.$store.commit('setShowEditDialog', true);
+        },
+        deleteModal(giving) {
+
+        }
+    },
+    created() {
         this.loadGivings();
-    },
-    loadGivings() {
-        this.$store.dispatch('loadGivings');
-    },
-    performAction(actionType, givingId) {
-        switch(actionType) {
-        case 'view':
-            window.location.assign('/dashboard/givings/'+ givingId);
-            break;
-        case 'edit':
-            this.editModal(givingId);
-            break;
-        case 'delete':
-             this.deleteModal(givingId);
-            break;
-        }
-    },
-    editModal(givingId) {
-
-    },
-    deleteModal(givingId) {
-
     }
-  },
-  created() {
-      this.loadGivings();
-  }
 };
 </script>
 <style scoped>

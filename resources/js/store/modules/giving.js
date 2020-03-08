@@ -1,5 +1,13 @@
 const state = {
-    giving: null,
+    giving: {
+        id: null,
+        name: null,
+        amount: null,
+        maxAmount: null,
+        minAmount: null,
+        description: null,
+        targetNumber: null,
+    },
     givings: [],
 };
 const getters = {
@@ -27,6 +35,29 @@ const actions = {
             commit('setLoading', false);
             commit('setHasMessage', true);
             reject(resp);
+        });
+        });
+    },
+    updateGiving({commit}, giving) {
+        commit('setLoading', true);
+        commit('setMessage', '');
+        commit('setHasMessage', false);
+        const url = '/rest/secured/givings';
+        return new Promise((resolve, reject) => {
+            axios.put(url, giving)
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
         });
         });
     },

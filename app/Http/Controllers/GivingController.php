@@ -62,7 +62,37 @@ class GivingController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
+
+        $request->validate([
+            'id' => 'required',
+            'name'  => 'required',
+            'amount' => 'required',
+            'minAmount' => 'required',
+            'maxAmount' => 'required',
+            'targetNumber' => 'required',
+            'description' => 'required'
+        ]);
+
+        $giving = Giving::find($request->id);
+
+        if ($giving  == null) {
+            return response()->json([
+                'givingId' => $request->id,
+                'success' => false,
+                'message' => 'Giving of ID: '.$request->id. ' doesn\'t  exist.'
+            ], 404);
+        }
+        $giving->name  = $request->name;
+        $giving->amount = $request->amount;
+        $giving->min_amount = $request->minAmount;
+        $giving->max_amount = $request->maxAmount;
+        $giving->target_number = $request->targetNumber;
+        $giving->description = $request->description;
+
+        $giving->save();
+
+        return response()->json(['giving' => $giving]);
 
     }
 

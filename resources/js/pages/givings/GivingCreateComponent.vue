@@ -130,7 +130,7 @@ export default {
     },
     methods: {
         closeDialog() {
-        this.$emit("onDialogClose", {showDialog: false});
+            this.$emit("onDialogClose", {showDialog: false});
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];
@@ -150,6 +150,7 @@ export default {
             this.form.targetNumber = null;
             this.form.description = null;
             this.form.id = null;
+            this. closeDialog();
         },
         createGiving () {
              this.$store.dispatch('postGiving', this.form)

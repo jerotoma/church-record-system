@@ -3,6 +3,8 @@ const getters = {
     isMessage: state => state.isMessage,
     message: state => state.message,
     pagination: state => state.pagination,
+    showEditDialog: state => state.showEditDialog,
+    showCreateDialog: state => state.showCreateDialog,
 };
 
 export default getters;

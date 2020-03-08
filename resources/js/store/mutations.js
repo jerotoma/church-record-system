@@ -10,6 +10,12 @@ const mutations =  {
     },
     setPagination(state, pagination) {
         state.pagination = pagination;
+    },
+    setShowEditDialog(state, showEditDialog) {
+        state.showEditDialog = showEditDialog;
+    },
+    setShowCreateDialog(state, showCreateDialog) {
+        state.showCreateDialog= showCreateDialog;
     }
 }
 
