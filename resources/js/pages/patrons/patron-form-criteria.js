@@ -6,27 +6,23 @@ import {
     sameAs,
 } from 'vuelidate/lib/validators';
 export const patronRequiredFields = {
-    memberId: {
-        required: required,
-        minLength: minLength(3)
+    memberIds: {
+        required: required
     },
     givingId: {
         required: required,
-        minLength: minLength(3)
     },
     amount: {
         required: required,
-        minLength: minLength(3)
     },
     datePaid: {
-        required: required,
-        minLength: minLength(3)
+        required: required
     },
 };
 
 export const patronForm = {
     id: null,
-    memberId: null,
+    memberIds: [],
     givingId: null,
     amount: null,
     datePaid: null,

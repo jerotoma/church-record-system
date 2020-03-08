@@ -7,6 +7,9 @@ const mutations =  {
     },
     setMessage(state, message) {
         state.message = message;
+    },
+    setPagination(state, pagination) {
+        state.pagination = pagination;
     }
 }
 

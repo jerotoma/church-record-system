@@ -13321,3 +13321,11 @@ html.md-theme-default {
   margin-top: 4px !important;
 }
 
+.md-dialog {
+  top: 50%;
+}
+
+table.vgt-table td {
+  padding: 0.25em 0.25em 0.25em 0.25em;
+}
+

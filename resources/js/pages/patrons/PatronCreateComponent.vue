@@ -11,20 +11,41 @@
                         <div class="md-subhead">Please fill all required details</div>
                     </md-card-header>
                     <md-card-content>
-                        <md-content class="md-scrollbar">
-                             <div class="md-layout">
-                                <div class="md-layout-item md-small-size-100 md-size-33">
+                            <div class="md-layout">
+                                <div class="md-layout-item md-small-size-100 md-size-100">
+                                    <md-content class="md-scrollbar">
+                                        <md-list class="md-triple-line md-dense">
+                                            <template v-for="(member, memberIndex) in members">
+                                                <md-list-item :key="memberIndex">
+                                                    <md-avatar>
+                                                        <img src="https://placeimg.com/40/40/people/1" alt="People">
+                                                    </md-avatar>
+                                                    <div class="md-list-item-text">
+                                                        <span>{{member.firstName}} {{member.lastName}}</span>
+                                                        <span>Email : {{member.email}} Mobile: {{member.phoneNumber}}</span>
+                                                        <p>Belongs to {{member.community.zone.name}}'s zone and {{member.community.name}}'s community</p>
+                                                    </div>
+                                                    <div class="md-list-action md-simple">
+                                                        <md-checkbox class="md-list-action" v-model="form.memberIds" :value="member.id"></md-checkbox>
+                                                    </div>
+                                                </md-list-item>
+                                                <md-divider class="md-inset" :key=" 'divider-' + memberIndex"></md-divider>
+                                            </template>
+                                        </md-list>
+                                    </md-content>
                                     <md-field>
-                                        <label for="parish-id">Member</label>
+                                        <label for="parish-id">Giving Type</label>
                                         <md-select
-                                            v-model="form.memberId"
-                                            name="form.memberId"
-                                            id="member-id">
-                                            <md-option>
-                                                Otoman Nkomanya
+                                            v-model="form.givingId"
+                                            name="form.givingId"
+                                            id="giving-id">
+                                            <md-option
+                                            v-for="(giving, givingIndex) in givings" :key="givingIndex"
+                                            :value="giving.id">
+                                                {{giving.name}}
                                             </md-option>
                                         </md-select>
-                                        <span class="md-error" v-if="!$v.form.memberId.required">The parish is required</span>
+                                        <span class="md-error" v-if="!$v.form.givingId.required">The parish is required</span>
                                     </md-field>
                                 </div>
 
@@ -39,14 +60,14 @@
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-datepicker v-model="form.datePaid" md-immediately>
-                                        <label>Date Paid</label>
-                                    </md-datepicker>
-                                    <span class="md-error" v-if="!$v.form.datePaid.required">The patron code is required</span>
-                                    <span class="md-error" v-else-if="!$v.form.datePaid.minlength">Invalid patron</span>
+                                    <md-field :class="getValidationClass('datePaid')">
+                                        <md-datepicker v-model="form.datePaid" md-immediately>
+                                            <label>Date Paid</label>
+                                        </md-datepicker>
+                                        <span class="md-error" v-if="!$v.form.datePaid.required">The date paid is required</span>
+                                    </md-field>
                                 </div>
                             </div>
-                        </md-content>
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
@@ -79,6 +100,8 @@ export default {
     computed: {
         ...mapGetters([
             'isLoading',
+            'members',
+            'givings',
             'message',
             'isMessage'
         ]),
@@ -121,7 +144,7 @@ export default {
         },
         clearForm () {
             this.$v.$reset()
-            this.form.memberId = null;
+            this.form.memberIds = [];
             this.form.givingId = null;
             this.form.datePaid = null;
             this.form.amount = null;
@@ -145,8 +168,17 @@ export default {
         },
         closeSnackBar(){
             this.$store.commit('setHasMessage', false);
-        }
-
+        },
+        loadMembers() {
+            this.$store.dispatch('getMembers');
+        },
+        loadGivings() {
+            this.$store.dispatch('loadGivings');
+        },
+    },
+    created(){
+        this.loadMembers();
+        this.loadGivings();
     }
 }
 </script>
@@ -154,10 +186,11 @@ export default {
 <style lang="scss" scoped>
     .md-card {
         margin-bottom: 0;
+        width: 60vw;
     }
     .md-dialog {
         max-width: 100%;
-        max-height: 100%
+        max-height: 100%;
     }
     .md-progress-bar {
         position: absolute;
@@ -165,4 +198,14 @@ export default {
         right: 0;
         left: 0;
     }
+    .md-content.md-scrollbar {
+        max-height: 250px;
+        overflow-y: scroll;
+        overflow-x: unset;
+        border: 1px solid rgba(#000, .12);
+    }
+    .md-list-item-content .md-list-action:last-of-type {
+        margin: 0;
+    }
+
 </style>

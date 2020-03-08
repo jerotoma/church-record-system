@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use  App\Helpers\PatronUtility;
+use  App\Helpers\PaginateUtility;
 use  App\Patron;
 
 class PatronController extends Controller {
@@ -35,9 +36,14 @@ class PatronController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function findPatrons() {
+    public function findPatrons(Request $request) {
 
-        return response()->json(['patrons'=> PatronUtility::mapPatrons(Patron::all())]);
+        $patrons = Patron::paginate($request->perPage);
+
+        return response()->json([
+                'pagination' =>  PaginateUtility::mapPagination($patrons),
+                'patrons'=> PatronUtility::mapPatrons($patrons)
+            ]);
     }
 
     /**
@@ -48,15 +54,20 @@ class PatronController extends Controller {
      */
     public function store(Request $request) {
         $request->validate([
-            'memberId' => 'required|min:1',
-            'givingId' => 'required|min:1'
+            'memberIds' => 'required|min:1|array',
+            'givingId' => 'required|min:1',
+            'amount' => 'required|numeric',
+            'datePaid' => 'required|date',
         ]);
 
-        $patron = Patron::create([
-            'member_id' => $request->memberId,
-            'giving_id' => $request->givingId,
-        ]);
-
+        foreach ($request->memberIds as $key =>  $memberId) {
+            $patron = Patron::create([
+                'member_id' => $memberId,
+                'giving_id' => $request->givingId,
+                'amount' => $request->amount,
+                'date_paid' => $request->datePaid,
+            ]);
+        }
      return response()->json(['patron'=> $patron]);
     }
 

@@ -2,8 +2,8 @@
 namespace App\Helpers;
 
 use App\Patron;
-use App\MemberUtility;
-use App\GivingUtility;
+use App\Helpers\MemberUtility;
+use App\Helpers\GivingUtility;
 
 
 class PatronUtility {
@@ -22,16 +22,18 @@ class PatronUtility {
     public static function mapPatron(Patron $patron) {
 
         $member = MemberUtility::mapMember($patron->member);
-        $giving = GivingUtility::mapMember($patron->member);
+        $giving = GivingUtility::mapGiving($patron->giving);
+
+       //dd($member );
         return [
             'id' => $patron->id,
             'member' => $member,
             'giving' => $giving,
-            'fullName' => $member->firstName . ' ' . $member->lastname,
+            'fullName' => $member['firstName'] . ' ' . $member['lastName'],
             'amount' => $patron->amount,
-            'givingType' => $giving->name,
-            'zone' => $member->community->zone->name,
-            'community' => $member->community->name,
+            'givingType' => $giving['name'],
+            'zone' => $member['community']['zone']['name'],
+            'community' => $member['community']['name'],
             'datePaid' => $patron->date_paid,
         ];
     }

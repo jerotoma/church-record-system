@@ -5,8 +5,8 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
+const moment = require('vue-moment');
 import 'es6-promise/auto';
 import store from './store/store';
 
@@ -20,6 +20,7 @@ import Chartist from "chartist";
 
 Vue.prototype.$Chartist = Chartist;
 
+Vue.use(moment);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);

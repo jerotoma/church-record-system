@@ -14,6 +14,7 @@ class Patron extends Model {
         'member_id',
         'giving_id',
         'amount',
+        'date_paid',
     ];
 
      /**

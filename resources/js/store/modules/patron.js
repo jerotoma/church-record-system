@@ -30,11 +30,15 @@ const actions = {
         });
         });
     },
-    loadPatrons({commit}){
-        const url = '/rest/secured/patrons';
+    loadPatrons({commit}, pagination){
+        commit('setLoading', true);
+        const url = '/rest/secured/patrons?page='+ pagination.currentPage + '&perPage=' + pagination.perPage + '&sortType='+ pagination.sortType + '&sortField=' + pagination.sortField;
         axios.get(url)
         .then((response) => {
-          commit("setPatrons", response.data.patrons);
+            const data = response.data;
+            commit('setLoading', false);
+            commit("setPatrons", data.patrons);
+            commit("setPagination", data.pagination);
         }).catch((error) => {
             console.log(error);
         });
