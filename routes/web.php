@@ -60,10 +60,12 @@ Route::prefix('rest/secured')->group(function () {
     Route::put('/parishes', 'ParishController@update');
 
     Route::get('/zones', 'ZoneController@loadZones');
+    Route::get('/zones/parishes/{parishId}', 'ZoneController@loadZonesByParishId');
     Route::post('/zones', 'ZoneController@store');
     Route::put('/zones', 'ZoneController@update');
 
     Route::get('/communities', 'CommunityController@loadCommunities');
+    Route::get('/communities/zones/{zoneId}', 'CommunityController@loadCommunitiesByZoneId');
     Route::post('/communities', 'CommunityController@store');
     Route::put('/communities', 'CommunityController@update');
 

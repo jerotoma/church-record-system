@@ -154,4 +154,9 @@ class CommunityController extends Controller {
         $communities = Community::all();
         return response()->json(['communities' => $communities]);
     }
+
+    public function loadCommunitiesByZoneId($zoneId) {
+        $communities = Community::where('zone_id', $zoneId)->get();
+        return response()->json(['communities' => $communities]);
+    }
 }

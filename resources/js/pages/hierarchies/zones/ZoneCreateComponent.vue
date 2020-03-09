@@ -15,9 +15,9 @@
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('name')">
-                                        <label for="form-fname">Zone Name</label>
+                                        <label for="form-fname">Name</label>
                                         <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
-                                        <span class="md-error" v-if="!$v.form.name.required">The zone name is required</span>
+                                        <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
                                         <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid zone name</span>
                                     </md-field>
                                 </div>
@@ -25,10 +25,26 @@
                                     <md-field :class="getValidationClass('code')">
                                         <label for="form-code" >Zone Code</label>
                                         <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.code.required">The zone code is required</span>
+                                        <span class="md-error" v-if="!$v.form.code.required">The code is required</span>
                                         <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid zone</span>
                                     </md-field>
                                 </div>
+                                <div class="md-layout-item md-small-size-100 md-size-50">
+                                        <md-field :class="getValidationClass('parishId')">
+                                            <label for="parish-id">Parish</label>
+                                            <md-select
+                                                v-model="form.parishId"
+                                                name="form.parishId"
+                                                id="parish-id">
+                                                <md-option
+                                                    v-for="(parish, parishIndex) in parishes" :key="parishIndex"
+                                                    :value="parish.id">
+                                                        {{parish.name}}
+                                                </md-option>
+                                            </md-select>
+                                            <span class="md-error" v-if="!$v.form.parishId.required">The parish is required</span>
+                                        </md-field>
+                                    </div>
                             </div>
                         </md-content>
                     </md-card-content>
@@ -64,6 +80,7 @@ export default {
         ...mapGetters([
             'isLoading',
             'message',
+            'parishes',
             'isMessage'
         ]),
         hasMessage: {
@@ -129,8 +146,13 @@ export default {
         },
         closeSnackBar(){
             this.$store.commit('setHasMessage', false);
-        }
-
+        },
+        loadParishes() {
+            this.$store.dispatch('loadParishes');
+        },
+    },
+    created() {
+        this.loadParishes();
     }
 }
 </script>

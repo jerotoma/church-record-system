@@ -15,18 +15,33 @@
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('name')">
-                                        <label for="form-fname">Community Name</label>
+                                        <label for="form-fname">Name</label>
                                         <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
-                                        <span class="md-error" v-if="!$v.form.name.required">The community name is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid community name</span>
+                                        <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid name</span>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('code')">
-                                        <label for="form-code" >Community Code</label>
+                                        <label for="form-code" >Code</label>
                                         <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.code.required">The community code is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid community</span>
+                                        <span class="md-error" v-if="!$v.form.code.required">The code is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid code</span>
+                                    </md-field>
+                                </div>
+                                <div class="md-layout-item md-small-size-100 md-size-50" v-show="zones && zones.length > 0">
+                                    <md-field :class="getValidationClass('zoneId')">
+                                        <label for="zone-id">Zone</label>
+                                        <md-select
+                                            v-model="form.zoneId"
+                                            name="form.zoneId" id="zone-id">
+                                            <md-option
+                                                v-for="(zone, zoneIndex) in zones" :key="zoneIndex"
+                                                :value="zone.id">
+                                                    {{zone.name}}
+                                            </md-option>
+                                        </md-select>
+                                        <span class="md-error" v-if="!$v.form.zoneId.required">The zone is required</span>
                                     </md-field>
                                 </div>
                             </div>
@@ -64,6 +79,7 @@ export default {
         ...mapGetters([
             'isLoading',
             'message',
+            'zones',
             'isMessage'
         ]),
         hasMessage: {
@@ -92,7 +108,7 @@ export default {
     },
     methods: {
         closeDialog() {
-        this.$emit("onDialogClose", {showDialog: false});
+            this.$emit("onDialogClose", {showDialog: false});
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];
@@ -131,8 +147,13 @@ export default {
         },
         closeSnackBar(){
             this.$store.commit('setHasMessage', false);
-        }
-
+        },
+        loadZones() {
+            this.$store.dispatch('loadZones');
+        },
+    },
+    created(){
+        this.loadZones();
     }
 }
 </script>

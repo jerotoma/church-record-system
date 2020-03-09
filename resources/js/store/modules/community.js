@@ -69,6 +69,16 @@ const actions = {
             console.log(error);
         });
     },
+    loadCommunitiesByZoneId({commit}, data){
+        const url = '/rest/secured/communities/zones/' + data.id;
+        axios.get(url)
+        .then((response) => {
+            console.log(response.data);
+            commit("setCommunities", response.data.communities);
+        }).catch((error) => {
+            console.log(error);
+        });
+    },
 };
 const mutations = {
     setCommunities(state, communities){

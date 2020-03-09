@@ -11,8 +11,10 @@ export const communityRequiredFields = {
         minLength: minLength(3)
     },
     code: {
+        required: required
+    },
+    zoneId: {
         required: required,
-        minLength: minLength(3)
     },
 };
 

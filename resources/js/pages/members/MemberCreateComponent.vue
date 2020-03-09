@@ -263,14 +263,14 @@ export default {
                 this.form.communityId = null;
                 this.$store.commit('setZones', []);
                 this.$store.commit('setCommunities', []);
-                this.$store.dispatch('loadZones', parishId);
+                this.$store.dispatch('loadZonesByParishId', { id: parishId });
             }
         },
         loadCommunities(parishId, zoneId) {
             if (parishId && zoneId) {
                 this.form.communityId = null;
                 this.$store.commit('setCommunities', []);
-                this.$store.dispatch('loadCommunities', { id: zoneId, parish_id: parishId});
+                this.$store.dispatch('loadCommunitiesByZoneId', { id: zoneId, parish_id: parishId});
             }
         },
     },

@@ -12,8 +12,11 @@ export const zoneRequiredFields = {
     },
     code: {
         required: required,
-        minLength: minLength(3)
     },
+    parishId: {
+        required: required,
+    },
+
 };
 
 export const zoneForm = {

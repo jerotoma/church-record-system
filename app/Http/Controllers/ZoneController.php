@@ -143,4 +143,9 @@ class ZoneController extends Controller {
         $zones = Zone::all();
         return response()->json(['zones' => $zones]);
     }
+
+    public function loadZonesByParishId($parishId) {
+        $zones = Zone::where('parish_id', $parishId)->get();
+        return response()->json(['zones' => $zones]);
+    }
 }

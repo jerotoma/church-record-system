@@ -67,6 +67,15 @@ const actions = {
             console.log(error);
         });
 
+    },
+    loadZonesByParishId({commit}, data){
+        const url = '/rest/secured/zones/parishes/' + data.id;
+        axios.get(url)
+        .then((response) => {
+          commit("setZones", response.data.zones);
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 };
 const mutations = {
