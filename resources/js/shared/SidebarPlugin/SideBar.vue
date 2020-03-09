@@ -25,6 +25,15 @@
             :link="link">
           </sidebar-link>
         </slot>
+        <md-list-item md-expand class="collapsable-item">
+          <md-icon>videogame_asset</md-icon>
+          <p>Games</p>
+          <md-list slot="md-expand">
+            <md-list-item class="md-inset">Console</md-list-item>
+            <md-list-item class="md-inset">PC</md-list-item>
+            <md-list-item class="md-inset">Phone</md-list-item>
+          </md-list>
+        </md-list-item>
       </md-list>
     </div>
   </div>

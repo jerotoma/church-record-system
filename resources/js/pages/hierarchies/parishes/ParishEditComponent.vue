@@ -16,7 +16,7 @@
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('firstName')">
                                         <label for="form-fname">Parish Name</label>
-                                        <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
+                                        <md-input id="form-name" v-model="form.name" type="text" :disabled="isLoading"></md-input>
                                         <span class="md-error" v-if="!$v.form.name.required">The parish name is required</span>
                                         <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid parish name</span>
                                     </md-field>
@@ -34,7 +34,7 @@
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Parish</md-button>
+                        <md-button type="submit" class="md-primary" :disabled="isLoading">Save Changes</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-snackbar

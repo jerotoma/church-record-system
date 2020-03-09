@@ -6,6 +6,8 @@
                    <md-card-content>
                         <div class="md-layout">
                             <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
+                                <md-button class="md-raised md-primary" @click="viewCommunitiesModal()">View Communities</md-button>
+                                <md-button class="md-raised md-primary" @click="viewZonesModal()">View Zones</md-button>
                                 <md-button class="md-raised md-success" @click="createParishModal()">Add Parish</md-button>
                             </div>
                         </div>
@@ -113,6 +115,12 @@ export default {
   methods: {
     createParishModal() {
         this.$store.commit('setShowCreateDialog', true);
+    },
+    viewZonesModal() {
+         window.location.assign('/dashboard/zones');
+    },
+    viewCommunitiesModal() {
+         window.location.assign('/dashboard/communities');
     },
     onDialogClosed() {
         this.$store.commit('setShowEditDialog', false);

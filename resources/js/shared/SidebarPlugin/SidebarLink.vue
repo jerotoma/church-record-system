@@ -1,6 +1,6 @@
 <template>
   <li class="md-list-item">
-    <a class="md-list-item-router md-list-item-container md-button-clean"
+    <a class="md-list-item-container md-button-clean"
         :class="{ active: isActive == 'active' ? true : false }"
         :href="to"
        @click="hideSidebar">

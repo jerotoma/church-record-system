@@ -13329,3 +13329,35 @@ table.vgt-table td {
   padding: 0.25em 0.25em 0.25em 0.25em;
 }
 
+.md-list-item.collapsable-item {
+  cursor: pointer;
+  color: #FFFFFF !important;
+}
+
+.md-list-item.collapsable-item:hover {
+  background-color: inherit !important;
+}
+
+.md-list-item-expand.md-list-item-container {
+  display: block;
+  text-decoration: none;
+  margin: 10px 15px 0;
+  border-radius: 3px;
+  color: #FFFFFF !important;
+  white-space: nowrap;
+  cursor: pointer;
+  width: auto;
+}
+
+.md-list-item-expand.md-list-item-container:hover,
+.sidebar .nav li:hover > .md-list-item-expand {
+  background-color: rgba(200, 200, 200, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+.md-list-item-expand.md-list-item-container:hover p,
+.md-list-expand-icon,
+.md-list-item-expand.md-list-item-container p {
+  color: #FFFFFF !important;
+}
+
