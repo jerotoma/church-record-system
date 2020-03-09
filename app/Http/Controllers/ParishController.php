@@ -9,6 +9,8 @@ use App\Community;
 
 class ParishController extends Controller {
 
+    private $baseDirViewPath = 'dashboard.hierarchies.parishes';
+
     /**
      * Create a new controller instance.
      *
@@ -25,89 +27,7 @@ class ParishController extends Controller {
      */
     public function index()
     {
-        return view('dashboard.parishes.parishes');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function viewCommunities($parishId, $zoneId) {
-        return view('dashboard.parishes.communities', [
-            'zone' => Zone::find($zoneId),
-        ]);
-    }
-
-
-    public function loadCommunitiesByZoneId($parishId, $zoneId) {
-        $communities = Community::where('zone_id', $zoneId)->get();
-        return response()->json(['communities' => $communities]);
-    }
-
-    public function  createCommunity(Request $request, $parishId, $zoneId) {
-        $request->validate([
-            'name' => 'required|min:3',
-            'code' => 'required|min:2',
-            'zoneId' => 'required'
-        ]);
-        $community = Community::create([
-            'name' => $request->name,
-            'code' => $request->code,
-            'zone_id' => $request->zoneId,
-        ]);
-
-     return response()->json(['community'=> $community]);
-    }
-
-    public function  updateCommunity(Request $request, $parishId, $zoneId) {
-        $request->validate([
-            'id' => 'required|numeric',
-            'name' => 'required|min:3',
-            'code' => 'required|min:2',
-            'zoneId' => 'required|numeric'
-        ]);
-
-        if (!is_numeric($parishId)) {
-            return response()->json([
-                'parishId' => $parishId,
-                'success' => false,
-                'message' => 'The Parish ID: '.$parishId. ' is invalid.'
-            ], 422);
-        }
-
-        $parish = Parish::find($parishId);
-        if ($parish  == null) {
-            return response()->json([
-                'parishId' => $request->id,
-                'success' => false,
-                'message' => 'The Parish of ID: '.$request->id. ' doesn\'t  exist.'
-            ], 404);
-        }
-
-        $zone = Zone::find($request->zoneId);
-        if ($zone  == null) {
-            return response()->json([
-                'zoneId' => $request->zoneId,
-                'success' => false,
-                'message' => 'The Zone of ID: '.$request->id. ' doesn\'t  exist.'
-            ], 404);
-        }
-
-        $community = Community::find($request->id);
-        if ($community == null) {
-            return response()->json([
-                'communityId' => $request->id,
-                'success' => false,
-                'message' => 'The Community of ID: '.$request->id. ' doesn\'t  exist.'
-            ], 404);
-        }
-        $community->name = $request->name;
-        $community->code = $request->code;
-        $community->zone_id = $zone->id;
-        $community->save();
-
-     return response()->json(['community'=> $community]);
+        return view($this->baseDirViewPath.'.view');
     }
 
     /**
@@ -137,7 +57,7 @@ class ParishController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        return view('dashboard.parishes.zones', [
+        return view($this->baseDirViewPath.'.zones', [
             'parish' => Parish::find($id),
         ]);
     }
@@ -205,64 +125,4 @@ class ParishController extends Controller {
         return response()->json(['parish' => $parish]);
     }
 
-    public function createZone(Request $request) {
-        $request->validate([
-            'name' => 'required|min:3',
-            'code' => 'required|min:2',
-            'parishId' => 'required'
-        ]);
-        $parish = Parish::find($request->parishId);
-        if ($parish  == null) {
-            return response()->json([
-                'parishId' => $request->parishId,
-                'success' => false,
-                'message' => 'The Parish of ID: '.$request->parishId. ' doesn\'t  exist.'
-            ], 404);
-        }
-
-        $zone = Zone::create([
-            'name' => $request->name,
-            'code' => $request->code,
-            'parish_id' => $parish->id,
-        ]);
-
-     return response()->json(['zone'=> $zone]);
-    }
-
-    public function updateZone(Request $request) {
-        $request->validate([
-            'id' => 'required',
-            'name' => 'required|min:3',
-            'code' => 'required|min:2',
-            'parishId' => 'required'
-        ]);
-
-        $zone = Zone::find($request->id);
-        if ($zone  == null) {
-            return response()->json([
-                'zoneId' => $request->id,
-                'success' => false,
-                'message' => 'The Zone of ID: '.$request->id. ' doesn\'t  exist.'
-            ], 404);
-        }
-
-        $parish = Parish::find($request->parishId);
-        if ($parish  == null) {
-            return response()->json([
-                'parishId' => $request->parishId,
-                'success' => false,
-                'message' => 'The Parish of ID: '.$request->parishId. ' doesn\'t  exist.'
-            ], 404);
-        }
-        $zone->name = $request->name;
-        $zone->code = $request->code;
-        $zone->parish_id =  $parish->id;
-        $zone->save();
-        return response()->json(['zone'=> $zone]);
-    }
-
-    public function loadZonesByParishId($parishId) {
-        $zones = Zone::where('parish_id', $parishId)->get();
-        return response()->json(['zones' => $zones]);
-    }
 }

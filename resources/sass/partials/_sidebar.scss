@@ -31,3 +31,7 @@
 .md-list-item-expand.md-list-item-container p {
     color: #FFFFFF !important;
 }
+
+.md-list.md-theme-default .md-list-item-expand.md-active {
+    background-color: rgba(200, 200, 200, 0.4) !important;
+}

@@ -80,10 +80,6 @@ export default {
             type: String,
             default: 'green'
         },
-        parishId: {
-            type: Number,
-            required: true,
-        }
     },
     data: () => ({
         form: zoneForm,
@@ -115,7 +111,7 @@ export default {
             this.form.parishId = null;
         },
         createZone () {
-            this.form.parishId = this.parishId;
+            this.form.parishId = 0;
             this.$store.dispatch('postZone', this.form)
              .then((response) => {
                  this.clearForm();

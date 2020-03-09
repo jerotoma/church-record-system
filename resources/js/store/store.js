@@ -8,6 +8,8 @@ import actions from './actions';
 import auth from './modules/auth';
 import users from './modules/users';
 import member from './modules/member';
+import zone from './modules/zone';
+import community from './modules/community';
 import parish from './modules/parish';
 import patron from './modules/patron';
 import giving from './modules/giving';
@@ -19,6 +21,8 @@ export default new Vuex.Store({
     users,
     auth,
     parish,
+    zone,
+    community,
     member,
     giving,
     patron,

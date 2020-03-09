@@ -6,9 +6,11 @@
                    <md-card-content>
                         <div class="md-layout">
                             <div class="md-layout-item md-size-50 text-left">
-                                <h4 class="md-title text-sucess">Parish Name: {{parish.name}}</h4>
+                                <h4 class="md-title text-sucess">Zone List</h4>
                             </div>
                             <div class="md-layout-item md-size-50 text-right" style="padding-right:0;">
+                                <md-button class="md-raised md-primary" @click="viewParishesModal()">View Parishes</md-button>
+                                <md-button class="md-raised md-primary" @click="viewCommunitiesModal()">View Communities</md-button>
                                 <md-button class="md-raised md-success" @click="createZoneModal()">Add Zone</md-button>
                             </div>
                         </div>
@@ -51,7 +53,6 @@
                 <zone-create-component
                     :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
-                    :parishId="parish.id"
                 ></zone-create-component>
                 <zone-edit-component
                     v-if="zone.id"
@@ -70,90 +71,92 @@ import { mapGetters } from 'vuex';
 
 
 export default {
-  name: "zone-table",
-  computed:{
-      ...mapGetters([
-        'zones',
-        'zone',
-        'showCreateDialog',
-        'showEditDialog'
-      ]),
-  },
-  props: {
-    tableHeaderColor: {
-      type: String,
-      default: "green"
+    name: "zone-table",
+    computed:{
+        ...mapGetters([
+            'zones',
+            'zone',
+            'showCreateDialog',
+            'showEditDialog'
+        ]),
     },
-    parish: {
-        type: Object,
-        required: true,
-    }
-  },
-  components: {
-      'zone-create-component': ZoneCreateComponent,
-      'zone-edit-component': ZoneEditComponent
-  },
-  data() {
-    return {
-      selected: [],
-      showCreateModal: false,
-      columns: [
-        {
-          label: 'ID',
-          field: 'id',
-          type: Number
-        },
-        {
-          label: 'Zone Name',
-          field: 'name',
-        },
-        {
-          label: 'Zone Code',
-          field: 'code',
-        },
-        {
-          label: 'Action',
-          field: 'action',
-        }
-      ],
-    };
-  },
-  methods: {
-      createZoneModal() {
-           this.$store.commit('setShowCreateDialog', true);
-      },
-      onDialogClosed() {
-            this.$store.commit('setShowEditDialog', false);
-            this.$store.commit('setShowCreateDialog', false);
-            this.loadZones();
-      },
-      loadZones() {
-          this.$store.dispatch('loadZones', this.parish.id);
-      },
-      performAction(actionType, zone) {
-        switch(actionType) {
-        case 'view':
-            window.location.assign('/dashboard/parishes/'+ this.parish.id + '/zones/' + zone.id);
-            break;
-        case 'edit':
-            this.editModal(zone);
-            break;
-        case 'delete':
-             this.deleteModal(zone);
-            break;
+    props: {
+        tableHeaderColor: {
+        type: String,
+        default: "green"
         }
     },
-    editModal(zone) {
-        this.$store.commit('setZone', zone);
-        this.$store.commit('setShowEditDialog', true);
+    components: {
+        'zone-create-component': ZoneCreateComponent,
+        'zone-edit-component': ZoneEditComponent
     },
-    deleteModal(zone) {
+    data() {
+        return {
+        selected: [],
+        showCreateModal: false,
+        columns: [
+            {
+            label: 'ID',
+            field: 'id',
+            type: Number
+            },
+            {
+            label: 'Zone Name',
+            field: 'name',
+            },
+            {
+            label: 'Zone Code',
+            field: 'code',
+            },
+            {
+            label: 'Action',
+            field: 'action',
+            }
+        ],
+        };
+    },
+    methods: {
+        createZoneModal() {
+            this.$store.commit('setShowCreateDialog', true);
+        },
+        viewParishesModal() {
+            window.location.assign('/dashboard/parishes');
+        },
+        viewCommunitiesModal() {
+            window.location.assign('/dashboard/communities');
+        },
+        onDialogClosed() {
+                this.$store.commit('setShowEditDialog', false);
+                this.$store.commit('setShowCreateDialog', false);
+                this.loadZones();
+        },
+        loadZones() {
+            this.$store.dispatch('loadZones');
+        },
+        performAction(actionType, zone) {
+            switch(actionType) {
+            case 'view':
+                window.location.assign('/dashboard/zones/' + zone.id);
+                break;
+            case 'edit':
+                this.editModal(zone);
+                break;
+            case 'delete':
+                this.deleteModal(zone);
+                break;
+            }
+        },
+        editModal(zone) {
+            this.$store.commit('setZone', zone);
+            this.$store.commit('setShowEditDialog', true);
+        },
+        deleteModal(zone) {
 
+        }
+    },
+    created() {
+        this.loadZones();
     }
-  },
-  created() {
-      this.loadZones();
-  }
 };
 </script>
 <style scoped>

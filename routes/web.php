@@ -30,7 +30,16 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('/parishes', 'ParishController')->only([
         'index', 'show'
     ]);
-    Route::get('/parishes/{parishId}/zones/{zoneId}', 'ParishController@viewCommunities');
+
+    //Zones Routes
+    Route::resource('/zones', 'ZoneController')->only([
+        'index', 'show'
+    ]);
+
+    //Community Routes
+    Route::resource('/communities', 'CommunityController')->only([
+        'index', 'show'
+    ]);
 
     //Giving Routes
     Route::get('/givings', 'GivingController@index');
@@ -50,13 +59,13 @@ Route::prefix('rest/secured')->group(function () {
     Route::post('/parishes', 'ParishController@store');
     Route::put('/parishes', 'ParishController@update');
 
-    Route::get('/parishes/{parishId}/zones', 'ParishController@loadZonesByParishId');
-    Route::post('/parishes/{parishId}/zones', 'ParishController@createZone');
-    Route::put('/parishes/{parishId}/zones', 'ParishController@updateZone');
+    Route::get('/zones', 'ZoneController@loadZones');
+    Route::post('/zones', 'ZoneController@store');
+    Route::put('/zones', 'ZoneController@update');
 
-    Route::get('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@loadCommunitiesByZoneId');
-    Route::post('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@createCommunity');
-    Route::put('/parishes/{parishId}/zones/{zoneId}/communities', 'ParishController@updateCommunity');
+    Route::get('/communities', 'CommunityController@loadCommunities');
+    Route::post('/communities', 'CommunityController@store');
+    Route::put('/communities', 'CommunityController@update');
 
     //Giving Routes
     Route::get('/givings', 'GivingController@findGivings');

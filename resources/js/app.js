@@ -45,9 +45,9 @@ Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').d
 Vue.component('member-view-component', require('./pages/members/MemberViewComponent.vue').default);
 Vue.component('member-show-component', require('./pages/members/MemberShowComponent.vue').default);
 
-Vue.component('zone-show-component', require('./pages/hierarchies/zones/ZoneShowComponent.vue').default);
+Vue.component('community-view-component', require('./pages/hierarchies/communities/CommunityViewComponent.vue').default);
+Vue.component('zone-view-component', require('./pages/hierarchies/zones/ZoneViewComponent.vue').default);
 Vue.component('parish-view-component', require('./pages/hierarchies/parishes/ParishViewComponent.vue').default);
-Vue.component('parish-show-component', require('./pages/hierarchies/parishes/ParishShowComponent.vue').default);
 
 Vue.component('giving-view-component', require('./pages/givings/GivingViewComponent.vue').default);
 

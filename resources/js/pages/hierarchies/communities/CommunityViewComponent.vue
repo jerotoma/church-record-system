@@ -6,6 +6,8 @@
                    <md-card-content>
                         <div class="md-layout">
                             <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
+                                <md-button class="md-raised md-primary" @click="viewParishesModal()">View Parishes</md-button>
+                                <md-button class="md-raised md-primary" @click="viewZonesModal()">View Zones</md-button>
                                 <md-button class="md-raised md-success" @click="createCommunityModal()">Add Community</md-button>
                             </div>
                         </div>
@@ -48,7 +50,6 @@
                 <community-create-component
                     :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
-                    :zone="zone"
                 ></community-create-component>
                 <community-edit-component
                     v-if="community.id"
@@ -67,88 +68,90 @@ import { mapGetters } from 'vuex';
 
 
 export default {
-  name: "community-view-commponent",
-  computed:{
-      ...mapGetters([
-        'communities',
-        'community',
-        'showCreateDialog',
-        'showEditDialog'
-      ]),
-  },
-  props: {
-    tableHeaderColor: {
-      type: String,
-      default: "green"
+    name: "community-view-commponent",
+    computed:{
+        ...mapGetters([
+            'communities',
+            'community',
+            'zone',
+            'showCreateDialog',
+            'showEditDialog'
+        ]),
     },
-    zone: {
-        type: Object,
-        required: true,
-        default: null,
-    }
-  },
-  components: {
-    'community-create-component': CommunityCreateComponent,
-    'community-edit-component': CommunityEditComponent,
-  },
-  data() {
-    return {
-      selected: [],
-      showCreateModal: false,
-      columns: [
-        {
-          label: 'ID',
-          field: 'id',
-          type: Number
+    props: {
+        tableHeaderColor: {
+        type: String,
+        default: "green"
         },
-        {
-          label: 'Community Name',
-          field: 'name',
-        },
-        {
-          label: 'Community Code',
-          field: 'code',
-        },
-        {
-          label: 'Action',
-          field: 'action',
-        }
-      ],
-    };
-  },
-  methods: {
-      createCommunityModal() {
-           this.$store.commit('setShowCreateDialog', true);
-      },
-      onDialogClosed() {
-            this.$store.commit('setShowEditDialog', false);
-            this.$store.commit('setShowCreateDialog', false);
-            this.loadCommunities();
-      },
-      loadCommunities() {
-          this.$store.dispatch('loadCommunities', this.zone);
-      },
-      performAction(actionType, community) {
-        switch(actionType) {
-        case 'edit':
-            this.editModal(community);
-            break;
-        case 'delete':
-             this.deleteModal(community);
-            break;
-        }
     },
-    editModal(community) {
-        this.$store.commit('setCommunity', community);
-        this.$store.commit('setShowEditDialog', true);
+    components: {
+        'community-create-component': CommunityCreateComponent,
+        'community-edit-component': CommunityEditComponent,
     },
-    deleteModal(parish) {
+    data() {
+        return {
+        selected: [],
+        showCreateModal: false,
+        columns: [
+            {
+            label: 'ID',
+            field: 'id',
+            type: Number
+            },
+            {
+            label: 'Community Name',
+            field: 'name',
+            },
+            {
+            label: 'Community Code',
+            field: 'code',
+            },
+            {
+            label: 'Action',
+            field: 'action',
+            }
+        ],
+        };
+    },
+    methods: {
+        createCommunityModal() {
+            this.$store.commit('setShowCreateDialog', true);
+        },
+        viewParishesModal() {
+            window.location.assign('/dashboard/parishes');
+        },
+        viewZonesModal() {
+            window.location.assign('/dashboard/zones');
+        },
+        onDialogClosed() {
+                this.$store.commit('setShowEditDialog', false);
+                this.$store.commit('setShowCreateDialog', false);
+                this.loadCommunities();
+        },
+        loadCommunities() {
+            this.$store.dispatch('loadCommunities');
+        },
+        performAction(actionType, community) {
+            switch(actionType) {
+            case 'edit':
+                this.editModal(community);
+                break;
+            case 'delete':
+                this.deleteModal(community);
+                break;
+            }
+        },
+        editModal(community) {
+            this.$store.commit('setCommunity', community);
+            this.$store.commit('setShowEditDialog', true);
+        },
+        deleteModal(parish) {
 
+        }
+    },
+    created() {
+        this.loadCommunities();
     }
-  },
-  created() {
-      this.loadCommunities();
-  }
 };
 </script>
 <style scoped>

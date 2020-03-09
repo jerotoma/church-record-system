@@ -79,10 +79,6 @@ export default {
         dataBackgroundColor: {
             type: String,
             default: 'green'
-        },
-        zone: {
-            type:Object,
-            required: true,
         }
     },
     data: () => ({
@@ -116,8 +112,8 @@ export default {
             this.form.parishId = null;
         },
         createCommunity () {
-            this.form.zoneId = this.zone.id;
-            this.form.parishId = this.zone.parish_id;
+            this.form.zoneId = 0;
+            this.form.parishId = 0;
              this.$store.dispatch('postCommunity', this.form)
              .then((response) => {
                  this.clearForm();

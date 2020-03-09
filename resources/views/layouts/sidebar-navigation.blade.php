@@ -17,13 +17,6 @@
         <p>Members</p>
     </sidebar-link>
     <sidebar-link
-        is-active="{{ Request::is('dashboard/parishes') ? 'active' : 'inactive' }}"
-        to="/dashboard/parishes">
-        <md-icon>home_work</md-icon>
-        <p>Parishes</p>
-    </sidebar-link>
-
-    <sidebar-link
         is-active="{{ Request::is('dashboard/givings') ? 'active' : 'inactive' }}"
         to="/dashboard/givings">
         <md-icon>money</md-icon>
@@ -36,15 +29,27 @@
         <p>Patrons</p>
     </sidebar-link>
     <collapsable-sidebar-link
-        :link="{title: 'Parishes 2', icon:'home_work'}">
-        <md-list-item class="md-inset">Parishes</md-list-item>
-        <md-list-item class="md-inset">Zones</md-list-item>
-        <md-list-item class="md-inset">Communities</md-list-item>
+        is-active="{{
+            Request::is('dashboard/zones') ||
+            Request::is('dashboard/parishes') ||
+            Request::is('dashboard/communities')
+            ? 'active' : 'inactive'
+        }}"
+        :link="{title: 'Parishes', icon:'home_work'}">
         <sidebar-link
-            is-active="{{ Request::is('dashboard/patrons') ? 'active' : 'inactive' }}"
-            to="/dashboard/patrons">
-            <md-icon>bubble_chart</md-icon>
-            <p>Patrons</p>
+            is-active="{{ Request::is('dashboard/parishes') ? 'active' : 'inactive' }}"
+            to="/dashboard/parishes">
+            <p>List of Parishes</p>
+        </sidebar-link>
+        <sidebar-link
+            is-active="{{ Request::is('dashboard/zones') ? 'active' : 'inactive' }}"
+            to="/dashboard/zones">
+            <p>List of Zones</p>
+        </sidebar-link>
+        <sidebar-link
+            is-active="{{ Request::is('dashboard/communities') ? 'active' : 'inactive' }}"
+            to="/dashboard/communities">
+            <p>List of Communities</p>
         </sidebar-link>
     </collapsable-sidebar-link>
     <sidebar-link

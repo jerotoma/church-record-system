@@ -1,10 +1,15 @@
 <template>
-    <md-list-item md-expand class="collapsable-item">
+    <md-list-item
+        :md-expanded="isActive !== 'inactive'"
+        :md-expand="true"
+        class="collapsable-item">
         <md-icon>{{link.icon}}</md-icon>
         <p>{{link.title}}</p>
         <md-list slot="md-expand">
             <slot>
-                <md-list-item class="md-inset" v-for="(child, index) in link.children" :key="index">
+                <md-list-item
+                    class="md-inset"
+                    v-for="(child, index) in link.children" :key="index">
                     {{child.title}}
                 </md-list-item>
             </slot>
