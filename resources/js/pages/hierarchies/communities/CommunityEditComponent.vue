@@ -15,18 +15,34 @@
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('name')">
-                                        <label for="form-fname">Community Name</label>
-                                        <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
-                                        <span class="md-error" v-if="!$v.form.name.required">The community name is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid community name</span>
+                                        <label for="form-fname">Name</label>
+                                        <md-input id="form-name" v-model="form.name" type="text" :disabled="isLoading"></md-input>
+                                        <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid name</span>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('code')">
-                                        <label for="form-code" >Community Code</label>
+                                        <label for="form-code" >Code</label>
                                         <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.code.required">The community code is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid community</span>
+                                        <span class="md-error" v-if="!$v.form.code.required">The code is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid zone</span>
+                                    </md-field>
+                                </div>
+                                <div class="md-layout-item md-small-size-100 md-size-50" v-show="zones && zones.length > 0">
+                                    <md-field :class="getValidationClass('zoneId')">
+                                        <label for="zone-id">Zone</label>
+                                        <md-select
+                                            @md-selected="changeParishId(form.zone.parish.id)"
+                                            v-model="form.zoneId"
+                                            name="form.zoneId" id="zone-id">
+                                            <md-option
+                                                v-for="(zone, zoneIndex) in zones" :key="zoneIndex"
+                                                :value="zone.id">
+                                                    {{zone.name}}
+                                            </md-option>
+                                        </md-select>
+                                        <span class="md-error" v-if="!$v.form.zoneId.required">The zone is required</span>
                                     </md-field>
                                 </div>
                             </div>
@@ -34,7 +50,7 @@
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Community</md-button>
+                        <md-button type="submit" class="md-primary" :disabled="isLoading">Save Changes</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-snackbar
@@ -64,6 +80,7 @@ export default {
         ...mapGetters([
             'isLoading',
             'message',
+            'zones',
             'isMessage'
         ]),
         hasMessage: {
@@ -115,9 +132,7 @@ export default {
             this.form.parishId = null;
         },
         editCommunity () {
-            this.form.zoneId = this.zone.id;
-            this.form.parishId = this.zone.parish.id;
-             this.$store.dispatch('updateCommunity', this.form)
+            this.$store.dispatch('updateCommunity', this.form)
              .then((response) => {
                  this.clearForm();
                  this.closeDialog();
@@ -134,8 +149,16 @@ export default {
         },
         closeSnackBar(){
             this.$store.commit('setHasMessage', false);
+        },
+        loadZones() {
+            this.$store.dispatch('loadZones');
+        },
+        changeParishId(parishId) {
+             this.form.parishId = parishId;
         }
-
+    },
+    created(){
+        this.loadZones();
     }
 }
 </script>

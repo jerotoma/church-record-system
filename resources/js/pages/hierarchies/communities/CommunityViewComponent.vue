@@ -40,6 +40,12 @@
                                         </md-menu-content>
                                     </md-menu>
                                 </span>
+                                <span v-else-if="props.column.field == 'parish'">
+                                    {{props.row.zone.parish.name}}
+                                </span>
+                                <span v-else-if="props.column.field == 'zone'">
+                                    {{props.row.zone.name}}
+                                </span>
                                 <span v-else>
                                 {{props.formattedRow[props.column.field]}}
                                 </span>
@@ -105,6 +111,14 @@ export default {
             {
             label: 'Community Code',
             field: 'code',
+            },
+            {
+            label: 'Zone',
+            field: 'zone',
+            },
+            {
+            label: 'Parish',
+            field: 'parish',
             },
             {
             label: 'Action',

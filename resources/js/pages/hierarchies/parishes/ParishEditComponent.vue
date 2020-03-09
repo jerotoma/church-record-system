@@ -14,19 +14,18 @@
                         <md-content class="md-scrollbar">
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('firstName')">
-                                        <label for="form-fname">Parish Name</label>
+                                    <md-field :class="getValidationClass('name')">
+                                        <label for="form-fname">Name</label>
                                         <md-input id="form-name" v-model="form.name" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.name.required">The parish name is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid parish name</span>
+                                        <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
+                                        <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid name</span>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('lastName')">
-                                        <label for="form-code" >Parish Code</label>
+                                    <md-field :class="getValidationClass('code')">
+                                        <label for="form-code" >Code</label>
                                         <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
-                                        <span class="md-error" v-if="!$v.form.code.required">The parish code is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid parish</span>
+                                        <span class="md-error" v-if="!$v.form.code.required">The code is required</span>
                                     </md-field>
                                 </div>
                             </div>

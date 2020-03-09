@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Parish;
 use App\Zone;
 use App\Community;
+use App\Helpers\ZoneUtility;
 
 class ZoneController extends Controller {
 
@@ -96,7 +97,7 @@ class ZoneController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
         $request->validate([
             'id' => 'required',
             'name' => 'required|min:3',
@@ -141,11 +142,11 @@ class ZoneController extends Controller {
 
     public function loadZones() {
         $zones = Zone::all();
-        return response()->json(['zones' => $zones]);
+        return response()->json(['zones' => ZoneUtility::mapZones($zones)]);
     }
 
     public function loadZonesByParishId($parishId) {
         $zones = Zone::where('parish_id', $parishId)->get();
-        return response()->json(['zones' => $zones]);
+        return response()->json(['zones' => ZoneUtility::mapZones($zones)]);
     }
 }

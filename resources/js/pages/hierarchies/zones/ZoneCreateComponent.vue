@@ -30,21 +30,21 @@
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('parishId')">
-                                            <label for="parish-id">Parish</label>
-                                            <md-select
-                                                v-model="form.parishId"
-                                                name="form.parishId"
-                                                id="parish-id">
-                                                <md-option
-                                                    v-for="(parish, parishIndex) in parishes" :key="parishIndex"
-                                                    :value="parish.id">
-                                                        {{parish.name}}
-                                                </md-option>
-                                            </md-select>
-                                            <span class="md-error" v-if="!$v.form.parishId.required">The parish is required</span>
-                                        </md-field>
-                                    </div>
+                                    <md-field :class="getValidationClass('parishId')">
+                                        <label for="parish-id">Parish</label>
+                                        <md-select
+                                            v-model="form.parishId"
+                                            name="form.parishId"
+                                            id="parish-id">
+                                            <md-option
+                                                v-for="(parish, parishIndex) in parishes" :key="parishIndex"
+                                                :value="parish.id">
+                                                    {{parish.name}}
+                                            </md-option>
+                                        </md-select>
+                                        <span class="md-error" v-if="!$v.form.parishId.required">The parish is required</span>
+                                    </md-field>
+                                </div>
                             </div>
                         </md-content>
                     </md-card-content>

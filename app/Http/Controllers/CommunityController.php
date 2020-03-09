@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Parish;
 use App\Zone;
 use App\Community;
+use App\Helpers\CommunityUtility;
 
 class CommunityController extends Controller {
 
@@ -56,7 +57,7 @@ class CommunityController extends Controller {
             'zone_id' => $request->zoneId,
         ]);
 
-     return response()->json(['community'=> $community]);
+     return response()->json(['community'=> CommunityUtility::mapCommunity($community)]);
     }
 
     /**
@@ -88,23 +89,16 @@ class CommunityController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
         $request->validate([
             'id' => 'required|numeric',
             'name' => 'required|min:3',
             'code' => 'required|min:2',
-            'zoneId' => 'required|numeric'
+            'zoneId' => 'required|numeric',
+            'parishId' => 'required|numeric'
         ]);
 
-        if (!is_numeric($parishId)) {
-            return response()->json([
-                'parishId' => $parishId,
-                'success' => false,
-                'message' => 'The Parish ID: '.$parishId. ' is invalid.'
-            ], 422);
-        }
-
-        $parish = Parish::find($parishId);
+        $parish = Parish::find($request->parishId);
         if ($parish  == null) {
             return response()->json([
                 'parishId' => $request->id,
@@ -135,7 +129,7 @@ class CommunityController extends Controller {
         $community->zone_id = $zone->id;
         $community->save();
 
-     return response()->json(['community'=> $community]);
+     return response()->json(['community'=> CommunityUtility::mapCommunity($community)]);
 
     }
 
@@ -152,11 +146,11 @@ class CommunityController extends Controller {
 
     public function loadCommunities() {
         $communities = Community::all();
-        return response()->json(['communities' => $communities]);
+        return response()->json(['communities' => CommunityUtility::mapCommunities($communities)]);
     }
 
     public function loadCommunitiesByZoneId($zoneId) {
         $communities = Community::where('zone_id', $zoneId)->get();
-        return response()->json(['communities' => $communities]);
+        return response()->json(['communities' => CommunityUtility::mapCommunities($communities)]);
     }
 }

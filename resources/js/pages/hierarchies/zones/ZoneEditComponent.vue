@@ -26,7 +26,22 @@
                                         <label for="form-code" >Zone Code</label>
                                         <md-input id="form-code" v-model="form.code" type="text" :disabled="isLoading"></md-input>
                                         <span class="md-error" v-if="!$v.form.code.required">The zone code is required</span>
-                                        <span class="md-error" v-else-if="!$v.form.code.minlength">Invalid zone</span>
+                                    </md-field>
+                                </div>
+                                <div class="md-layout-item md-small-size-100 md-size-50">
+                                    <md-field :class="getValidationClass('parishId')">
+                                        <label for="parish-id">Parish</label>
+                                        <md-select
+                                            v-model="form.parishId"
+                                            name="form.parishId"
+                                            id="parish-id">
+                                            <md-option
+                                                v-for="(parish, parishIndex) in parishes" :key="parishIndex"
+                                                :value="parish.id">
+                                                    {{parish.name}}
+                                            </md-option>
+                                        </md-select>
+                                        <span class="md-error" v-if="!$v.form.parishId.required">The parish is required</span>
                                     </md-field>
                                 </div>
                             </div>
@@ -34,7 +49,7 @@
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Zone</md-button>
+                        <md-button type="submit" class="md-primary" :disabled="isLoading">Save Changes</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-snackbar
@@ -64,6 +79,7 @@ export default {
         ...mapGetters([
             'isLoading',
             'message',
+            'parishes',
             'isMessage'
         ]),
         hasMessage: {
@@ -131,8 +147,13 @@ export default {
         },
         closeSnackBar(){
             this.$store.commit('setHasMessage', false);
-        }
-
+        },
+        loadParishes() {
+            this.$store.dispatch('loadParishes');
+        },
+    },
+    created() {
+        this.loadParishes();
     }
 }
 </script>
