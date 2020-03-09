@@ -1,3 +1,7 @@
+.md-list-item-content>.md-icon:last-child:hover,
+.md-list-item-content>.md-icon:last-child {
+    margin-left: 16px;
+}
 .md-list-item.collapsable-item {
     cursor: pointer;
     color: #FFFFFF !important;
@@ -18,7 +22,7 @@
 
 .md-list-item-expand.md-list-item-container:hover,
 .sidebar .nav li:hover>.md-list-item-expand {
-    background-color: rgba(200, 200, 200, 0.2) !important;
+    background-color: rgba(200, 200, 200, 0.4) !important;
     color: #FFFFFF !important;
 }
 

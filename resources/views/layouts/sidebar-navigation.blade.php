@@ -22,6 +22,7 @@
         <md-icon>home_work</md-icon>
         <p>Parishes</p>
     </sidebar-link>
+
     <sidebar-link
         is-active="{{ Request::is('dashboard/givings') ? 'active' : 'inactive' }}"
         to="/dashboard/givings">
@@ -34,6 +35,18 @@
         <md-icon>bubble_chart</md-icon>
         <p>Patrons</p>
     </sidebar-link>
+    <collapsable-sidebar-link
+        :link="{title: 'Parishes 2', icon:'home_work'}">
+        <md-list-item class="md-inset">Parishes</md-list-item>
+        <md-list-item class="md-inset">Zones</md-list-item>
+        <md-list-item class="md-inset">Communities</md-list-item>
+        <sidebar-link
+            is-active="{{ Request::is('dashboard/patrons') ? 'active' : 'inactive' }}"
+            to="/dashboard/patrons">
+            <md-icon>bubble_chart</md-icon>
+            <p>Patrons</p>
+        </sidebar-link>
+    </collapsable-sidebar-link>
     <sidebar-link
         is-active="{{ Request::is('dashboard/maps') ? 'active' : 'inactive' }}"
         to="/dashboard/maps">
