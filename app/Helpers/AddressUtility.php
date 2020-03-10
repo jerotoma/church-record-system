@@ -19,6 +19,7 @@ class AddressUtility {
 
     public static function mapAddress(Address $address){
         return [
+            'id' => $address->id,
             'streetAddress' => $address->street_address,
             'unitNumber' => $address->unit_number,
             'city' => $address->city,

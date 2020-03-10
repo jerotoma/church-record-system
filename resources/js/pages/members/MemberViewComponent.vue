@@ -33,15 +33,15 @@
                                             <md-icon>menu</md-icon>
                                         </md-button>
                                         <md-menu-content>
-                                            <md-menu-item @click="performAction('view', props.row.id)" class="text-right">
+                                            <md-menu-item @click="performAction('view', props.row)" class="text-right">
                                                 <md-icon>visibility</md-icon>
                                                 <span>View</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('edit', props.row.id)">
+                                            <md-menu-item @click="performAction('edit', props.row)">
                                                 <md-icon>edit</md-icon>
                                                 <span>Edit</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('delete', props.row.id)">
+                                            <md-menu-item @click="performAction('delete', props.row)">
                                                 <md-icon>delete</md-icon>
                                                 <span>Delete</span>
                                             </md-menu-item>
@@ -56,14 +56,21 @@
                     </md-card-content>
                 </md-card>
                 <member-create-component
-                    :show-dialog = "showCreateModal"
+                    :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
                 ></member-create-component>
+                <member-edit-component
+                     v-if="member.id"
+                    :show-dialog = "showEditDialog"
+                    @onDialogClose = "onDialogClosed"
+                    :member="member"
+                ></member-edit-component>
             </div>
         </div>
   </div>
 </template>
 <script>
+import MemberEditComponent from './MemberEditComponent.vue';
 import MemberCreateComponent from './MemberCreateComponent.vue';
 import { mapGetters } from 'vuex';
 
@@ -78,9 +85,13 @@ export default {
     computed:{
         ...mapGetters([
             'members',
+            'member',
+            'showCreateDialog',
+            'showEditDialog'
         ]),
     },
     components: {
+        'member-edit-component': MemberEditComponent,
         'member-create-component': MemberCreateComponent,
     },
     data() {
@@ -131,32 +142,37 @@ export default {
             return member.firstName + ' ' + member.lastName;
         },
         createMemberModal() {
-            this.showCreateModal =  true;
+            this.$store.commit('setShowCreateDialog', true);
         },
         onDialogClosed() {
-            this.showCreateModal =  false;
+            this.$store.commit('setShowEditDialog', false);
+            this.$store.commit('setShowCreateDialog', false);
             this.loadMembers();
         },
         loadMembers() {
             this.$store.dispatch('getMembers');
         },
-        performAction(actionType, memberId) {
+        performAction(actionType, member) {
             switch(actionType) {
                 case 'view':
-                    window.location.assign('/dashboard/members/'+ memberId);
+                    window.location.assign('/dashboard/members/'+ member.id);
                     break;
                 case 'edit':
-                    this.editModal(memberId);
+                    this.editModal(member);
                     break;
                 case 'delete':
-                    this.deleteModal(memberId);
+                    this.deleteModal(member);
                     break;
             }
         },
-        editModal(memberId) {
+        editModal(member) {
+            this.$store.commit('setMember', member);
+            setTimeout(()=> {
+                 this.$store.commit('setShowEditDialog', true);
+            }, 100)
 
         },
-        deleteModal(memberId) {
+        deleteModal(member) {
 
         }
     },

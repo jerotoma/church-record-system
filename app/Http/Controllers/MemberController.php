@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 use App\Helpers\MemberUtility;
+use App\Helpers\HelperUtility;
+use App\Helpers\AddressUtility;
 
 class MemberController extends Controller
 {
@@ -73,12 +75,12 @@ class MemberController extends Controller
         $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
-            'communityId' => 'required',
-            'zoneId' => 'required',
-            'parishId' => 'required',
-            'emailAddress' => 'required',
+            'communityId' => 'required|numeric',
+            'zoneId' => 'required|numeric',
+            'parishId' => 'required|numeric',
+            'email' => 'required|email',
             'phoneNumber' => 'required',
-            'gender' => 'required',
+            'gender' => 'required|max:6',
             'occupation' => 'required',
             'streetAddress' => 'required',
             'unitNumber' => 'required',
@@ -92,7 +94,7 @@ class MemberController extends Controller
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'middle_name' => $request->middleName,
-            'email' => $request->emailAddress,
+            'email' => $request->email,
             'gender' => $request->gender,
             'occupation' => $request->occupation,
             'phone_number' => $request->phoneNumber,
@@ -142,8 +144,50 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request) {
+        $request->validate([
+            'id' => 'required|numeric',
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'communityId' => 'required|numeric',
+            'zoneId' => 'required|numeric',
+            'parishId' => 'required|numeric',
+            'email' => 'required:email',
+            'phoneNumber' => 'required',
+            'gender' => 'required:max:6',
+            'occupation' => 'required',
+            'streetAddress' => 'required',
+            'unitNumber' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'postalCode' => 'required',
+        ]);
+
+        $member = Member::find($request->id);
+
+        $member->first_name = $request->firstName;
+        $member->last_name = $request->lastName;
+        $member->middle_name = $request->middleName;
+        $member->email = $request->email;
+        $member->gender = $request->gender;
+        $member->occupation = $request->occupation;
+        $member->phone_number = $request->phoneNumber;
+        $member->community_id = $request->communityId;
+        $member->save();
+
+        $mAddress = HelperUtility::arrayToObject(AddressUtility::mapAddresses($member)[0]);
+        $address = Address::find($mAddress->id);
+        $address->member_id = $member->id;
+        $address->street_address = $request->streetAddress;
+        $address->unit_number = $request->unitNumber;
+        $address->city = $request->city;
+        $address->country = $request->country;
+        $address->state = $request->state;
+        $address->postal_code = $request->postalCode;
+        $address->save();
+
+      return response()->json(['member' => MemberUtility::mapMember(Member::find($member->id))]);
 
     }
 

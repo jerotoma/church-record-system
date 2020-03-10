@@ -17,7 +17,7 @@ export const memberRequiredFields = {
     middleName: {
         required: required,
     },
-    emailAddress: {
+    email: {
         required: required,
         email: email
     },
@@ -58,7 +58,7 @@ export const memberForm = {
     firstName: null,
     lastName: null,
     middleName: null,
-    emailAddress: null,
+    email: null,
     phoneNumber: null,
     gender: 'male',
     occupation: null,

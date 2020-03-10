@@ -37,10 +37,10 @@
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('emailAddress')">
+                                        <md-field :class="getValidationClass('email')">
                                             <label for="form-emailAddress">Email Address</label>
-                                            <md-input id="form-emailAddress" v-model="form.emailAddress" type="email" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.emailAddress.required">The email address is required</span>
+                                            <md-input id="form-emailAddress" v-model="form.email" type="email" :disabled="isLoading"></md-input>
+                                            <span class="md-error" v-if="!$v.form.email.required">The email address is required</span>
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">

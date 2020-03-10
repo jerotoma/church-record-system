@@ -1,6 +1,23 @@
 // initial state
 const state = {
-    member: null,
+    member: {
+        firstName: null,
+        lastName: null,
+        middleName: null,
+        emailAddress: null,
+        phoneNumber: null,
+        gender: 'male',
+        occupation: null,
+        streetAddress: null,
+        parishId: null,
+        zoneId: null,
+        communityId: null,
+        unitNumber: null,
+        city: null,
+        country: null,
+        state: null,
+        postalCode: null,
+    },
     members: [],
     membersCount: 0
   }
@@ -35,7 +52,28 @@ const state = {
                 data: member
             }).then((response) => {
                 const data = response.data;
-                commit('setMembers', data.member);
+                commit('setMember', data.member);
+                resolve(data);
+                //commit('setMembersCount', data.count);
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
+        });
+    },
+    updateMember({ commit }, member) {
+        return new Promise((resolve, reject) => {
+                axios({
+                method: 'PUT',
+                url: '/rest/secured/members',
+                data: member
+            }).then((response) => {
+                const data = response.data;
+                commit('setMember', data.member);
                 resolve(data);
                 //commit('setMembersCount', data.count);
             }).catch((error) => {

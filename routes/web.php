@@ -52,6 +52,7 @@ Route::prefix('rest/secured')->group(function () {
     //Members
     Route::get('/members', 'MemberController@loadMembers');
     Route::post('/members', 'MemberController@store');
+    Route::put('/members', 'MemberController@update');
 
     //Parish Routes
     Route::get('/parishes/{parishId}', 'ParishController@loadParish');

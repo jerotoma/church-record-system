@@ -3,6 +3,8 @@ namespace  App\Helpers;
 
 use App\Member;
 use App\Helpers\AddressUtility;
+use App\Helpers\HelperUtility;
+use \stdClass;
 
 class MemberUtility {
 
@@ -10,7 +12,7 @@ class MemberUtility {
         if ($member == null) {
             return [];
         }
-
+        $address = HelperUtility::arrayToObject(AddressUtility::mapAddresses($member)[0]);
         return [
             'id' => $member->id,
             'firstName' => $member->first_name,
@@ -20,6 +22,13 @@ class MemberUtility {
             'phoneNumber' => $member->phone_number,
             'gender' => $member->gender,
             'occupation' => $member->occupation,
+            'addressId' => $address->id,
+            'streetAddress' => $address->streetAddress,
+            'unitNumber' => $address->unitNumber,
+            'city' => $address->city,
+            'country' => $address->country,
+            'state' => $address->state,
+            'postalCode' => $address->postalCode,
             'addresses' => AddressUtility::mapAddresses($member),
             'community' => [
                 'id' => $member->community->id,
@@ -36,8 +45,9 @@ class MemberUtility {
                     ]
                 ]
             ],
+            'parishId' => $member->community->zone->parish->id,
+            'zoneId' => $member->community->zone->id,
+            'communityId' => $member->community->id,
         ];
     }
-
-
 }
