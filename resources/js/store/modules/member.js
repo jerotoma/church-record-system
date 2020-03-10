@@ -4,7 +4,7 @@ const state = {
         firstName: null,
         lastName: null,
         middleName: null,
-        emailAddress: null,
+        email: null,
         phoneNumber: null,
         gender: 'male',
         occupation: null,
@@ -52,12 +52,9 @@ const state = {
                 data: member
             }).then((response) => {
                 const data = response.data;
-                commit('setMember', data.member);
                 resolve(data);
-                //commit('setMembersCount', data.count);
             }).catch((error) => {
                 const resp = error.response;
-                //console.log(resp);
                 commit('setMessage', resp.data.message);
                 commit('setLoading', false);
                 commit('setHasMessage', true);
@@ -73,9 +70,7 @@ const state = {
                 data: member
             }).then((response) => {
                 const data = response.data;
-                commit('setMember', data.member);
                 resolve(data);
-                //commit('setMembersCount', data.count);
             }).catch((error) => {
                 const resp = error.response;
                 //console.log(resp);
