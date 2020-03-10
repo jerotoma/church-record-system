@@ -12,7 +12,7 @@ const getters = {
     zones: state => state.zones,
 };
 const actions = {
-    postZone({commit}) {
+    postZone({commit}, zone) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
