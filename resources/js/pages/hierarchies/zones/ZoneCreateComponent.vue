@@ -128,8 +128,7 @@ export default {
             this.form.parishId = null;
         },
         createZone () {
-            this.form.parishId = 0;
-            this.$store.dispatch('postZone', this.form)
+           this.$store.dispatch('postZone', this.form)
              .then((response) => {
                  this.clearForm();
                  this.closeDialog();

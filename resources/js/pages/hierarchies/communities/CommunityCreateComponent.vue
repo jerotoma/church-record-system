@@ -128,9 +128,7 @@ export default {
             this.form.parishId = null;
         },
         createCommunity () {
-            this.form.zoneId = 0;
-            this.form.parishId = 0;
-             this.$store.dispatch('postCommunity', this.form)
+            this.$store.dispatch('postCommunity', this.form)
              .then((response) => {
                  this.clearForm();
                  this.closeDialog();
