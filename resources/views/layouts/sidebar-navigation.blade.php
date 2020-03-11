@@ -35,7 +35,7 @@
             Request::is('dashboard/communities')
             ? 'active' : 'inactive'
         }}"
-        :link="{title: 'Parishes', icon:'home_work'}">
+        :link="{title: 'Parishes', icon:'home'}">
         <sidebar-link
             is-active="{{ Request::is('dashboard/parishes') ? 'active' : 'inactive' }}"
             to="/dashboard/parishes">

@@ -10,6 +10,14 @@
     <top-navbar-component
         current-page-title="Parishes"
     ></top-navbar-component>
+@elseif (Request::is('dashboard/zones'))
+    <top-navbar-component
+        current-page-title="Zones"
+    ></top-navbar-component>
+@elseif (Request::is('dashboard/communities'))
+    <top-navbar-component
+        current-page-title="Communities"
+    ></top-navbar-component>
 @elseif (Request::is('dashboard/givings'))
     <top-navbar-component
         current-page-title="Givings"

@@ -26,6 +26,7 @@
                     </div>
                 </div>
             </div>
+            @include('layouts.global-spinner')
         </div>
         <!-- Scripts -->
     </body>
