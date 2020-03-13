@@ -57,6 +57,25 @@ const actions = {
             });
         });
     },
+    deleteParish({ commit }, parish) {
+        return new Promise((resolve, reject) => {
+                axios({
+                method: 'DELETE',
+                url: '/rest/secured/parishes/' + parish.id,
+                data: {}
+            }).then((response) => {
+                const data = response.data;
+                resolve(data);
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
+        });
+    },
     loadParishes({commit}){
         const url = '/rest/secured/parishes';
         axios.get(url)

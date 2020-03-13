@@ -30,6 +30,25 @@ const actions = {
         });
         });
     },
+    deletePatron({ commit }, patron) {
+        return new Promise((resolve, reject) => {
+                axios({
+                method: 'DELETE',
+                url: '/rest/secured/patrons/' + patron.id,
+                data: {}
+            }).then((response) => {
+                const data = response.data;
+                resolve(data);
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
+        });
+    },
     loadPatrons({commit}, pagination){
         commit('setLoading', true);
         const url = '/rest/secured/patrons?page='+ pagination.currentPage + '&perPage=' + pagination.perPage + '&sortType='+ pagination.sortType + '&sortField=' + pagination.sortField;

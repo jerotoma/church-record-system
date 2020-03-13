@@ -65,6 +65,10 @@
                     @onDialogClose = "onDialogClosed"
                     :member="member"
                 ></member-edit-component>
+                <dialog-confirm-component
+                    :show-dialog = "showDeleteDialog"
+                    @onActionConfirm = "onConfirm"
+                ></dialog-confirm-component>
             </div>
         </div>
   </div>
@@ -87,7 +91,8 @@ export default {
             'members',
             'member',
             'showCreateDialog',
-            'showEditDialog'
+            'showEditDialog',
+            'showDeleteDialog',
         ]),
     },
     components: {
@@ -145,6 +150,7 @@ export default {
             this.$store.commit('setShowCreateDialog', true);
         },
         onDialogClosed() {
+            this.$store.commit('setShowDeleteDialog', false);
             this.$store.commit('setShowEditDialog', false);
             this.$store.commit('setShowCreateDialog', false);
             this.loadMembers();
@@ -173,7 +179,18 @@ export default {
 
         },
         deleteModal(member) {
-
+            this.$store.commit('setMember', member);
+            this.$store.commit('setShowDeleteDialog', true);
+        },
+        onConfirm(event) {
+            this.$store.commit('setShowDeleteDialog', false);
+            if (event.confirmed) {
+                this.$store.dispatch('deleteMember', this.member).then((response) => {
+                    this.loadMembers();
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }
         }
     },
     created() {

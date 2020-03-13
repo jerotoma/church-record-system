@@ -197,9 +197,31 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        if (!is_numeric($id)) {
+            return response()->json([
+                'memberId' => $id,
+                'success' => false,
+                'message' => 'Invalid member ID: '.$id. ' was given.'
+            ], 404);
+        }
+
+        $member = Member::find($id);
+
+        if ($member == null) {
+            return response()->json([
+                'memberId' => $id,
+                'success' => false,
+                'message' => 'The Member of ID: '.$id. ' doesn\'t  exist.'
+            ], 404);
+        }
+
+        $member->delete();
+        return response()->json([
+            'memberId' => $id,
+            'success' => true,
+            'message' => 'The Member of ID: '.$id. ' has been deleted'
+        ], 200);
     }
 
     public function loadMembers() {

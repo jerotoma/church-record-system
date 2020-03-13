@@ -81,6 +81,25 @@ const state = {
             });
         });
     },
+    deleteMember({ commit }, member) {
+        return new Promise((resolve, reject) => {
+                axios({
+                method: 'DELETE',
+                url: '/rest/secured/members/' + member.id,
+                data: {}
+            }).then((response) => {
+                const data = response.data;
+                resolve(data);
+            }).catch((error) => {
+                const resp = error.response;
+                //console.log(resp);
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
+        });
+    }
   }
 
   // mutations

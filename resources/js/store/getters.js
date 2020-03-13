@@ -5,6 +5,7 @@ const getters = {
     pagination: state => state.pagination,
     showEditDialog: state => state.showEditDialog,
     showCreateDialog: state => state.showCreateDialog,
+    showDeleteDialog: state => state.showDeleteDialog,
 };
 
 export default getters;

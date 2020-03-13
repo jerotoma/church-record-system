@@ -5,7 +5,12 @@
                 <md-card>
                    <md-card-content>
                         <div class="md-layout">
-                            <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
+                            <div class="md-layout-item md-size-50 text-right">
+                                <div class="md-layout">
+
+                                </div>
+                            </div>
+                            <div class="md-layout-item md-size-50 text-right" style="padding-right:0;">
                                 <md-button class="md-raised md-success" @click="createPatronModal()">Add Patron</md-button>
                             </div>
                         </div>
@@ -31,6 +36,9 @@
                                 perPage: pagination.perPage,
                                 perPageDropdown: [15, 30, 45, 60],
                             }">
+                            <div slot="table-actions">
+
+                            </div>
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'action'">
                                     <md-menu md-size="small" md-align-trigger>
@@ -104,6 +112,7 @@ export default {
     return {
       selected: [],
       showCreateModal: false,
+      givingType: '',
       columns: [
         {
           label: 'Full Name',

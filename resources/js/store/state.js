@@ -4,6 +4,7 @@ const state = {
     message: '',
     showEditDialog: false,
     showCreateDialog: false,
+    showDeleteDialog: false,
     pagination: {
         currentPage: 1,
         firstPageUrl: '',

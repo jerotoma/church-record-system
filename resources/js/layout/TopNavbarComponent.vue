@@ -20,8 +20,7 @@
             <md-autocomplete
               class="search"
               v-model="selectedEmployee"
-              :md-options="employees"
-            >
+              :md-options="employees">
               <label>Search...</label>
             </md-autocomplete>
           </div>

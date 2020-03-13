@@ -1,5 +1,5 @@
 // Sidebar on the right. Used as a local plugin in DashboardLayout.vue
-import SideBar from "./shared/SidebarPlugin";
+import SideBar from "./layout/SidebarPlugin";
 
 // asset imports
 import VueMaterial from "vue-material";

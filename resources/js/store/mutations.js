@@ -14,6 +14,9 @@ const mutations =  {
     setShowEditDialog(state, showEditDialog) {
         state.showEditDialog = showEditDialog;
     },
+    setShowDeleteDialog(state, showDeleteDialog) {
+        state.showDeleteDialog = showDeleteDialog;
+    },
     setShowCreateDialog(state, showCreateDialog) {
         state.showCreateDialog= showCreateDialog;
     }

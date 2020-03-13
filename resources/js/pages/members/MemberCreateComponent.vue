@@ -159,7 +159,7 @@
                         <md-button type="submit" class="md-primary" :disabled="isLoading">Create member</md-button>
                     </md-card-actions>
                 </md-card>
-                <md-snackbar md-position="center" class="md-success" :md-active.sync="userSaved">The member {{ lastUser }} was saved with success!</md-snackbar>
+               <!-- <md-snackbar md-position="center" class="md-success" :md-active.sync="userSaved">The member {{ lastUser }} was saved with success!</md-snackbar> -->
             </form>
         </md-dialog>
   </div>
@@ -200,20 +200,16 @@ export default {
 
     data: () => ({
         form: memberForm,
-        userSaved: false,
-        //isLoading: false,
-        lastUser: null,
     }),
     validations: {
         form: memberRequiredFields,
     },
     methods: {
         closeDialog() {
-        this.$emit("onDialogClose", {showDialog: false});
+            this.$emit("onDialogClose", {showDialog: false});
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];
-
             if (field) {
                 return {
                     'md-invalid': field.$invalid && field.$dirty
