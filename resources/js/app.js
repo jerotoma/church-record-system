@@ -42,6 +42,9 @@ Vue.component('mobile-menu-component', require('./layout/MobileMenuComponent.vue
 
 Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').default);
 
+Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
+Vue.component('user-show-component', require('./pages/users/UserShowComponent.vue').default);
+
 Vue.component('member-view-component', require('./pages/members/MemberViewComponent.vue').default);
 Vue.component('member-show-component', require('./pages/members/MemberShowComponent.vue').default);
 

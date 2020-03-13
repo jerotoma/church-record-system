@@ -22,6 +22,10 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@index');
 
     //Member
+    Route::resource('/users', 'UserController')->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
+
     Route::resource('/members', 'MemberController')->except([
         'create', 'store', 'update', 'destroy'
     ]);
@@ -49,6 +53,12 @@ Route::prefix('dashboard')->group(function () {
 });
 
 Route::prefix('rest/secured')->group(function () {
+    //Users
+    Route::get('/users', 'UserController@loadUsers');
+    Route::post('/users', 'UserController@store');
+    Route::delete('/users/{id}', 'UserController@destroy');
+    Route::put('/users', 'UserController@update');
+
     //Members
     Route::get('/members', 'MemberController@loadMembers');
     Route::post('/members', 'MemberController@store');

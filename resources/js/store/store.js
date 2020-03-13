@@ -6,7 +6,7 @@ import getters from './getters';
 import actions from './actions';
 
 import auth from './modules/auth';
-import users from './modules/users';
+import user from './modules/user';
 import member from './modules/member';
 import zone from './modules/zone';
 import community from './modules/community';
@@ -17,18 +17,18 @@ import giving from './modules/giving';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: {
-    users,
-    auth,
-    parish,
-    zone,
-    community,
-    member,
-    giving,
-    patron,
-  },
-  state,
-  getters,
-  mutations,
-  actions,
+    modules: {
+        user,
+        auth,
+        parish,
+        zone,
+        community,
+        member,
+        giving,
+        patron,
+    },
+    state,
+    getters,
+    mutations,
+    actions,
 })

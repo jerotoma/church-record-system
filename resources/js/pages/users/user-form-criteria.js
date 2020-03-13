@@ -5,7 +5,7 @@ import {
     maxLength,
     sameAs,
 } from 'vuelidate/lib/validators';
-export const memberRequiredFields = {
+export const userRequiredFields = {
     firstName: {
         required: required,
         minLength: minLength(3)
@@ -48,7 +48,7 @@ export const memberRequiredFields = {
     }
 };
 
-export const memberForm = {
+export const userForm = {
     firstName: null,
     lastName: null,
     username: null,

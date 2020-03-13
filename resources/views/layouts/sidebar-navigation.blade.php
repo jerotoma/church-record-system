@@ -11,6 +11,12 @@
         <p>Dashboard</p>
     </sidebar-link>
     <sidebar-link
+        is-active="{{ Request::is('dashboard/users') ? 'active' : 'inactive' }}"
+        to="/dashboard/users">
+        <md-icon>people</md-icon>
+        <p>Users</p>
+    </sidebar-link>
+    <sidebar-link
         is-active="{{ Request::is('dashboard/members') ? 'active' : 'inactive' }}"
         to="/dashboard/members">
         <md-icon>people</md-icon>
