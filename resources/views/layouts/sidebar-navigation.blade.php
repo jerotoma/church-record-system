@@ -58,22 +58,29 @@
             <p>List of Communities</p>
         </sidebar-link>
     </collapsable-sidebar-link>
-    <sidebar-link
-        is-active="{{ Request::is('dashboard/maps') ? 'active' : 'inactive' }}"
-        to="/dashboard/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
-    </sidebar-link>
-    <sidebar-link
-        is-active="{{ Request::is('dashboard/notifications') ? 'active' : 'inactive'}}"
-        to="/dashboard/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-    </sidebar-link>
-    <sidebar-link
-        is-active="{{ Request::is('dashboard/upgrade') ? 'active' : 'inactive' }}"
-        to="/dashboard/upgrade" class="active-pro">
-        <md-icon>unarchive</md-icon>
-        <p>Upgrade to PRO</p>
-    </sidebar-link>
+    <collapsable-sidebar-link
+        is-active="{{
+            Request::is('dashboard/settings') ||
+            Request::is('dashboard/settings') ||
+            Request::is('dashboard/settings')
+            ? 'active' : 'inactive'
+        }}"
+        :has-active-pro="'active'"
+        :link="{title: 'System Settings', icon:'settings'}">
+        <sidebar-link
+            is-active="{{ Request::is('dashboard/settings') ? 'active' : 'inactive' }}"
+            to="/dashboard/parishes">
+            <p>List of Parishes</p>
+        </sidebar-link>
+        <sidebar-link
+            is-active="{{ Request::is('dashboard/settings') ? 'active' : 'inactive' }}"
+            to="/dashboard/zones">
+            <p>List of Zones</p>
+        </sidebar-link>
+        <sidebar-link
+            is-active="{{ Request::is('dashboard/settings') ? 'active' : 'inactive' }}"
+            to="/dashboard/communities">
+            <p>List of Communities</p>
+        </sidebar-link>
+    </collapsable-sidebar-link>
 </side-bar>

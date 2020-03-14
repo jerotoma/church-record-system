@@ -6,10 +6,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens;
+    use Notifiable;
+    use HasRoleAndPermission;
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +21,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'user_id',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'email',
+        'phone',
         'username',
         'password',
         'confirmed',
@@ -43,18 +53,13 @@ class User extends Authenticatable
         'username_verified_at' => 'datetime',
     ];
 
-    public function member() {
-        return $this->hasOne('App\Member');
-    }
-
     /**
      * Find the user instance for the given username.
      *
      * @param  string  $username
      * @return \App\User
      */
-    public function findForPassport($username)
-    {
+    public function findForPassport($username)    {
         return $this->where('username', $username)->first();
     }
 }

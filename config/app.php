@@ -176,6 +176,13 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
 
+
+
+         /**
+         * Third Party Service Providers...
+         */
+        jeremykenedy\LaravelRoles\RolesServiceProvider::class,
+
     ],
 
     /*

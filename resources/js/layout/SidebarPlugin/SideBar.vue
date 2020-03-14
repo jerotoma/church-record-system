@@ -16,7 +16,7 @@
     </div>
     <div class="sidebar-wrapper">
       <slot name="content"></slot>
-      <md-list class="nav">
+      <md-list class="nav" :md-expand-single="expandSingle">
         <slot>
           <sidebar-link
             v-for="(link, index) in sidebarLinks"
@@ -50,6 +50,10 @@ export default {
     imgLogo: {
       type: String,
       default: '/storage/assets/img/vue-logo.png',
+    },
+    expandSingle: {
+        type: Boolean,
+        default:true,
     },
     activeColor: {
       type: String,

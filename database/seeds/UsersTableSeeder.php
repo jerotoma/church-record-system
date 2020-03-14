@@ -12,16 +12,10 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        DB::table('users')->insert([
-            'confirmed' => false,
-            'enabled' => false,
-            'locked' => false,
-            'username' => 'otomang',
-            'password' => Hash::make('vimmak'),
-        ]);
-
-        factory(App\User::class, 2)->create();
+    public function run() {
+        factory(App\User::class, 10)->create()->each(function ($user) {
+            $role = config('roles.models.role')::where('name', '=', 'User')->first();  //choose the default role upon user creation.
+            $user->attachRole($role);
+        });;
     }
 }

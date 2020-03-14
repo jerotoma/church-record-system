@@ -2,7 +2,7 @@
     <md-list-item
         :md-expanded="isActive !== 'inactive'"
         :md-expand="true"
-        class="collapsable-item">
+        class="collapsable-item" :class="{'active-pro': hasActivePro == 'active'}">
         <md-icon>{{link.icon}}</md-icon>
         <p>{{link.title}}</p>
         <md-list slot="md-expand">
@@ -46,10 +46,10 @@ export default {
         type: String,
         default: 'inactive'
     },
-    hasChildren: {
-        type: Boolean,
-        default: false,
-    }
+    hasActivePro: {
+        type: String,
+        default: 'inactive',
+    },
   },
   methods: {
     hideSidebar() {

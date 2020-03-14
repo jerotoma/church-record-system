@@ -76,7 +76,6 @@ const app = new Vue({
         hideGlobalSpinner(){
             let globalSpinner = this.$refs.recordGlobalSpinner;//['record-global-spinner'];
             globalSpinner.style.display = 'none';
-            console.log(globalSpinner.style.display);
         }
     },
     mounted() {

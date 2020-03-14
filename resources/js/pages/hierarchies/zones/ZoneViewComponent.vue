@@ -5,10 +5,7 @@
                 <md-card>
                    <md-card-content>
                         <div class="md-layout">
-                            <div class="md-layout-item md-size-50 text-left">
-                                <h4 class="md-title text-sucess">Zone List</h4>
-                            </div>
-                            <div class="md-layout-item md-size-50 text-right" style="padding-right:0;">
+                            <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
                                 <md-button class="md-raised md-primary" @click="viewParishesModal()">View Parishes</md-button>
                                 <md-button class="md-raised md-primary" @click="viewCommunitiesModal()">View Communities</md-button>
                                 <md-button class="md-raised md-success" @click="createZoneModal()">Add Zone</md-button>

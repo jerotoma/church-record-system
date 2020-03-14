@@ -95,15 +95,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+
     }
 
     public function loadUsers() {
         $items = array();
         $users = User::all();
+
         foreach ($users as $user) {
+           // dd($user->getRoles());
             $items[] = UserUtility::mapUser($user);
         }
 
