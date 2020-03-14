@@ -68,6 +68,7 @@ export default {
     },
     data() {
         return {
+            openNavigation: null,
             selectedEmployee: null,
             employees: [
                 "Jim Halpert",
@@ -83,8 +84,11 @@ export default {
     },
     methods: {
         toggleSidebar() {
-            console.log(this.$sidebar.showSidebar);
+           // console.log(this.$sidebar.showSidebar);
             this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+
+
+           // openNavigation.className = this.$sidebar.showSidebar ? 'open-nav' : '';
         },
         goToLink(path) {
             if (path == 'logout') {
@@ -100,7 +104,11 @@ export default {
                 console.log(error);
             });
         }
+    },
+    mounted() {
+
     }
+
 };
 </script>
 

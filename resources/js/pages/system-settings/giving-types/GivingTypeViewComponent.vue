@@ -6,15 +6,15 @@
                    <md-card-content>
                         <div class="md-layout">
                             <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
-                                <md-button class="md-raised md-success" @click="createGivingModal()">Add Giving</md-button>
+                                <md-button class="md-raised md-success" @click="createGivingModal()">Add Giving Type</md-button>
                             </div>
                         </div>
                         <vue-good-table
                             :columns="columns"
-                            :rows="givings"
+                            :rows="givingTypes"
                             :search-options="{
                                 enabled: true,
-                                placeholder: 'Search this giving',
+                                placeholder: 'Search this giving type',
                             }">
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'action'">
@@ -45,31 +45,31 @@
                         </vue-good-table>
                     </md-card-content>
                 </md-card>
-                <giving-create-component
+                <giving-type-create-component
                     :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
-                ></giving-create-component>
-                <giving-edit-component
-                    v-if="giving.id"
-                    :giving="giving"
+                ></giving-type-create-component>
+                <giving-type-edit-component
+                    v-if="givingType.id"
+                    :givingType="givingType"
                     :show-edit-dialog = "showEditDialog"
                     @onDialogClose = "onDialogClosed"
-                ></giving-edit-component>
+                ></giving-type-edit-component>
             </div>
         </div>
   </div>
 </template>
 <script>
-import GivingCreateComponent from './GivingCreateComponent.vue';
-import GivingEditComponent from './GivingEditComponent.vue';
+import GivingTypeCreateComponent from './GivingTypeCreateComponent.vue';
+import GivingTypeEditComponent from './GivingTypeEditComponent.vue';
 import { mapGetters } from 'vuex';
 
 export default {
     name: "giving-view-table",
     computed:{
         ...mapGetters([
-            'givings',
-            'giving',
+            'givingTypes',
+            'givingType',
             'showCreateDialog',
             'showEditDialog'
         ]),
@@ -81,8 +81,8 @@ export default {
         }
     },
     components: {
-            'giving-create-component': GivingCreateComponent,
-            'giving-edit-component': GivingEditComponent,
+            'giving-type-create-component': GivingTypeCreateComponent,
+            'giving-type-edit-component': GivingTypeEditComponent,
     },
     data() {
         return {
@@ -130,26 +130,26 @@ export default {
             this.loadGivings();
         },
         loadGivings() {
-            this.$store.dispatch('loadGivings');
+            this.$store.dispatch('loadGivingTypes');
         },
-        performAction(actionType, giving) {
+        performAction(actionType, givingType) {
             switch(actionType) {
             case 'view':
-                window.location.assign('/dashboard/givings/'+ giving.id);
+                window.location.assign('/dashboard/giving-types/'+ givingType.id);
                 break;
             case 'edit':
-                this.editModal(giving);
+                this.editModal(givingType);
                 break;
             case 'delete':
-                this.deleteModal(giving);
+                this.deleteModal(givingType);
                 break;
             }
         },
-        editModal(giving) {
-            this.$store.commit('setGiving', giving);
+        editModal(givingType) {
+            this.$store.commit('setGivingType', givingType);
             this.$store.commit('setShowEditDialog', true);
         },
-        deleteModal(giving) {
+        deleteModal(givingType) {
 
         }
     },

@@ -22,6 +22,10 @@
     <top-navbar-component
         current-page-title="Givings"
     ></top-navbar-component>
+@elseif (Request::is('dashboard/giving-types'))
+    <top-navbar-component
+        current-page-title="Giving Types"
+    ></top-navbar-component>
 @elseif (Request::is('dashboard/patrons'))
     <top-navbar-component
         current-page-title="Patrons"

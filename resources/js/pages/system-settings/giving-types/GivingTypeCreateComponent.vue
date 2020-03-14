@@ -8,7 +8,7 @@
                 <form novalidate class="md-layout" @submit.prevent="validateUser()">
                     <md-card>
                         <md-card-header  :data-background-color="dataBackgroundColor">
-                            <div class="md-title">Add New Giving</div>
+                            <div class="md-title">Add New Giving Type</div>
                             <div class="md-subhead">Please fill all required details</div>
                         </md-card-header>
                         <md-card-content>
@@ -92,11 +92,11 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import { givingForm, givingRequiredFields } from './giving-form-criteria';
+import { givingTypeForm, givingTypeRequiredFields } from './giving-type-form-criteria';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'giving-create-component',
+    name: 'giving-type-create-component',
     mixins: [validationMixin],
     computed: {
         ...mapGetters([
@@ -120,13 +120,13 @@ export default {
         }
     },
     data: () => ({
-        form: givingForm,
+        form: givingTypeForm,
         userSaved: false,
         sending: false,
         lastUser: null,
     }),
     validations: {
-        form: givingRequiredFields,
+        form: givingTypeRequiredFields,
     },
     methods: {
         closeDialog() {
@@ -153,7 +153,7 @@ export default {
             this. closeDialog();
         },
         createGiving () {
-             this.$store.dispatch('postGiving', this.form)
+             this.$store.dispatch('postGivingType', this.form)
              .then((response) => {
                  this.clearForm();
              }).catch((error) => {

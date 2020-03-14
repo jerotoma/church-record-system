@@ -27,38 +27,6 @@ Vue.use(GlobalDirectives);
 Vue.use(GlobalVueGoodTable);
 Vue.use(Notifications);
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
- //Global Components
-Vue.component('top-navbar-component', require('./layout/TopNavbarComponent.vue').default);
-Vue.component('footer-component', require('./layout/FooterComponent.vue').default);
-Vue.component('mobile-menu-component', require('./layout/MobileMenuComponent.vue').default);
-
-Vue.component('dashboard-component', require('./pages/DashboardComponent.vue').default);
-
-Vue.component('user-view-component', require('./pages/users/UserViewComponent.vue').default);
-Vue.component('user-show-component', require('./pages/users/UserShowComponent.vue').default);
-
-Vue.component('member-view-component', require('./pages/members/MemberViewComponent.vue').default);
-Vue.component('member-show-component', require('./pages/members/MemberShowComponent.vue').default);
-
-Vue.component('community-view-component', require('./pages/hierarchies/communities/CommunityViewComponent.vue').default);
-Vue.component('zone-view-component', require('./pages/hierarchies/zones/ZoneViewComponent.vue').default);
-Vue.component('parish-view-component', require('./pages/hierarchies/parishes/ParishViewComponent.vue').default);
-
-Vue.component('giving-view-component', require('./pages/givings/GivingViewComponent.vue').default);
-
-Vue.component('patron-view-component', require('./pages/patrons/PatronViewComponent.vue').default);
-
-Vue.component('login-component', require('./auth/LoginComponent.vue').default);
-
-
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -70,7 +38,14 @@ const app = new Vue({
     el: '#app',
     store,
     data: {
-        Chartist: Chartist
+        Chartist: Chartist,
+    },
+    watch: {
+        showSidebar: {
+            handler(newVal, oldVal){
+                console.log(newVal);
+            }
+        }
     },
     methods: {
         hideGlobalSpinner(){

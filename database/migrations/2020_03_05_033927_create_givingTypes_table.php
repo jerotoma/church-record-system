@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGivingsTable extends Migration
+class CreateGivingTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGivingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('givings', function (Blueprint $table) {
+        Schema::create('giving_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('amount');
@@ -32,6 +32,6 @@ class CreateGivingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('givings');
+        Schema::dropIfExists('giving_types');
     }
 }

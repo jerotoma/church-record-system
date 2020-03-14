@@ -1,5 +1,5 @@
 const state = {
-    giving: {
+    givingType: {
         id: null,
         name: null,
         amount: null,
@@ -8,18 +8,18 @@ const state = {
         description: null,
         targetNumber: null,
     },
-    givings: [],
+    givingTypes: [],
 };
 const getters = {
-    giving: state => state.giving,
-    givings: state => state.givings,
+    givingType: state => state.givingType,
+    givingTypes: state => state.givingTypes,
 };
 const actions = {
-    postGiving({commit}, giving) {
+    postGivingType({commit}, giving) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
-        const url = '/rest/secured/givings';
+        const url = '/rest/secured/giving-types';
         return new Promise((resolve, reject) => {
             axios.post(url, giving)
         .then((response) => {
@@ -38,11 +38,11 @@ const actions = {
         });
         });
     },
-    updateGiving({commit}, giving) {
+    updateGivingType({commit}, giving) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
-        const url = '/rest/secured/givings';
+        const url = '/rest/secured/giving-types';
         return new Promise((resolve, reject) => {
             axios.put(url, giving)
             .then((response) => {
@@ -61,11 +61,11 @@ const actions = {
         });
         });
     },
-    loadGivings({commit}){
-        const url = '/rest/secured/givings';
+    loadGivingTypes({commit}){
+        const url = '/rest/secured/giving-types';
         axios.get(url)
         .then((response) => {
-          commit("setGivings", response.data.givings);
+          commit("setGivingTypes", response.data.givingTypes);
         }).catch((error) => {
             console.log(error);
         });
@@ -73,11 +73,11 @@ const actions = {
     },
 };
 const mutations = {
-    setGiving(state, giving){
-        state.giving = giving;
+    setGivingType(state, givingType){
+        state.givingType = givingType;
     },
-    setGivings(state, givings){
-        state.givings = givings;
+    setGivingTypes(state, givingTypes){
+        state.givingTypes = givingTypes;
     },
 };
 

@@ -27,7 +27,7 @@ class Patron extends Model {
     /**
      * The givings that belong to the member.
      */
-    public function giving() {
-        return $this->belongsTo('App\Giving');
+    public function givingType() {
+        return $this->belongsTo('App\GivingType');
     }
 }

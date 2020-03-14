@@ -11,15 +11,14 @@
     </head>
     <body>
         <div id="app">
-            <div class="wrapper nav-open">
-                <notifications></notifications>
-                @include('layouts.sidebar-navigation')
+            <dashboard-layout-component>
+                @include('layouts.sidebar-nav')
                 <div class="main-panel">
-                    @include('layouts.top-navigation')
+                    @include('layouts.top-navbar')
                     @yield('content')
                     <footer-component></footer-component>
                 </div>
-            </div>
+            </dashboard-layout-component>
             @include('layouts.global-spinner')
         </div>
         <!-- Scripts -->

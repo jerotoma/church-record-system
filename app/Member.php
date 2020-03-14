@@ -20,7 +20,6 @@ class Member extends Model {
         'occupation',
         'phone_number',
         'community_id'
-
     ];
 
     /**

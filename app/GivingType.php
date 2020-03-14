@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Giving extends Model {
+class GivingType extends Model {
     protected $fillable = [
         'name',
         'amount',

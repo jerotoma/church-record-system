@@ -104,8 +104,7 @@ class UserController extends Controller
         $users = User::all();
 
         foreach ($users as $user) {
-           // dd($user->getRoles());
-            $items[] = UserUtility::mapUser($user);
+          $items[] = UserUtility::mapUser($user);
         }
 
         return response()->json(['users' => $items]);
