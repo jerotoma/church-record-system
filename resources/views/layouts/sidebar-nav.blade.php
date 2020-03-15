@@ -21,17 +21,17 @@
         <sidebar-link
             is-active="{{ Request::is('dashboard/parishes') ? 'active' : 'inactive' }}"
             to="/dashboard/parishes">
-            <p>List of Parishes</p>
+            <p>Parishes</p>
         </sidebar-link>
         <sidebar-link
             is-active="{{ Request::is('dashboard/zones') ? 'active' : 'inactive' }}"
             to="/dashboard/zones">
-            <p>List of Zones</p>
+            <p>Zones</p>
         </sidebar-link>
         <sidebar-link
             is-active="{{ Request::is('dashboard/communities') ? 'active' : 'inactive' }}"
             to="/dashboard/communities">
-            <p>List of Communities</p>
+            <p>Communities</p>
         </sidebar-link>
     </collapsable-sidebar-link>
     <collapsable-sidebar-link

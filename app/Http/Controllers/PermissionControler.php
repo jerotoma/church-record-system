@@ -4,27 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SecurityController extends Controller {
-
-    private $baseDirViewPath = 'dashboard.system-settings.securities';
-
-
+class PermissionControler extends Controller
+{
     /**
-    * Create a new controller instance.
-    *
-    * @return void
-    */
-    public function __construct() {
-       $this->middleware('auth');
-    }
-
-    /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function index() {
-        return view($this->baseDirViewPath . '.view');
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
     }
 
     /**
@@ -32,8 +21,9 @@ class SecurityController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-
+    public function create()
+    {
+        //
     }
 
     /**

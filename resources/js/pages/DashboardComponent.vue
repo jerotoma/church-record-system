@@ -202,22 +202,8 @@
 </template>
 
 <script>
-import {
-  StatsCard,
-  ChartCard,
-  NavTabsCard,
-  NavTabsTable,
-  OrderedTable
-} from "../shared";
 
 export default {
-  components: {
-    StatsCard,
-    ChartCard,
-    NavTabsCard,
-    NavTabsTable,
-    OrderedTable
-  },
   data() {
     return {
       dailySalesChart: {

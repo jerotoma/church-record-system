@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-   <!-- <member-view-component></member-view-component> -->
+  <security-view-component></security-view-component>
 @endsection

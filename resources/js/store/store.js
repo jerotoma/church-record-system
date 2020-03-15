@@ -13,6 +13,8 @@ import community from './modules/community';
 import parish from './modules/parish';
 import giving from './modules/giving';
 import givingType from './modules/giving-type';
+import permission from './modules/permission';
+import role from './modules/role';
 
 Vue.use(Vuex)
 
@@ -26,6 +28,8 @@ export default new Vuex.Store({
         member,
         givingType,
         giving,
+        permission,
+        role
     },
     state,
     getters,

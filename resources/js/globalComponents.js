@@ -12,12 +12,19 @@ import MemberViewComponent from './pages/members/MemberViewComponent.vue';
 import MemberShowComponent from './pages/members/MemberShowComponent.vue';
 import CommunityViewComponent from './pages/hierarchies/communities/CommunityViewComponent.vue';
 import ZoneViewComponent from './pages/hierarchies/zones/ZoneViewComponent.vue';
-
+import SecurityViewComponent from './pages/system-settings/securities/SecurityViewComponent.vue';
 
 import ParishViewComponent from './pages/hierarchies/parishes/ParishViewComponent.vue';
 import GivingTypeViewComponent from './pages/system-settings/giving-types/GivingTypeViewComponent.vue';
 import GivingViewComponent from './pages/contributions/givings/GivingViewComponent.vue';
 import LoginComponent from './auth/LoginComponent.vue';
+import {
+    StatsCard,
+    ChartCard,
+    NavTabsCard,
+    NavTabsTable,
+    OrderedTable
+  } from './shared';
 
 /**
  * You can register global components here and use them as a plugin in your main Vue instance
@@ -44,12 +51,19 @@ const GlobalComponents = {
     Vue.component('community-view-component', CommunityViewComponent);
     Vue.component('zone-view-component', ZoneViewComponent);
     Vue.component('parish-view-component', ParishViewComponent);
+    Vue.component('security-view-component', SecurityViewComponent );
 
     Vue.component('giving-type-view-component', GivingTypeViewComponent);
 
     Vue.component('giving-view-component', GivingViewComponent);
 
     Vue.component('login-component', LoginComponent);
+
+    Vue.component('stats-card', StatsCard);
+    Vue.component('chart-card', ChartCard);
+    Vue.component('nav-tabs-card', NavTabsCard);
+    Vue.component('nav-tabs-table', NavTabsTable);
+    Vue.component('ordered-table', OrderedTable);
 
   }
 };
