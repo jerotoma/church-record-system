@@ -1,20 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\securities;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SystemSetUpController extends Controller
-{
+class SecurityController extends Controller {
+
+    private $baseDirViewPath = 'dashboard.system-settings.securities';
+
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct() {
+       $this->middleware('auth');
+    }
+
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function index() {
+        return view($this->baseDirViewPath . '.view');
     }
 
     /**

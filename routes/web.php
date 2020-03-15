@@ -52,6 +52,16 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('givings', 'GivingController')->only([
         'index', 'show'
     ]);
+
+    //Settings
+    Route::resource('settings', 'GeneralSettingController')->only([
+        'index', 'show'
+    ]);
+
+     //Settings
+     Route::resource('securities', 'SecurityController')->only([
+        'index', 'show'
+    ]);
 });
 
 Route::prefix('rest/secured')->group(function () {

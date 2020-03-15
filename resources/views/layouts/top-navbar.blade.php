@@ -22,6 +22,14 @@
     <top-navbar-component
         current-page-title="Givings"
     ></top-navbar-component>
+@elseif (Request::is('dashboard/settings'))
+    <top-navbar-component
+        current-page-title="General Settings"
+    ></top-navbar-component>
+@elseif (Request::is('dashboard/securities'))
+    <top-navbar-component
+        current-page-title="System Securities"
+    ></top-navbar-component>
 @elseif (Request::is('dashboard/giving-types'))
     <top-navbar-component
         current-page-title="Giving Types"
