@@ -53,21 +53,22 @@ class GivingController extends Controller
     * @return \Illuminate\Http\Response
     */
    public function store(Request $request) {
-       $request->validate([
-           'memberIds' => 'required|min:1|array',
-           'givingTypeId' => 'required|min:1',
-           'amount' => 'required|numeric',
-           'datePaid' => 'required|date',
-       ]);
+        $giving = '';
+        $request->validate([
+            'memberIds' => 'required|min:1|array',
+            'givingTypeId' => 'required|min:1',
+            'amount' => 'required|numeric',
+            'datePaid' => 'required|date',
+        ]);
 
-       foreach ($request->memberIds as $key =>  $memberId) {
-           $giving = Giving::create([
-               'member_id' => $memberId,
-               'giving_type_id' => $request->givingTypeId,
-               'amount' => $request->amount,
-               'date_paid' => $request->datePaid,
-           ]);
-       }
+        foreach ($request->memberIds as $key =>  $memberId) {
+            $giving = Giving::create([
+                'member_id' => $memberId,
+                'giving_type_id' => $request->givingTypeId,
+                'amount' => $request->amount,
+                'date_paid' => $request->datePaid,
+            ]);
+        }
     return response()->json(['giving'=> $giving]);
    }
 

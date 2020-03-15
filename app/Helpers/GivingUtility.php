@@ -22,15 +22,15 @@ class GivingUtility {
     public static function mapGiving(Giving $giving) {
 
         $member = MemberUtility::mapMember($giving->member);
-        $giving = GivingTypeUtility::mapGiving($giving->givingType);
+        $givingType = GivingTypeUtility::mapGivingType($giving->givingType);
 
         return [
             'id' => $giving->id,
             'member' => $member,
-            'giving' => $giving,
+            'givingType' => $givingType,
             'fullName' => $member['firstName'] . ' ' . $member['lastName'],
             'amount' => $giving->amount,
-            'givingType' => $giving['name'],
+            'givingTypeName' => $giving->givingType->name,
             'zone' => $member['community']['zone']['name'],
             'community' => $member['community']['name'],
             'datePaid' => $giving->date_paid,

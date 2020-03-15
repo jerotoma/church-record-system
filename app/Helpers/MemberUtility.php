@@ -4,7 +4,6 @@ namespace  App\Helpers;
 use App\Member;
 use App\Helpers\AddressUtility;
 use App\Helpers\HelperUtility;
-use \stdClass;
 
 class MemberUtility {
 

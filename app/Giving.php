@@ -13,7 +13,7 @@ class Giving extends Model {
      */
     protected $fillable = [
         'member_id',
-        'giving_id',
+        'giving_type_id',
         'amount',
         'date_paid',
     ];

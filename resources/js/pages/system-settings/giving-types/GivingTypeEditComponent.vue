@@ -158,7 +158,7 @@ export default {
             this.form.id = null;
         },
         editGiving () {
-             this.$store.dispatch('updateGiving', this.form)
+             this.$store.dispatch('updateGivingType', this.form)
              .then((response) => {
                 this.closeDialog();
              }).catch((error) => {

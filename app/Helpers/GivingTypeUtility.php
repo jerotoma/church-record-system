@@ -2,10 +2,15 @@
 namespace  App\Helpers;
 
 use App\GivingType;
+use App\Helpers\HelperUtility;
 
 class GivingTypeUtility {
 
     public static function mapGivingType(GivingType $givingType){
+
+
+       // $givingType = HelperUtility::arrayToObject($givingType);
+       // dd(HelperUtility::arrayToObject($givingType[]));
         return [
             'id'  => $givingType->id,
             'name'  => $givingType->name,

@@ -64,6 +64,9 @@
                                 <span v-else-if="props.column.field == 'datePaid'">
                                     <span class="text-primary">{{props.row.datePaid | moment("MMMM Do, YYYY")}}</span>
                                 </span>
+                                 <span v-else-if="props.column.field == 'givingType'">
+                                    <span class="text-primary">{{props.row.givingType.name}}</span>
+                                </span>
                                 <span v-else>
                                     {{props.formattedRow[props.column.field]}}
                                 </span>
