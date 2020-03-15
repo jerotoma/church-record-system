@@ -7,7 +7,7 @@
             <form novalidate class="md-layout" @submit.prevent="validateUser()">
                 <md-card>
                     <md-card-header  :data-background-color="dataBackgroundColor">
-                        <div class="md-title">Add New Patron</div>
+                        <div class="md-title">Add New Giving</div>
                         <div class="md-subhead">Please fill all required details</div>
                     </md-card-header>
                     <md-card-content>
@@ -34,18 +34,18 @@
                                         </md-list>
                                     </md-content>
                                     <md-field>
-                                        <label for="parish-id">Giving Type</label>
+                                        <label for="giving-type-id">Giving Type</label>
                                         <md-select
-                                            v-model="form.givingId"
-                                            name="form.givingId"
-                                            id="giving-id">
+                                            v-model="form.givingTypeId"
+                                            name="form.givingTypeId"
+                                            id="giving-type-id">
                                             <md-option
-                                            v-for="(giving, givingIndex) in givings" :key="givingIndex"
-                                            :value="giving.id">
-                                                {{giving.name}}
+                                            v-for="(givingType, givingTypeIndex) in givingTypes" :key="givingTypeIndex"
+                                            :value="givingType.id">
+                                                {{givingType.name}}
                                             </md-option>
                                         </md-select>
-                                        <span class="md-error" v-if="!$v.form.givingId.required">The parish is required</span>
+                                        <span class="md-error" v-if="!$v.form.givingTypeId.required">The giving type is required</span>
                                     </md-field>
                                 </div>
 
@@ -53,8 +53,8 @@
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
                                     <md-field :class="getValidationClass('amount')">
-                                        <label for="fform-amount">Amount</label>
-                                        <md-input id="fform-amount" v-model="form.amount" type="text" :disabled="isLoading"></md-input>
+                                        <label for="form-amount">Amount</label>
+                                        <md-input id="form-amount" v-model="form.amount" type="text" :disabled="isLoading"></md-input>
                                         <span class="md-error" v-if="!$v.form.amount.required">The amount is required</span>
                                         <span class="md-error" v-else-if="!$v.form.amount.minlength">Invalid amount</span>
                                     </md-field>
@@ -71,7 +71,7 @@
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Patron</md-button>
+                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create Giving</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-snackbar
@@ -91,17 +91,17 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import { patronForm, patronRequiredFields } from './patron-form-criteria';
+import { givingForm, givingRequiredFields } from './giving-form-criteria';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'patron-create-component',
+    name: 'giving-create-component',
     mixins: [validationMixin],
     computed: {
         ...mapGetters([
             'isLoading',
             'members',
-            'givings',
+            'givingTypes',
             'message',
             'isMessage'
         ]),
@@ -121,13 +121,13 @@ export default {
         }
     },
     data: () => ({
-        form: patronForm,
+        form: givingForm,
         userSaved: false,
         sending: false,
         lastUser: null,
     }),
     validations: {
-        form: patronRequiredFields,
+        form: givingRequiredFields,
     },
     methods: {
         closeDialog() {
@@ -145,13 +145,13 @@ export default {
         clearForm () {
             this.$v.$reset()
             this.form.memberIds = [];
-            this.form.givingId = null;
+            this.form.givingTypeId = null;
             this.form.datePaid = null;
             this.form.amount = null;
             this.form.id= null;
         },
-        createPatron () {
-             this.$store.dispatch('postPatron', this.form)
+        createGiving () {
+             this.$store.dispatch('postGiving', this.form)
              .then((response) => {
                  this.clearForm();
                  this.$emit("onDialogClose", {showDialog: false});
@@ -163,7 +163,7 @@ export default {
             //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
-                this.createPatron();
+                this.createGiving();
             }
         },
         closeSnackBar(){
@@ -172,13 +172,13 @@ export default {
         loadMembers() {
             this.$store.dispatch('getMembers');
         },
-        loadGivings() {
-            this.$store.dispatch('loadGivings');
+        loadGivingTypes() {
+            this.$store.dispatch('loadGivingTypes');
         },
     },
     created(){
         this.loadMembers();
-        this.loadGivings();
+        this.loadGivingTypes();
     }
 }
 </script>

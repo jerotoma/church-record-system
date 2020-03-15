@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatronsTable extends Migration
+class CreateGivingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreatePatronsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patrons', function (Blueprint $table) {
+        Schema::create('givings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('member_id');
-            $table->unsignedBigInteger('giving_id');
+            $table->unsignedBigInteger('giving_type_id');
             $table->double('amount', 8, 2);
             $table->dateTime('date_paid', 0);
             $table->foreign('member_id')
                 ->references('id')->on('members')
                 ->onDelete('cascade');
-            $table->foreign('giving_id')
-                ->references('id')->on('givings')
+            $table->foreign('giving_type_id')
+                ->references('id')->on('giving_types')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ class CreatePatronsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patrons');
+        Schema::dropIfExists('givings');
     }
 }

@@ -48,8 +48,10 @@ Route::prefix('dashboard')->group(function () {
     //Giving Routes
     Route::get('/giving-types', 'GivingTypeController@index');
 
-    //Patrons
-    Route::resource('patrons', 'PatronController');
+    //Givings
+    Route::resource('givings', 'GivingController')->only([
+        'index', 'show'
+    ]);
 });
 
 Route::prefix('rest/secured')->group(function () {
@@ -90,10 +92,5 @@ Route::prefix('rest/secured')->group(function () {
      Route::get('/givings', 'GivingController@findGivings');
      Route::post('/givings', 'GivingController@store');
      Route::put('/givings', 'GivingController@update');
-
-     //Patron Routes
-    Route::get('/patrons', 'PatronController@findPatrons');
-    Route::post('/patrons', 'PatronController@store');
-    Route::put('/patrons', 'PatronController@update');
 });
 

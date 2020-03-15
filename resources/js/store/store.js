@@ -11,7 +11,7 @@ import member from './modules/member';
 import zone from './modules/zone';
 import community from './modules/community';
 import parish from './modules/parish';
-import patron from './modules/patron';
+import giving from './modules/giving';
 import givingType from './modules/giving-type';
 
 Vue.use(Vuex)
@@ -25,7 +25,7 @@ export default new Vuex.Store({
         community,
         member,
         givingType,
-        patron,
+        giving,
     },
     state,
     getters,

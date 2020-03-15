@@ -3,82 +3,116 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use  App\Helpers\GivingUtility;
+use  App\Helpers\PaginateUtility;
+use  App\Giving;
 
 class GivingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    private $baseDirViewPath = 'dashboard.contributions.givings';
+
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+   public function __construct() {
+       $this->middleware('auth');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+   public function index()
+   {
+       return view($this->baseDirViewPath . '.view');
+   }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+   /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+   public function findGivings(Request $request) {
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+       $givings = Giving::paginate($request->perPage);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+       return response()->json([
+               'pagination' =>  PaginateUtility::mapPagination($givings),
+               'givings'=> GivingUtility::mapGivings($givings)
+           ]);
+   }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   /**
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+   public function store(Request $request) {
+       $request->validate([
+           'memberIds' => 'required|min:1|array',
+           'givingTypeId' => 'required|min:1',
+           'amount' => 'required|numeric',
+           'datePaid' => 'required|date',
+       ]);
+
+       foreach ($request->memberIds as $key =>  $memberId) {
+           $giving = Giving::create([
+               'member_id' => $memberId,
+               'giving_type_id' => $request->givingTypeId,
+               'amount' => $request->amount,
+               'date_paid' => $request->datePaid,
+           ]);
+       }
+    return response()->json(['giving'=> $giving]);
+   }
+
+   /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+   public function show($id)
+   {
+       //
+   }
+
+   /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+   public function edit($id)
+   {
+       //
+   }
+
+   /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+   public function update(Request $request, $id)
+   {
+       //
+   }
+
+   /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+   public function destroy($id)
+   {
+       //
+   }
 }

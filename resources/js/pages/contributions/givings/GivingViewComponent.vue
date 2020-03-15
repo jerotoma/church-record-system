@@ -11,7 +11,7 @@
                                 </div>
                             </div>
                             <div class="md-layout-item md-size-50 text-right" style="padding-right:0;">
-                                <md-button class="md-raised md-success" @click="createPatronModal()">Add Patron</md-button>
+                                <md-button class="md-raised md-success" @click="createGivingModal()">Add Giving</md-button>
                             </div>
                         </div>
                         <vue-good-table
@@ -24,10 +24,10 @@
                             :totalRows="pagination.total"
                             :isLoading.sync="mLoading"
                             :columns="columns"
-                            :rows="patrons"
+                            :rows="givings"
                             :search-options="{
                                 enabled: true,
-                                placeholder: 'Search this patron',
+                                placeholder: 'Search this giving',
                             }"
                             :pagination-options="{
                                 enabled: true,
@@ -71,24 +71,24 @@
                         </vue-good-table>
                     </md-card-content>
                 </md-card>
-                <patron-create-component
+                <giving-create-component
                     :show-dialog = "showCreateModal"
                     @onDialogClose = "onDialogClosed"
-                ></patron-create-component>
+                ></giving-create-component>
             </div>
         </div>
   </div>
 </template>
 <script>
-import PatronCreateComponent from './PatronCreateComponent.vue';
+import GivingCreateComponent from './GivingCreateComponent.vue';
 import { mapGetters } from 'vuex';
 
 
 export default {
-  name: "patron-table",
+  name: "giving-view-table",
   computed:{
       ...mapGetters([
-          'patrons',
+          'givings',
           'isLoading',
           'pagination'
       ]),
@@ -106,7 +106,7 @@ export default {
     }
   },
   components: {
-      'patron-create-component': PatronCreateComponent,
+      'giving-create-component': GivingCreateComponent,
   },
   data() {
     return {
@@ -159,33 +159,33 @@ export default {
     formatAmountSign(amount){
         return 'Tsh' + amount + '/=';
     },
-    createPatronModal() {
+    createGivingModal() {
         this.showCreateModal =  true;
     },
     onDialogClosed() {
         this.showCreateModal =  false;
-        this.loadPatrons();
+        this.loadGivings();
     },
-    loadPatrons() {
-        this.$store.dispatch('loadPatrons', this.pagination);
+    loadGivings() {
+        this.$store.dispatch('loadGivings', this.pagination);
     },
-    performAction(actionType, patronId) {
+    performAction(actionType, givingId) {
         switch(actionType) {
         case 'view':
-            window.location.assign('/dashboard/patrons/'+ patronId);
+            window.location.assign('/dashboard/givings/'+ givingId);
             break;
         case 'edit':
-            this.editModal(patronId);
+            this.editModal(givingId);
             break;
         case 'delete':
-             this.deleteModal(patronId);
+             this.deleteModal(givingId);
             break;
         }
     },
-    editModal(patronId) {
+    editModal(givingId) {
 
     },
-    deleteModal(patronId) {
+    deleteModal(givingId) {
 
     },
     onPageChange(params){
@@ -197,7 +197,7 @@ export default {
         pagination.sortType = params[0].type;
         pagination.sortField = params[0].field;
         this.$store.commit('setPagination', pagination);
-        this.loadPatrons();
+        this.loadGivings();
     },
     onColumnFilter(params) {
         console.log('onColumnFilter', params[0]);
@@ -213,11 +213,11 @@ export default {
         pagination.perPage = params.currentPerPage;
         pagination.prevPage = params.prevPage;
         this.$store.commit('setPagination', pagination);
-        this.loadPatrons();
+        this.loadGivings();
     },
   },
   created() {
-      this.loadPatrons();
+      this.loadGivings();
   }
 };
 </script>

@@ -16,7 +16,7 @@ import ZoneViewComponent from './pages/hierarchies/zones/ZoneViewComponent.vue';
 
 import ParishViewComponent from './pages/hierarchies/parishes/ParishViewComponent.vue';
 import GivingTypeViewComponent from './pages/system-settings/giving-types/GivingTypeViewComponent.vue';
-import PatronViewComponent from './pages/patrons/PatronViewComponent.vue';
+import GivingViewComponent from './pages/contributions/givings/GivingViewComponent.vue';
 import LoginComponent from './auth/LoginComponent.vue';
 
 /**
@@ -47,7 +47,7 @@ const GlobalComponents = {
 
     Vue.component('giving-type-view-component', GivingTypeViewComponent);
 
-    Vue.component('patron-view-component', PatronViewComponent);
+    Vue.component('giving-view-component', GivingViewComponent);
 
     Vue.component('login-component', LoginComponent);
 

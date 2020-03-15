@@ -1,19 +1,19 @@
 const state = {
-    patron: null,
-    patrons: [],
+    giving: null,
+    givings: [],
 };
 const getters = {
-    patron: state => state.patron,
-    patrons: state => state.patrons,
+    giving: state => state.giving,
+    givings: state => state.givings,
 };
 const actions = {
-    postPatron({commit}, patron) {
+    postGiving({commit}, giving) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
-        const url = '/rest/secured/patrons';
+        const url = '/rest/secured/givings';
         return new Promise((resolve, reject) => {
-            axios.post(url, patron)
+            axios.post(url, giving)
         .then((response) => {
             const data = response.data;
             if(data){
@@ -30,11 +30,11 @@ const actions = {
         });
         });
     },
-    deletePatron({ commit }, patron) {
+    deleteGiving({ commit }, giving) {
         return new Promise((resolve, reject) => {
                 axios({
                 method: 'DELETE',
-                url: '/rest/secured/patrons/' + patron.id,
+                url: '/rest/secured/givings/' + giving.id,
                 data: {}
             }).then((response) => {
                 const data = response.data;
@@ -49,14 +49,14 @@ const actions = {
             });
         });
     },
-    loadPatrons({commit}, pagination){
+    loadGivings({commit}, pagination){
         commit('setLoading', true);
-        const url = '/rest/secured/patrons?page='+ pagination.currentPage + '&perPage=' + pagination.perPage + '&sortType='+ pagination.sortType + '&sortField=' + pagination.sortField;
+        const url = '/rest/secured/givings?page='+ pagination.currentPage + '&perPage=' + pagination.perPage + '&sortType='+ pagination.sortType + '&sortField=' + pagination.sortField;
         axios.get(url)
         .then((response) => {
             const data = response.data;
             commit('setLoading', false);
-            commit("setPatrons", data.patrons);
+            commit("setGivings", data.givings);
             commit("setPagination", data.pagination);
         }).catch((error) => {
             console.log(error);
@@ -65,11 +65,11 @@ const actions = {
     },
 };
 const mutations = {
-    setPatron(state, patron){
-        state.patron = patron;
+    setGiving(state, giving){
+        state.giving = giving;
     },
-    setPatrons(state, patrons){
-        state.patrons = patrons;
+    setGivings(state, givings){
+        state.givings = givings;
     },
 };
 
