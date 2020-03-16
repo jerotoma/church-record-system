@@ -8,7 +8,7 @@
                 <form novalidate class="md-layout" @submit.prevent="validateUser()">
                     <md-card>
                         <md-card-header  :data-background-color="dataBackgroundColor">
-                            <div class="md-title">Add New Giving Type</div>
+                            <div class="md-title">Add New Permission</div>
                             <div class="md-subhead">Please fill all required details</div>
                         </md-card-header>
                         <md-card-content>
@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
                                         <md-field :class="getValidationClass('model')">
-                                            <label for="form-model">Level</label>
+                                            <label for="form-model">Model</label>
                                             <md-input id="form-model" v-model="form.model" type="text" :disabled="isLoading"></md-input>
                                             <span class="md-error" v-if="!$v.form.model.required">The model is required</span>
                                             <span class="md-error" v-else-if="!$v.form.model.minlength">Invalid model</span>
@@ -53,7 +53,7 @@
                         </md-card-content>
                         <md-card-actions>
                             <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                            <md-button type="submit" class="md-primary" :disabled="isLoading">Create Giving</md-button>
+                            <md-button type="submit" class="md-primary" :disabled="isLoading">Create Permission</md-button>
                         </md-card-actions>
                     </md-card>
                     <md-snackbar
@@ -132,8 +132,8 @@ export default {
             this.form.id = null;
             this.closeDialog();
         },
-        createGiving () {
-             this.$store.dispatch('postGivingType', this.form)
+        createPermission () {
+             this.$store.dispatch('postPermission', this.form)
              .then((response) => {
                  this.clearForm();
              }).catch((error) => {
@@ -144,7 +144,7 @@ export default {
             //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
-                this.createGiving();
+                this.createPermission();
             }
         },
         closeSnackBar(){

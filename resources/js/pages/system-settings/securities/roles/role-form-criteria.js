@@ -16,7 +16,7 @@ export const roleRequiredFields = {
     },
     level: {
         required: required,
-        minLength: minLength(3)
+        minLength: minLength(1)
     },
     description: {
         required: required,

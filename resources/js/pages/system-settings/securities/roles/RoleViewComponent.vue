@@ -81,8 +81,8 @@ export default {
         }
     },
     components: {
-            'role-create-component': RoleCreateComponent,
-            'role-edit-component': RoleEditComponent,
+        'role-create-component': RoleCreateComponent,
+        'role-edit-component': RoleEditComponent,
     },
     data() {
         return {
@@ -156,5 +156,8 @@ export default {
     }
     .md-ripple > span {
         position: relative;
+    }
+    .md-tabs-content table thead {
+        display: table-header-group;
     }
 </style>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class RoleControler extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -80,5 +80,16 @@ class RoleControler extends Controller
     public function destroy($id)
     {
         //
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function findRoles() {
+        $roles = config('roles.models.role')::all();
+        return response()->json(['roles' => $roles]);
     }
 }

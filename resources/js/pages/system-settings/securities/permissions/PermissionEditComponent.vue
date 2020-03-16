@@ -8,7 +8,7 @@
                 <form novalidate class="md-layout" @submit.prevent="validateUser()">
                     <md-card>
                         <md-card-header  :data-background-color="dataBackgroundColor">
-                            <div class="md-title">Edit Giving Type</div>
+                            <div class="md-title">Edit Permission Type</div>
                             <div class="md-subhead">Please fill all required details</div>
                         </md-card-header>
                         <md-card-content>
@@ -17,9 +17,9 @@
                                     <div class="md-layout-item md-small-size-100 md-size-100">
                                         <md-field :class="getValidationClass('name')">
                                             <label for="form-fname">Name</label>
-                                            <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
+                                            <md-input id="form-name" v-model="form.name" type="text" :disabled="isLoading"></md-input>
                                             <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
-                                            <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid giving name</span>
+                                            <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid permission name</span>
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
@@ -78,7 +78,7 @@ import { permissionRequiredFields } from './permission-form-criteria';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'giving-type-edit-component',
+    name: 'permission-edit-component',
     mixins: [validationMixin],
     computed: {
         ...mapGetters([
@@ -137,8 +137,8 @@ export default {
             this.form.description = null;
             this.form.id = null;
         },
-        editGiving () {
-             this.$store.dispatch('updateGivingType', this.form)
+        editPermission () {
+             this.$store.dispatch('updatePermission', this.form)
              .then((response) => {
                 this.closeDialog();
              }).catch((error) => {
@@ -149,7 +149,7 @@ export default {
             //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
-                this.editGiving();
+                this.editPermission();
             }
         },
         closeSnackBar(){

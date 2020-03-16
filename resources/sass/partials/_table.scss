@@ -1,3 +1,6 @@
 table.vgt-table td {
     padding: .25em .25em .25em .25em;
 }
+.md-tabs-content table thead {
+    display: table-header-group;
+  }

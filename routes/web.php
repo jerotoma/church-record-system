@@ -102,5 +102,16 @@ Route::prefix('rest/secured')->group(function () {
      Route::get('/givings', 'GivingController@findGivings');
      Route::post('/givings', 'GivingController@store');
      Route::put('/givings', 'GivingController@update');
+
+
+     //Role Routes
+    Route::get('/roles', 'RoleController@findRoles');
+    Route::post('/roles', 'RoleController@store');
+    Route::put('/roles', 'RoleController@update');
+
+    //Permission Routes
+     Route::get('/permissions', 'PermissionControler@findPermissions');
+     Route::post('/permissions', 'PermissionControler@store');
+     Route::put('/permissions', 'PermissionControler@update');
 });
 

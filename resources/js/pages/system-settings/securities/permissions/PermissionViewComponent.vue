@@ -81,8 +81,8 @@ export default {
         }
     },
     components: {
-            'permission-create-component': PermissionCreateComponent,
-            'permission-edit-component': PermissionEditComponent,
+        'permission-create-component': PermissionCreateComponent,
+        'permission-edit-component': PermissionEditComponent,
     },
     data() {
         return {
@@ -160,5 +160,8 @@ export default {
     }
     .md-ripple > span {
         position: relative;
+    }
+    .md-tabs-content table thead {
+        display: table-header-group;
     }
 </style>

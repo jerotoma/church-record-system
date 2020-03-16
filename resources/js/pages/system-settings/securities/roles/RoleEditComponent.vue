@@ -8,7 +8,7 @@
                 <form novalidate class="md-layout" @submit.prevent="validateUser()">
                     <md-card>
                         <md-card-header  :data-background-color="dataBackgroundColor">
-                            <div class="md-title">Edit Giving Type</div>
+                            <div class="md-title">Edit Role Type</div>
                             <div class="md-subhead">Please fill all required details</div>
                         </md-card-header>
                         <md-card-content>
@@ -17,7 +17,7 @@
                                     <div class="md-layout-item md-small-size-100 md-size-100">
                                         <md-field :class="getValidationClass('name')">
                                             <label for="form-fname">Name</label>
-                                            <md-input id="form-name" v-model="form.name" type="text" :disabled="sending"></md-input>
+                                            <md-input id="form-name" v-model="form.name" type="text" :disabled="isLoading"></md-input>
                                             <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
                                             <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid giving name</span>
                                         </md-field>
@@ -32,7 +32,7 @@
                                     </div>
                                      <div class="md-layout-item md-small-size-100 md-size-50">
                                         <md-field :class="getValidationClass('level')">
-                                            <label for="form-level">Minimum slug</label>
+                                            <label for="form-level">Level</label>
                                             <md-input id="form-level" v-model="form.level" type="text" :disabled="isLoading"></md-input>
                                             <span class="md-error" v-if="!$v.form.level.required">The minimum slug is required</span>
                                             <span class="md-error" v-else-if="!$v.form.level.minlength">Invalid level</span>
@@ -78,7 +78,7 @@ import { roleRequiredFields } from './role-form-criteria';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'giving-type-edit-component',
+    name: 'role-edit-component',
     mixins: [validationMixin],
     computed: {
         ...mapGetters([
@@ -137,8 +137,8 @@ export default {
             this.form.description = null;
             this.form.id = null;
         },
-        editGiving () {
-             this.$store.dispatch('updateGivingType', this.form)
+        editRole () {
+             this.$store.dispatch('updateRole', this.form)
              .then((response) => {
                 this.closeDialog();
              }).catch((error) => {
@@ -149,7 +149,7 @@ export default {
             //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
-                this.editGiving();
+                this.editRole();
             }
         },
         closeSnackBar(){

@@ -5,13 +5,13 @@
                 <nav-tabs-card>
                     <template slot="content">
                         <md-tabs class="md-success" md-alignment="left">
-                        <md-tab id="tab-home" md-label="Roles" md-icon="bug_report">
+                        <md-tab id="tab-role" md-label="Roles" md-icon="bug_report">
                             <role-view-component></role-view-component>
                         </md-tab>
-                        <md-tab id="tab-pages" md-label="Permissions" md-icon="code">
+                        <md-tab id="tab-permission" md-label="Permissions" md-icon="code">
                             <permission-view-component></permission-view-component>
                         </md-tab>
-                        <md-tab id="tab-posts" md-label="server" md-icon="cloud">
+                        <md-tab id="tab-active-role" md-label="server" md-icon="cloud">
                             <nav-tabs-table></nav-tabs-table>
                         </md-tab>
                         </md-tabs>
@@ -41,5 +41,7 @@ export default {
 }
 </script>
 <style scoped>
-
+    .md-tabs-content table thead {
+        display: table-header-group;
+    }
 </style>
