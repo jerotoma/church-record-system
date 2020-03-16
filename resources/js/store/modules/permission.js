@@ -13,13 +13,13 @@ const getters = {
     permissions: state => state.permissions,
 };
 const actions = {
-    postPermission({commit}, giving) {
+    postPermission({commit}, permission) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
         const url = '/rest/secured/permissions';
         return new Promise((resolve, reject) => {
-            axios.post(url, giving)
+            axios.post(url, permission)
         .then((response) => {
             const data = response.data;
             if(data){
@@ -36,13 +36,13 @@ const actions = {
         });
         });
     },
-    updatePermission({commit}, giving) {
+    updatePermission({commit}, permission) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
-        const url = '/rest/secured/permissions';
+        const url = '/rest/secured/permissions/' + permission.id;
         return new Promise((resolve, reject) => {
-            axios.put(url, giving)
+            axios.put(url, permission)
             .then((response) => {
                 const data = response.data;
                 if(data){

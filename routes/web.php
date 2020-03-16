@@ -107,11 +107,13 @@ Route::prefix('rest/secured')->group(function () {
      //Role Routes
     Route::get('/roles', 'RoleController@findRoles');
     Route::post('/roles', 'RoleController@store');
-    Route::put('/roles', 'RoleController@update');
+    Route::put('/roles/{id}', 'RoleController@update');
+    Route::delete('/roles/{id}', 'RoleController@destroy');
 
     //Permission Routes
      Route::get('/permissions', 'PermissionControler@findPermissions');
      Route::post('/permissions', 'PermissionControler@store');
-     Route::put('/permissions', 'PermissionControler@update');
+     Route::put('/permissions/{id}', 'PermissionControler@update');
+     Route::delete('/permissions/{id}', 'PermissionControler@destroy');
 });
 

@@ -13,13 +13,13 @@ const getters = {
     roles: state => state.roles,
 };
 const actions = {
-    postRole({commit}, giving) {
+    postRole({commit}, role) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
         const url = '/rest/secured/roles';
         return new Promise((resolve, reject) => {
-            axios.post(url, giving)
+            axios.post(url, role)
         .then((response) => {
             const data = response.data;
             if(data){
@@ -36,13 +36,13 @@ const actions = {
         });
         });
     },
-    updateRole({commit}, giving) {
+    updateRole({commit}, role) {
         commit('setLoading', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
-        const url = '/rest/secured/roles';
+        const url = '/rest/secured/roles/' + role.id;
         return new Promise((resolve, reject) => {
-            axios.put(url, giving)
+            axios.put(url, role)
             .then((response) => {
                 const data = response.data;
                 if(data){

@@ -8,7 +8,7 @@
                 <form novalidate class="md-layout" @submit.prevent="validateUser()">
                     <md-card>
                         <md-card-header  :data-background-color="dataBackgroundColor">
-                            <div class="md-title">Edit Permission Type</div>
+                            <div class="md-title">Edit Permission</div>
                             <div class="md-subhead">Please fill all required details</div>
                         </md-card-header>
                         <md-card-content>

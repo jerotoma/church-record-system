@@ -32,9 +32,22 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'level' => 'required|numeric',
+            'description' => 'required'
+        ]);
+
+        $role = config('roles.models.role')::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'level' => $request->level,
+            'description' => $request->description
+        ]);
+
+        return response()->json(['role' => $role]);
     }
 
     /**
@@ -66,9 +79,23 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'level' => 'required|numeric',
+            'description' => 'required'
+        ]);
+
+        $role = config('roles.models.role')::find($id);
+        $role->name = $request->name;
+        $role->slug = $request->slug;
+        $role->level = $request->level;
+        $role->description = $request->description;
+        $role->save();
+
+        return response()->json(['permission' => $role]);
     }
 
     /**
@@ -79,7 +106,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = config('roles.models.role')::find($id);
+        $role->delete();
+        return response()->json(['success' => true]);
     }
 
      /**

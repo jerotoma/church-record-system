@@ -70,8 +70,6 @@ export default {
         ...mapGetters([
             'roles',
             'role',
-            'showCreateDialog',
-            'showEditDialog'
         ]),
     },
     props: {
@@ -86,6 +84,8 @@ export default {
     },
     data() {
         return {
+            showCreateDialog: false,
+            showEditDialog: false,
             selected: [],
             columns: [
                 {
@@ -106,6 +106,10 @@ export default {
                 field: 'level',
                 },
                 {
+                label: 'Description',
+                field: 'description',
+                },
+                {
                 label: 'Action',
                 field: 'action',
                 }
@@ -114,11 +118,14 @@ export default {
     },
     methods: {
         createRoleModal() {
-            this.$store.commit('setShowCreateDialog', true);
+            this.showCreateDialog = true;
+            //this.$store.commit('setShowCreateDialog', true);
         },
         onDialogClosed() {
-            this.$store.commit('setShowEditDialog', false);
-            this.$store.commit('setShowCreateDialog', false);
+            this.showCreateDialog = false;
+            this.showEditDialog = false;
+            //this.$store.commit('setShowEditDialog', false);
+            //this.$store.commit('setShowCreateDialog', false);
             this.loadRoles();
         },
         loadRoles() {
@@ -139,7 +146,8 @@ export default {
         },
         editModal(role) {
             this.$store.commit('setRole', role);
-            this.$store.commit('setShowEditDialog', true);
+            //this.$store.commit('setShowEditDialog', true);
+            this.showEditDialog = true;
         },
         deleteModal(role) {
 

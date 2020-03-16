@@ -70,8 +70,6 @@ export default {
         ...mapGetters([
             'permissions',
             'permission',
-            'showCreateDialog',
-            'showEditDialog'
         ]),
     },
     props: {
@@ -86,6 +84,8 @@ export default {
     },
     data() {
         return {
+            showCreateDialog: false,
+            showEditDialog: false,
             selected: [],
             columns: [
                 {
@@ -102,12 +102,12 @@ export default {
                 field: 'slug',
                 },
                 {
-                label: 'Level',
-                field: 'level',
-                },
-                {
                 label: 'Model',
                 field: 'model',
+                },
+                {
+                label: 'Description',
+                field: 'description',
                 },
                 {
                 label: 'Action',
@@ -118,11 +118,14 @@ export default {
     },
     methods: {
         createPermissionModal() {
-            this.$store.commit('setShowCreateDialog', true);
+            this.showCreateDialog = true;
+            //this.$store.commit('setShowCreateDialog', true);
         },
         onDialogClosed() {
-            this.$store.commit('setShowEditDialog', false);
-            this.$store.commit('setShowCreateDialog', false);
+            this.showCreateDialog = false;
+            this.showEditDialog = false;
+            //this.$store.commit('setShowEditDialog', false);
+            //this.$store.commit('setShowCreateDialog', false);
             this.loadPermissions();
         },
         loadPermissions() {
@@ -143,7 +146,7 @@ export default {
         },
         editModal(permission) {
             this.$store.commit('setPermission', permission);
-            this.$store.commit('setShowEditDialog', true);
+            this.showEditDialog = true;
         },
         deleteModal(permission) {
 

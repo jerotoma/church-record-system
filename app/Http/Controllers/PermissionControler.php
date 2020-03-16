@@ -11,8 +11,7 @@ class PermissionControler extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -21,8 +20,7 @@ class PermissionControler extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -32,9 +30,22 @@ class PermissionControler extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'model' => 'required',
+            'description' => 'required'
+        ]);
+
+        $permission = config('roles.models.permission')::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'model' => $request->model,
+            'description' => $request->description
+        ]);
+
+        return response()->json(['permission' => $permission]);
     }
 
     /**
@@ -66,9 +77,24 @@ class PermissionControler extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'model' => 'required',
+            'description' => 'required'
+        ]);
+
+        $permission = config('roles.models.permission')::find($id);
+        $permission->name = $request->name;
+        $permission->slug = $request->slug;
+        $permission->model = $request->model;
+        $permission->description = $request->description;
+
+        $permission->save();
+
+        return response()->json(['permission' => $permission]);
     }
 
     /**
@@ -79,7 +105,10 @@ class PermissionControler extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = config('roles.models.permission')::find($id);
+        $permission->delete();
+
+        return response()->json(['success' => true]);
     }
 
      /**
@@ -89,8 +118,7 @@ class PermissionControler extends Controller
      * @return \Illuminate\Http\Response
      */
     public function findPermissions() {
-        $items = array();
-        $roles = config('roles.models.permission')::all();
-        return response()->json(['permissions' => $roles]);
+        $permissions = config('roles.models.permission')::all();
+        return response()->json(['permissions' => $permissions]);
     }
 }
