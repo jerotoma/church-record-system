@@ -46,15 +46,15 @@
                                             <md-icon>menu</md-icon>
                                         </md-button>
                                         <md-menu-content>
-                                            <md-menu-item @click="performAction('view', props.row.id)">
+                                            <md-menu-item @click="performAction('view', props.row)">
                                                 <md-icon>visibility</md-icon>
                                                 <span>View</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('edit', props.row.id)">
+                                            <md-menu-item @click="performAction('edit', props.row)">
                                                 <md-icon>edit</md-icon>
                                                 <span>Edit</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('delete', props.row.id)">
+                                            <md-menu-item @click="performAction('delete', props.row)">
                                                 <md-icon>delete</md-icon>
                                                 <span>Delete</span>
                                             </md-menu-item>
@@ -75,15 +75,26 @@
                     </md-card-content>
                 </md-card>
                 <giving-create-component
-                    :show-dialog = "showCreateModal"
+                    :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
                 ></giving-create-component>
+                 <giving-edit-component
+                     v-if="giving.id"
+                    :show-dialog = "showEditDialog"
+                    @onDialogClose = "onDialogClosed"
+                    :giving="giving"
+                ></giving-edit-component>
+                 <dialog-confirm-component
+                    :show-dialog = "showDeleteDialog"
+                    @onActionConfirm = "onConfirm"
+                ></dialog-confirm-component>
             </div>
         </div>
   </div>
 </template>
 <script>
 import GivingCreateComponent from './GivingCreateComponent.vue';
+import GivingEditComponent from './GivingEditComponent.vue';
 import { mapGetters } from 'vuex';
 
 
@@ -91,9 +102,13 @@ export default {
   name: "giving-view-table",
   computed:{
       ...mapGetters([
-          'givings',
-          'isLoading',
-          'pagination'
+        'givings',
+        'giving',
+        'isLoading',
+        'pagination',
+        'showCreateDialog',
+        'showEditDialog',
+        'showDeleteDialog',
       ]),
       mLoading: {
           get() { return this.isLoading; },
@@ -109,12 +124,12 @@ export default {
     }
   },
   components: {
-      'giving-create-component': GivingCreateComponent,
+    'giving-edit-component': GivingEditComponent,
+    'giving-create-component': GivingCreateComponent,
   },
   data() {
     return {
       selected: [],
-      showCreateModal: false,
       givingType: '',
       columns: [
         {
@@ -163,33 +178,51 @@ export default {
         return 'Tsh' + amount + '/=';
     },
     createGivingModal() {
-        this.showCreateModal =  true;
+        this.$store.commit('setShowCreateDialog', true);
     },
     onDialogClosed() {
-        this.showCreateModal =  false;
+        this.$store.commit('setShowDeleteDialog', false);
+        this.$store.commit('setShowEditDialog', false);
+        this.$store.commit('setShowCreateDialog', false);
         this.loadGivings();
     },
     loadGivings() {
         this.$store.dispatch('loadGivings', this.pagination);
     },
-    performAction(actionType, givingId) {
+    performAction(actionType, giving) {
         switch(actionType) {
         case 'view':
             window.location.assign('/dashboard/givings/'+ givingId);
             break;
         case 'edit':
-            this.editModal(givingId);
+            this.editModal(giving);
             break;
         case 'delete':
-             this.deleteModal(givingId);
+             this.deleteModal(giving);
             break;
         }
     },
-    editModal(givingId) {
-
+    editModal(giving) {
+        this.$store.commit('setGiving', giving);
+        this.$store.commit('setShowCreateDialog', false);
+        this.$store.commit('setShowDeleteDialog', false);
+        this.$store.commit('setShowEditDialog', true);
     },
-    deleteModal(givingId) {
-
+    deleteModal(giving) {
+        this.$store.commit('setGiving', giving);
+        this.$store.commit('setShowCreateDialog', false);
+        this.$store.commit('setShowEditDialog', false);
+        this.$store.commit('setShowDeleteDialog', true);
+    },
+    onConfirm(event) {
+        this.$store.commit('setShowDeleteDialog', false);
+        if (event.confirmed) {
+            this.$store.dispatch('deleteGiving', this.giving).then((response) => {
+                this.loadGivings();
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
     },
     onPageChange(params){
         //console.log('onPageChange', params);

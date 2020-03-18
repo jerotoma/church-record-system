@@ -97,11 +97,13 @@ Route::prefix('rest/secured')->group(function () {
     Route::get('/giving-types', 'GivingTypeController@findGivingtypes');
     Route::post('/giving-types', 'GivingTypeController@store');
     Route::put('/giving-types', 'GivingTypeController@update');
+    Route::delete('/giving-types/{id}', 'GivingTypeController@destroy');
 
     //Giving Routes
      Route::get('/givings', 'GivingController@findGivings');
      Route::post('/givings', 'GivingController@store');
      Route::put('/givings', 'GivingController@update');
+     Route::delete('/givings/{id}', 'GivingController@destroy');
 
 
      //Role Routes

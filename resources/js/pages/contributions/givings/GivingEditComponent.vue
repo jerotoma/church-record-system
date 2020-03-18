@@ -4,7 +4,7 @@
             @md-closed="closeDialog()"
             :md-click-outside-to-close="false"
             :md-active.sync="showDialog">
-            <form novalidate class="md-layout" @submit.prevent="validateUser()">
+            <form novalidate class="md-layout" @submit.prevent="validateGiving()">
                 <md-card>
                     <md-card-header  :data-background-color="dataBackgroundColor">
                         <div class="md-title">Add New Giving</div>
@@ -13,39 +13,27 @@
                     <md-card-content>
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-radio v-model="singleOrMultiple" value="single">Add Single Member</md-radio>
-                                    <md-radio v-model="singleOrMultiple" value="multiple" class="md-primary">Add Multiple Member</md-radio>
-                                </div>
-                            </div>
-                            <div class="md-layout">
-                                <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field v-if="singleOrMultiple === 'multiple'">
-                                        <md-content class="md-scrollbar">
-                                            <md-list class="md-triple-line">
-                                                <template v-for="(member, memberIndex) in members">
-                                                    <md-list-item :key="memberIndex">
-                                                        <md-avatar>
-                                                            <img src="https://placeimg.com/40/40/people/1" alt="People">
-                                                        </md-avatar>
-                                                        <div class="md-list-item-text">
-                                                            <span>{{member.firstName}} {{member.lastName}}</span>
-                                                            <span>Email : {{member.email}} Mobile: {{member.phoneNumber}}</span>
-                                                            <p>Belongs to {{member.community.zone.name}}'s zone and {{member.community.name}}'s community</p>
-                                                        </div>
-                                                        <div class="md-list-action md-simple">
-                                                            <md-checkbox class="md-list-action" v-model="form.memberIds" :value="member.id"></md-checkbox>
-                                                        </div>
-                                                    </md-list-item>
-                                                    <md-divider class="md-inset" :key=" 'divider-' + memberIndex"></md-divider>
-                                                </template>
-                                            </md-list>
-                                        </md-content>
-                                    </md-field>
-                                </div>
-                            </div>
-                            <div class="md-layout">
-                                <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field :class="getValidationClass('givingTypeId')">
+                                    <md-content class="md-scrollbar">
+                                        <md-list class="md-triple-line md-dense">
+                                            <template v-for="(member, memberIndex) in members">
+                                                <md-list-item :key="memberIndex">
+                                                    <md-avatar>
+                                                        <img src="https://placeimg.com/40/40/people/1" alt="People">
+                                                    </md-avatar>
+                                                    <div class="md-list-item-text">
+                                                        <span>{{member.firstName}} {{member.lastName}}</span>
+                                                        <span>Email : {{member.email}} Mobile: {{member.phoneNumber}}</span>
+                                                        <p>Belongs to {{member.community.zone.name}}'s zone and {{member.community.name}}'s community</p>
+                                                    </div>
+                                                    <div class="md-list-action md-simple">
+                                                        <md-checkbox class="md-list-action" v-model="form.memberIds" :value="member.id"></md-checkbox>
+                                                    </div>
+                                                </md-list-item>
+                                                <md-divider class="md-inset" :key=" 'divider-' + memberIndex"></md-divider>
+                                            </template>
+                                        </md-list>
+                                    </md-content>
+                                    <md-field>
                                         <label for="giving-type-id">Giving Type</label>
                                         <md-select
                                             v-model="form.givingTypeId"
@@ -60,6 +48,7 @@
                                         <span class="md-error" v-if="!$v.form.givingTypeId.required">The giving type is required</span>
                                     </md-field>
                                 </div>
+
                             </div>
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
@@ -106,7 +95,7 @@ import { givingForm, givingRequiredFields } from './giving-form-criteria';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'giving-create-component',
+    name: 'giving-edit-component',
     mixins: [validationMixin],
     computed: {
         ...mapGetters([
@@ -129,12 +118,17 @@ export default {
         dataBackgroundColor: {
             type: String,
             default: 'green'
+        },
+        giving: {
+            type: Object,
+            required: true,
         }
     },
-    data: () => ({
-        form: givingForm,
-        singleOrMultiple: 'single',
-    }),
+    data() {
+        let data = {};
+        data = Object.assign({}, data, {form: this.giving});
+        return data;
+    },
     validations: {
         form: givingRequiredFields,
     },
@@ -159,8 +153,8 @@ export default {
             this.form.amount = null;
             this.form.id= null;
         },
-        createGiving () {
-             this.$store.dispatch('postGiving', this.form)
+        editGiving () {
+             this.$store.dispatch('updateGiving', this.form)
              .then((response) => {
                  this.clearForm();
                  this.$emit("onDialogClose", {showDialog: false});
@@ -168,11 +162,11 @@ export default {
                  this.$store.commit('setMessage', error.data.message);
              });
         },
-        validateUser() {
+        validateGiving() {
             //console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
-                this.createGiving();
+                this.editGiving();
             }
         },
         closeSnackBar(){
@@ -185,7 +179,7 @@ export default {
             this.$store.dispatch('loadGivingTypes');
         },
     },
-    created(){
+    editd(){
         this.loadMembers();
         this.loadGivingTypes();
     }

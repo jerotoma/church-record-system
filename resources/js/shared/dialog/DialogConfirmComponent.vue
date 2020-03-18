@@ -13,7 +13,7 @@
 </template>
 <script>
   export default {
-    name: 'DialogConfirmComponent',
+    name: 'dialog-confirm-component',
     props: {
         showDialog: {
             type: Boolean,

@@ -112,8 +112,30 @@ class GivingController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function destroy($id)
-   {
-       //
-   }
+   public function destroy($id) {
+        if (!is_numeric($id)) {
+            return response()->json([
+                'givingId' => $id,
+                'success' => false,
+                'message' => 'Invalid Giving ID: '.$id. ' was given.'
+            ], 404);
+        }
+
+        $giving = Giving::find($id);
+
+        if ($giving == null) {
+            return response()->json([
+                'givingId' => $id,
+                'success' => false,
+                'message' => 'The Giving of ID: '.$id. ' doesn\'t  exist.'
+            ], 404);
+        }
+        $giving->delete();
+
+        return response()->json([
+            'givingId' => $id,
+            'success' => true,
+            'message' => 'The Giving of ID: '.$id. ' has been deleted'
+        ], 200);
+    }
 }

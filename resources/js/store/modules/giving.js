@@ -1,5 +1,11 @@
 const state = {
-    giving: null,
+    giving: {
+        id: null,
+        memberIds: [],
+        givingTypeId: null,
+        amount: null,
+        datePaid: null,
+    },
     givings: [],
 };
 const getters = {
