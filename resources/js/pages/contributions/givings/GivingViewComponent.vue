@@ -44,13 +44,12 @@
                                     <div class="md-layout-item md-medium-size-60 md-xsmall-size-60 md-size-60">
                                         <md-field>
                                             <md-select v-model="givingType" name="givingType" id="givingType" placeholder='Giving Type'>
-                                                <md-option value="fight-club">Fight Club</md-option>
-                                                <md-option value="godfather">Godfather</md-option>
-                                                <md-option value="godfather-ii">Godfather II</md-option>
-                                                <md-option value="godfather-iii">Godfather III</md-option>
-                                                <md-option value="godfellas">Godfellas</md-option>
-                                                <md-option value="pulp-fiction">Pulp Fiction</md-option>
-                                                <md-option value="scarface">Scarface</md-option>
+                                                <md-option
+                                                    v-for="givingType in givingTypes"
+                                                    :key="givingType.id"
+                                                    :value="givingType.id">
+                                                        {{givingType.name}}
+                                                </md-option>
                                             </md-select>
                                         </md-field>
                                     </div>
@@ -122,6 +121,7 @@ export default {
         'givings',
         'giving',
         'isLoading',
+        'givingTypes',
         'pagination',
         'filterBy',
         'showCreateDialog',
@@ -272,6 +272,7 @@ export default {
   },
   created() {
       this.loadGivings();
+      this.$store.dispatch('loadGivingTypes');
   }
 };
 </script>
