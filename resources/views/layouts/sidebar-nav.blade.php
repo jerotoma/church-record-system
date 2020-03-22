@@ -46,11 +46,6 @@
             to="/dashboard/givings">
             <p>Givings</p>
         </sidebar-link>
-        <sidebar-link
-            is-active="{{ Request::is('dashboard/patrons') ? 'active' : 'inactive' }}"
-            to="/dashboard/patrons">
-            <p>Patrons</p>
-        </sidebar-link>
     </collapsable-sidebar-link>
     <collapsable-sidebar-link
         is-active="{{

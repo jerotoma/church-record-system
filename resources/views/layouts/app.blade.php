@@ -14,7 +14,7 @@
             <dashboard-layout-component>
                 @include('layouts.sidebar-nav')
                 <div class="main-panel">
-                    @include('layouts.top-navbar')
+                    @include('layouts.navbar')
                     @yield('content')
                     <footer-component></footer-component>
                 </div>

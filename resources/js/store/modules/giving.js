@@ -83,7 +83,6 @@ const actions = {
         });
     },
     loadGivingsByGivingType({commit}, data){
-        console.log(data);
         commit('setLoading', true);
         const url = '/rest/secured/givings/giving-types/' + data.givingTypeId +'?page='+ data.pagination.currentPage + '&perPage=' + data.pagination.perPage + '&sortType='+ data.pagination.sortType + '&sortField=' + data.pagination.sortField;
         axios.get(url)

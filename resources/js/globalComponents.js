@@ -2,7 +2,7 @@ import DropDown from './shared/Dropdown.vue';
 import DialogConfirmComponent from './shared/dialog/DialogConfirmComponent.vue';
 import DashboardLayoutComponent from './layout/DashboardLayoutComponent.vue';
 
-import TopNavbarComponent from './layout/TopNavbarComponent.vue';
+import NavbarComponent from './layout/NavbarComponent.vue';
 import FooterComponent from './layout/FooterComponent.vue';
 import MobileMenuComponent from './layout/MobileMenuComponent.vue';
 import DashboardComponent from './pages/DashboardComponent.vue';
@@ -36,7 +36,7 @@ const GlobalComponents = {
     Vue.component("dialog-confirm-component", DialogConfirmComponent);
     Vue.component("dashboard-layout-component", DashboardLayoutComponent);
      //Global Components
-    Vue.component('top-navbar-component', TopNavbarComponent);
+    Vue.component('navbar-component', NavbarComponent);
     Vue.component('footer-component', FooterComponent);
     Vue.component('mobile-menu-component', MobileMenuComponent);
 

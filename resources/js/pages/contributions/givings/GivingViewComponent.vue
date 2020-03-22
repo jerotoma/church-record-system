@@ -44,7 +44,7 @@
                                     <div class="md-layout-item md-medium-size-60 md-xsmall-size-60 md-size-60">
                                         <md-field>
                                             <md-select
-                                                @md-selected="loadGivingByType()"
+                                                @md-selected="loadGivings()"
                                                 v-model="givingTypeId"
                                                 name="givingTypeId"
                                                 id="givingType"
@@ -55,6 +55,7 @@
                                                     :value="givingType.id">
                                                         {{givingType.name}}
                                                 </md-option>
+                                                <md-option :value="0">All</md-option>
                                             </md-select>
                                         </md-field>
                                     </div>
@@ -191,6 +192,8 @@ export default {
         {
             label: 'Action',
             field: 'action',
+            filterable: false,
+            sortable: false,
             tdClass: 'text-success'
         }
       ],
@@ -209,13 +212,10 @@ export default {
         this.$store.commit('setShowCreateDialog', false);
         this.loadGivings();
     },
-    loadGivings() {
-        this.$store.dispatch('loadGivings', this.pagination);
-    },
     performAction(actionType, giving) {
         switch(actionType) {
         case 'view':
-            window.location.assign('/dashboard/givings/'+ givingId);
+            window.location.assign('/dashboard/givings/'+ giving.id);
             break;
         case 'edit':
             this.editModal(giving);
@@ -274,12 +274,16 @@ export default {
         this.$store.commit('setPagination', pagination);
         this.loadGivings();
     },
-    loadGivingByType() {
-        this.$store.dispatch('loadGivingsByGivingType', {
-            givingTypeId: this.givingTypeId,
-            pagination: this.pagination
-        });
-    }
+    loadGivings() {
+        if (this.givingTypeId == 0 || this.givingTypeId == null) {
+            this.$store.dispatch('loadGivings', this.pagination);
+        } else {
+            this.$store.dispatch('loadGivingsByGivingType', {
+                givingTypeId: this.givingTypeId,
+                pagination: this.pagination
+            });
+        }
+    },
   },
   created() {
       this.loadGivings();
