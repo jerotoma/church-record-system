@@ -1,7 +1,14 @@
 .md-content.md-scrollbar {
     overflow: auto;
 }
-
 .text-success {
     color: $green;
+}
+.md-field.md-has-placeholder .md-input,
+.md-field .md-input,
+.md-field .md-textarea {
+    height: 32px;
+    padding: 5px 0;
+    font-size: 14px !important;
+    -webkit-text-fill-color: #495057 !important;
 }

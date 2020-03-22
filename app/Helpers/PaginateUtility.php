@@ -19,6 +19,8 @@ class PaginateUtility {
             'prevPageUrl' => $paginate->previousPageUrl(),
             'to' => $paginate->lastItem(),
             'total' => $paginate->total(),
+            'sortField' => 'created_at',
+            'sortType' => 'desc',
         ];
     }
 }

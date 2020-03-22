@@ -43,7 +43,12 @@
                                     </div>
                                     <div class="md-layout-item md-medium-size-60 md-xsmall-size-60 md-size-60">
                                         <md-field>
-                                            <md-select v-model="givingType" name="givingType" id="givingType" placeholder='Giving Type'>
+                                            <md-select
+                                                @md-selected="loadGivingByType()"
+                                                v-model="givingTypeId"
+                                                name="givingTypeId"
+                                                id="givingType"
+                                                placeholder='Giving Type'>
                                                 <md-option
                                                     v-for="givingType in givingTypes"
                                                     :key="givingType.id"
@@ -148,7 +153,7 @@ export default {
   data() {
     return {
       selected: [],
-      givingType: '',
+      givingTypeId: null,
       columns: [
         {
           label: 'Full Name',
@@ -269,6 +274,12 @@ export default {
         this.$store.commit('setPagination', pagination);
         this.loadGivings();
     },
+    loadGivingByType() {
+        this.$store.dispatch('loadGivingsByGivingType', {
+            givingTypeId: this.givingTypeId,
+            pagination: this.pagination
+        });
+    }
   },
   created() {
       this.loadGivings();
@@ -300,7 +311,11 @@ export default {
         background-color: #FFF;
     }
     .md-field.md-has-placeholder .md-input,
-    .md-field .md-input {
-        height: 32px !important;
+    .md-field .md-input,
+    .md-field .md-textarea {
+        height: 32px;
+        padding: 5px 0;
+        font-size: 14px !important;
+        -webkit-text-fill-color: #495057 !important;
     }
 </style>

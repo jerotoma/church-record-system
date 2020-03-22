@@ -168,6 +168,22 @@ class GivingController extends Controller
         ]);
     }
 
+    public function findGivingsByGivingTypeId(Request $request, $givingTypeId) {
+        $request->validate([
+            'sortField' => 'required',
+            'sortType' => 'required|max:5',
+            'perPage' => 'required',
+            'page' => 'required',
+        ]);
+        $givings = Giving::where('giving_type_id', $givingTypeId);
+        $givings = $this->processSortRequest($request, $givings)->paginate($request->perPage);
+
+        return response()->json([
+            'pagination' =>  PaginateUtility::mapPagination($givings),
+            'givings'=> GivingUtility::mapGivings($givings)
+        ]);
+    }
+
     private function processSortRequest(Request $request, $givings) {
          if($request->sortField == 'fullName') {
             $givings = $givings
