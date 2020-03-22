@@ -101,6 +101,7 @@ Route::prefix('rest/secured')->group(function () {
 
     //Giving Routes
      Route::get('/givings', 'GivingController@findGivings');
+     Route::get('/givings/members/{memberId}', 'GivingController@findGivingsByMemberId');
      Route::post('/givings', 'GivingController@store');
      Route::put('/givings', 'GivingController@update');
      Route::delete('/givings/{id}', 'GivingController@destroy');

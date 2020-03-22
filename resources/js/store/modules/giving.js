@@ -69,6 +69,20 @@ const actions = {
         });
 
     },
+    loadGivingsByMemberId({commit}, data){
+        commit('setLoading', true);
+        const url = '/rest/secured/givings/members/' + data.memberId +'?page='+ data.pagination.currentPage + '&perPage=' + data.pagination.perPage + '&sortType='+ data.pagination.sortType + '&sortField=' + data.pagination.sortField;
+        axios.get(url)
+        .then((response) => {
+            const data = response.data;
+            commit('setLoading', false);
+            commit("setGivings", data.givings);
+            commit("setPagination", data.pagination);
+        }).catch((error) => {
+            console.log(error);
+        });
+
+    },
 };
 const mutations = {
     setGiving(state, giving){

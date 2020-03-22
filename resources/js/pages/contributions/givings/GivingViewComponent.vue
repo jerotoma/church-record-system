@@ -37,7 +37,24 @@
                                 perPageDropdown: [15, 30, 45, 60],
                             }">
                             <div slot="table-actions">
-
+                                <div class="md-layout">
+                                    <div class="md-layout-item md-medium-size-40 md-xsmall-size-40 md-size-40">
+                                        <div class="md-title">Filter By</div>
+                                    </div>
+                                    <div class="md-layout-item md-medium-size-60 md-xsmall-size-60 md-size-60">
+                                        <md-field>
+                                            <md-select v-model="givingType" name="givingType" id="givingType" placeholder='Giving Type'>
+                                                <md-option value="fight-club">Fight Club</md-option>
+                                                <md-option value="godfather">Godfather</md-option>
+                                                <md-option value="godfather-ii">Godfather II</md-option>
+                                                <md-option value="godfather-iii">Godfather III</md-option>
+                                                <md-option value="godfellas">Godfellas</md-option>
+                                                <md-option value="pulp-fiction">Pulp Fiction</md-option>
+                                                <md-option value="scarface">Scarface</md-option>
+                                            </md-select>
+                                        </md-field>
+                                    </div>
+                                </div>
                             </div>
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'action'">
@@ -106,6 +123,7 @@ export default {
         'giving',
         'isLoading',
         'pagination',
+        'filterBy',
         'showCreateDialog',
         'showEditDialog',
         'showDeleteDialog',
@@ -146,19 +164,19 @@ export default {
           label: 'Giving Type',
           field: 'givingType',
           filterable: false,
-          sortable: false,
+          sortable: true,
         },
         {
           label: 'Zone',
           field: 'zone',
           filterable: false,
-          sortable: false,
+          sortable: true,
         },
         {
           label: 'Community',
           field: 'community',
           filterable: false,
-          sortable: false,
+          sortable: true,
         },
         {
           label: 'Date Paid',
@@ -268,5 +286,20 @@ export default {
         box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
         background-color:rgb(76, 175, 80);
         color: #FFF;
+    }
+    .md-field {
+        width: 100%;
+        height: 30px;
+        min-height: 25px;
+        margin: 0px;
+        padding: 0px .52em;
+        display: flex;
+        position: relative;
+        font-family: inherit;
+        background-color: #FFF;
+    }
+    .md-field.md-has-placeholder .md-input,
+    .md-field .md-input {
+        height: 32px !important;
     }
 </style>

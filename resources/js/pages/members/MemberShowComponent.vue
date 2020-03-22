@@ -1,38 +1,67 @@
 <template>
     <div class="content">
         <div class="md-layout">
-            <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
-                <md-card class="md-card-profile">
-                    <div class="md-card-avatar">
-                    <img class="img" :src="'https://vuematerial.io/assets/examples/avatar.jpg'" />
-                    </div>
-
-                    <md-card-content>
-                    <h6 class="category text-gray">CEO / Co-Founder</h6>
-                    <h4 class="card-title">{{member.firstName}} {{member.lastName}}</h4>
-                    <p class="card-description">
-                        Don't be scared of the truth because we need to restart the human
-                        foundation in truth And I love you like Kanye loves Kanye I love Rick
-                        Owens’ bed design but the back is...
-                    </p>
-                    <md-button class="md-round md-success">Follow</md-button>
-                    </md-card-content>
-                </md-card>
+             <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
+                <nav-tabs-card>
+                    <template slot="content">
+                        <md-tabs class="md-success" md-alignment="left">
+                        <md-tab id="tab-my-profile" md-label="Member Profile" md-icon="bug_report">
+                            <member-profile-component
+                                :member="member"
+                            ></member-profile-component>
+                        </md-tab>
+                        <md-tab id="tab-my-giving" md-label="Member Givings" md-icon="code">
+                            <member-giving-component
+                                :member="member"
+                            ></member-giving-component>
+                        </md-tab>
+                        <md-tab id="tab-edit-my-profile" md-label="Edit My Profile" md-icon="cloud">
+                            <nav-tabs-table></nav-tabs-table>
+                        </md-tab>
+                        </md-tabs>
+                    </template>
+                </nav-tabs-card>
             </div>
         </div>
     </div>
 </template>
 <script>
+import MemberProfileComponent from './MemberProfileComponent';
+import MemberGivingComponent from './MemberGivingComponent';
+import { mapGetters } from 'vuex';
+
 export default {
-  name: "user-card",
-  props: {
-    member: {
-      type: Object,
-      required: true,
-    }
+  name: "member-show-component",
+    props: {
+        member: {
+        type: Object,
+        required: true,
+        }
+     },
+    computed:{
+        ...mapGetters([
+            'givings',
+            'pagination',
+        ]),
+    },
+  components: {
+      MemberProfileComponent,
+      MemberGivingComponent,
   },
   data() {
     return {};
+  },
+  methods: {
+    loadGivingsByMemberId() {
+        this.$store.dispatch('loadGivingsByMemberId', {
+            memberId: this.member.id,
+            pagination: this.pagination
+        });
+    },
+
+  },
+  created() {
+     this.loadGivingsByMemberId();
   }
 };
 </script>

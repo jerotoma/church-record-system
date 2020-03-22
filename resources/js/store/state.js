@@ -5,6 +5,7 @@ const state = {
     showEditDialog: false,
     showCreateDialog: false,
     showDeleteDialog: false,
+    filterBy: '',
     pagination: {
         currentPage: 1,
         firstPageUrl: '',
@@ -18,7 +19,7 @@ const state = {
         to: '',
         total: 0,
         sortType: 'desc',
-        sortField: 'created_on',
+        sortField: 'created_at',
     }
 };
 
