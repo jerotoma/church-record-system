@@ -18,8 +18,8 @@
                                 </div>
                             </div>
                             <div class="md-layout">
-                                <div class="md-layout-item md-small-size-100 md-size-100">
-                                    <md-field v-if="singleOrMultiple === 'multiple'">
+                                <div class="md-layout-item md-small-size-100 md-size-100" v-if="singleOrMultiple === 'multiple'">
+                                    <md-field>
                                         <md-content class="md-scrollbar">
                                             <md-list class="md-triple-line">
                                                 <template v-for="(member, memberIndex) in members">
@@ -42,6 +42,9 @@
                                         </md-content>
                                     </md-field>
                                 </div>
+                                <search-member v-else
+                                    @onSelected="assignMember($event)"
+                                ></search-member>
                             </div>
                             <div class="md-layout">
                                 <div class="md-layout-item md-small-size-100 md-size-100">
@@ -134,6 +137,7 @@ export default {
     data: () => ({
         form: givingForm,
         singleOrMultiple: 'single',
+        memberName: null,
     }),
     validations: {
         form: givingRequiredFields,
@@ -184,6 +188,17 @@ export default {
         loadGivingTypes() {
             this.$store.dispatch('loadGivingTypes');
         },
+        searchForMember() {
+            if (this.memberName) {
+                this.$store.dispatch('searchMember', {
+                    searchTerm: this.memberName
+                });
+            }
+        },
+        assignMember(data) {
+            this.form.memberIds = [];
+            this.form.memberIds.push(data.member.id);
+        }
     },
     created(){
         this.loadMembers();

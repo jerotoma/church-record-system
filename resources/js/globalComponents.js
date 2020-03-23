@@ -23,7 +23,8 @@ import {
     ChartCard,
     NavTabsCard,
     NavTabsTable,
-    OrderedTable
+    OrderedTable,
+    SearchMember
   } from './shared';
 
 /**
@@ -64,6 +65,7 @@ const GlobalComponents = {
     Vue.component('nav-tabs-card', NavTabsCard);
     Vue.component('nav-tabs-table', NavTabsTable);
     Vue.component('ordered-table', OrderedTable);
+    Vue.component('search-member', SearchMember);
 
   }
 };

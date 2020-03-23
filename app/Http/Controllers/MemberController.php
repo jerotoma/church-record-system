@@ -10,6 +10,8 @@ use App\Member;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 use App\Helpers\MemberUtility;
 use App\Helpers\HelperUtility;
@@ -33,8 +35,7 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view($this->baseDirViewPath . '.view');
     }
 
@@ -45,8 +46,7 @@ class MemberController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator(array $data) {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -225,13 +225,34 @@ class MemberController extends Controller
     }
 
     public function loadMembers() {
-        $items = array();
         $members = Member::with(['community', 'addresses'])->get();
-        foreach ($members as $member) {
-            $items[] = MemberUtility::mapMember($member);
-        }
+        return response()->json(['members' => MemberUtility::mapMembers($members)]);
+    }
 
-        return response()->json(['members' => $items]);
+    public function searchMember(Request $request) {
+        $request->validate([
+            'searchTerm' => 'required',
+            ]
+        );
+
+        $searchTerms = explode(' ', $request->searchTerm, 2);
+        if (count($searchTerms) > 1) {
+            $members = $this->findMemberBySearchTerm($searchTerms[0]);
+            if (count($members) == 0) {
+                $members = $this->findMemberBySearchTerm($searchTerms[1]);
+            }
+        } else {
+            $members = $this->findMemberBySearchTerm($searchTerms[0]);
+        }
+        return response()->json(['members' => MemberUtility::mapMembers($members)]);
+    }
+
+    private function findMemberBySearchTerm($searchTerm) {
+        return Member::where(DB::raw('lower(first_name)'), 'LIKE', '%'. Str::lower($searchTerm) . '%' )
+            ->orWhere(DB::raw('lower(last_name)'), 'LIKE', '%'. Str::lower($searchTerm) . '%' )
+            ->orWhere(DB::raw('lower(middle_name)'), 'LIKE', '%'. Str::lower($searchTerm). '%' )
+            ->orWhere(DB::raw('lower(email)'), 'LIKE', '%'. Str::lower($searchTerm) . '%' )
+            ->get();
     }
 
 }

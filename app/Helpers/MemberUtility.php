@@ -7,6 +7,18 @@ use App\Helpers\HelperUtility;
 
 class MemberUtility {
 
+    public static function mapMembers($members) {
+        $items = array();
+        if ($members == null) {
+            return array();
+        }
+
+        foreach ($members as $member) {
+            $items[] = self::mapMember($member);
+        }
+        return $items;
+    }
+
     public static function mapMember(Member $member) {
         if ($member == null) {
             return [];

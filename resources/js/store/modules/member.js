@@ -82,17 +82,29 @@ const state = {
         });
     },
     deleteMember({ commit }, member) {
+        axios({
+            method: 'DELETE',
+            url: '/rest/secured/members/' + member.id,
+            data: {}
+        }).then((response) => {
+
+        }).catch((error) => {
+            const resp = error.response;
+            commit('setMessage', resp.data.message);
+            commit('setLoading', false);
+            commit('setHasMessage', true);
+        });
+    },
+    searchMember({ commit }, data) {
         return new Promise((resolve, reject) => {
-                axios({
-                method: 'DELETE',
-                url: '/rest/secured/members/' + member.id,
-                data: {}
+            axios({
+                method: 'GET',
+                url: '/rest/secured/members/search?searchTerm=' + data.searchTerm
             }).then((response) => {
                 const data = response.data;
                 resolve(data);
             }).catch((error) => {
                 const resp = error.response;
-                //console.log(resp);
                 commit('setMessage', resp.data.message);
                 commit('setLoading', false);
                 commit('setHasMessage', true);

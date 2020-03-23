@@ -8,11 +8,15 @@ import NavTabsTable from "./Tables/NavTabsTable.vue";
 import OrderedTable from "./Tables/OrderedTable.vue";
 import SimpleTable from "./Tables/SimpleTable.vue";
 
+//search
+import SearchMember from "./search/SearchMemberComponent.vue";
+
 export {
   ChartCard,
   NavTabsCard,
   StatsCard,
   NavTabsTable,
   OrderedTable,
-  SimpleTable
+  SimpleTable,
+  SearchMember
 };

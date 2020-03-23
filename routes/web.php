@@ -73,6 +73,7 @@ Route::prefix('rest/secured')->group(function () {
 
     //Members
     Route::get('/members', 'MemberController@loadMembers');
+    Route::get('/members/search', 'MemberController@searchMember');
     Route::post('/members', 'MemberController@store');
     Route::delete('/members/{id}', 'MemberController@destroy');
     Route::put('/members', 'MemberController@update');
