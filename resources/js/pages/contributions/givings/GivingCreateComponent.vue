@@ -4,7 +4,7 @@
             @md-closed="closeDialog()"
             :md-click-outside-to-close="false"
             :md-active.sync="showDialog">
-            <form novalidate class="md-layout" @submit.prevent="validateUser()">
+            <form novalidate class="md-layout" @submit.prevent="validateGiving()">
                 <md-card>
                     <md-card-header  :data-background-color="dataBackgroundColor">
                         <div class="md-title">Add New Giving</div>
@@ -116,6 +116,7 @@ export default {
             'isLoading',
             'members',
             'givingTypes',
+            'pagination',
             'message',
             'isMessage'
         ]),
@@ -172,8 +173,7 @@ export default {
                  this.$store.commit('setMessage', error.data.message);
              });
         },
-        validateUser() {
-            //console.log(this.$v);
+        validateGiving() {
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 this.createGiving();
@@ -183,7 +183,7 @@ export default {
             this.$store.commit('setHasMessage', false);
         },
         loadMembers() {
-            this.$store.dispatch('getMembers');
+            this.$store.dispatch('getMembers', this.pagination);
         },
         loadGivingTypes() {
             this.$store.dispatch('loadGivingTypes');

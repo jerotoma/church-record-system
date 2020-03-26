@@ -182,6 +182,7 @@ return [
          * Third Party Service Providers...
          */
         jeremykenedy\LaravelRoles\RolesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -235,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'MemberUtil' => App\Helpers\MemberUtility::class,
         'AddressUtil' => App\Helpers\AddressUtility::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

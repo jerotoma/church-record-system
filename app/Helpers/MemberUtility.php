@@ -2,6 +2,7 @@
 namespace  App\Helpers;
 
 use App\Member;
+use App\Address;
 use App\Helpers\AddressUtility;
 use App\Helpers\HelperUtility;
 
@@ -12,7 +13,6 @@ class MemberUtility {
         if ($members == null) {
             return array();
         }
-
         foreach ($members as $member) {
             $items[] = self::mapMember($member);
         }
@@ -23,7 +23,9 @@ class MemberUtility {
         if ($member == null) {
             return [];
         }
-        $address = HelperUtility::arrayToObject(AddressUtility::mapAddresses($member)[0]);
+       // dd($member);
+        $address = HelperUtility::arrayToObject(
+            AddressUtility::mapAddress($member->address == null ? Address::find($member->addressId) : $member->address));
         return [
             'id' => $member->id,
             'firstName' => $member->first_name,
@@ -40,7 +42,6 @@ class MemberUtility {
             'country' => $address->country,
             'state' => $address->state,
             'postalCode' => $address->postalCode,
-            'addresses' => AddressUtility::mapAddresses($member),
             'community' => [
                 'id' => $member->community->id,
                 'name' => $member->community->name,

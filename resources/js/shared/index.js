@@ -10,6 +10,8 @@ import SimpleTable from "./Tables/SimpleTable.vue";
 
 //search
 import SearchMember from "./search/SearchMemberComponent.vue";
+import FileUploadComponent from "./files/FileUploadComponent.vue";
+
 
 export {
   ChartCard,
@@ -18,5 +20,6 @@ export {
   NavTabsTable,
   OrderedTable,
   SimpleTable,
-  SearchMember
+  SearchMember,
+  FileUploadComponent,
 };

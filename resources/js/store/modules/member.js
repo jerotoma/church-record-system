@@ -31,10 +31,10 @@ const state = {
 
   // actions
   const actions = {
-    getMembers ({ commit }) {
+    getMembers ({ commit }, data) {
         axios({
             method: 'GET',
-            url: '/rest/secured/members',
+            url: '/rest/secured/members?page='+ data.currentPage + '&perPage=' + data.perPage + '&sortType='+ data.sortType + '&sortField=' + data.sortField,
         })
         .then((response) => {
             const data = response.data;
@@ -82,17 +82,21 @@ const state = {
         });
     },
     deleteMember({ commit }, member) {
-        axios({
-            method: 'DELETE',
-            url: '/rest/secured/members/' + member.id,
-            data: {}
-        }).then((response) => {
-
-        }).catch((error) => {
-            const resp = error.response;
-            commit('setMessage', resp.data.message);
-            commit('setLoading', false);
-            commit('setHasMessage', true);
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'DELETE',
+                url: '/rest/secured/members/' + member.id,
+                data: {}
+            }).then((response) => {
+                const data = response.data;
+                resolve(data);
+            }).catch((error) => {
+                const resp = error.response;
+                commit('setMessage', resp.data.message);
+                commit('setLoading', false);
+                commit('setHasMessage', true);
+                reject(resp);
+            });
         });
     },
     searchMember({ commit }, data) {

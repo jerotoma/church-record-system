@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use App\Helpers\MemberUtility;
 use App\Helpers\HelperUtility;
 use App\Helpers\AddressUtility;
+use App\Helpers\PaginateUtility;
 
 class MemberController extends Controller
 {
@@ -176,8 +177,7 @@ class MemberController extends Controller
         $member->community_id = $request->communityId;
         $member->save();
 
-        $mAddress = HelperUtility::arrayToObject(AddressUtility::mapAddresses($member)[0]);
-        $address = Address::find($mAddress->id);
+        $address = Address::find($member->address->id);
         $address->member_id = $member->id;
         $address->street_address = $request->streetAddress;
         $address->unit_number = $request->unitNumber;
@@ -224,9 +224,19 @@ class MemberController extends Controller
         ], 200);
     }
 
-    public function loadMembers() {
-        $members = Member::with(['community', 'addresses'])->get();
-        return response()->json(['members' => MemberUtility::mapMembers($members)]);
+    public function loadMembers(Request $request) {
+        $request->validate([
+            'sortField' => 'required',
+            'sortType' => 'required|max:5',
+            'perPage' => 'required',
+            'page' => 'required',
+        ]);
+        $members = Member::with(['community', 'address']);
+        $members = $this->processSortRequest($request, $members)->paginate($request->perPage);
+        return response()->json([
+            'members' => MemberUtility::mapMembers($members),
+            'pagination' =>  PaginateUtility::mapPagination($members),
+        ]);
     }
 
     public function searchMember(Request $request) {
@@ -255,4 +265,30 @@ class MemberController extends Controller
             ->get();
     }
 
+    private function processSortRequest(Request $request, $members) {
+        if ($request->sortField == 'fullName') {
+            $members = $members
+               ->orderBy('members.first_name', $request->sortType)
+               ->orderBy('members.middle_name', $request->sortType)
+               ->orderBy('members.last_name', $request->sortType);
+       } else if ($request->sortField == 'phoneNumber') {
+            $members = $members->orderBy('members.phone_number', $request->sortType);
+       } else if ($request->sortField == 'community') {
+            $members = $members
+                ->join('addresses', 'addresses.member_id', '=', 'members.id')
+                ->join('communities', 'communities.id', '=', 'members.community_id')
+                ->orderBy('communities.name', $request->sortType)
+                ->select('members.*', 'addresses.id as addressId', 'communities.*');
+       } else if ($request->sortField == 'zone') {
+            $members = $members
+                ->join('addresses', 'addresses.member_id', '=', 'members.id')
+                ->join('communities', 'communities.id', '=', 'members.community_id')
+                ->join('zones', 'zones.id', '=', 'communities.zone_id')
+                ->orderBy('zones.name', $request->sortType)
+                ->select('members.*', 'addresses.id as addressId', 'communities.*');
+       } else {
+            $members = $members->orderBy('members.'.$request->sortField, $request->sortType);
+       }
+       return  $members;
+   }
 }

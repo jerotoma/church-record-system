@@ -65,4 +65,8 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+    .md-card{
+        margin: 0 0;
+    }
+</style>

@@ -24,7 +24,8 @@ import {
     NavTabsCard,
     NavTabsTable,
     OrderedTable,
-    SearchMember
+    SearchMember,
+    FileUploadComponent
   } from './shared';
 
 /**
@@ -66,6 +67,7 @@ const GlobalComponents = {
     Vue.component('nav-tabs-table', NavTabsTable);
     Vue.component('ordered-table', OrderedTable);
     Vue.component('search-member', SearchMember);
+    Vue.component('file-upload-component', FileUploadComponent);
 
   }
 };

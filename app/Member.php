@@ -11,7 +11,6 @@ class Member extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id',
         'first_name',
         'middle_name',
         'last_name',
@@ -23,10 +22,10 @@ class Member extends Model {
     ];
 
     /**
-     * Get all of the addresses for the member.
+     * Get the address of the member.
      */
-    public function addresses() {
-        return $this->hasMany('App\Address');
+    public function address() {
+        return $this->hasOne('App\Address');
     }
 
     /**
@@ -35,12 +34,4 @@ class Member extends Model {
     public function community() {
         return $this->belongsTo('App\Community');
     }
-
-    /**
-     * The patrons that belong to the member.
-     */
-    public function patrons() {
-        return $this->hasMany('App\Patron');
-    }
-
 }

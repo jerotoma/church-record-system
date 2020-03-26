@@ -6,11 +6,19 @@
                    <md-card-content>
                         <div class="md-layout">
                             <div class="md-layout-item md-size-100 text-right" style="padding-right:0;">
-                                <md-button class="md-raised md-success">Update Profile</md-button>
+                                <md-button class="md-raised md-success" @click="importMember()">Import Members</md-button>
                                 <md-button class="md-raised md-success" @click="createMemberModal()">Add Member</md-button>
                             </div>
                         </div>
                         <vue-good-table
+                            mode="remote"
+                            @on-page-change="onPageChange"
+                            @on-sort-change="onSortChange"
+                            @on-column-filter="onColumnFilter"
+                            @on-per-page-change="onPerPageChange"
+                            :line-numbers="true"
+                            :totalRows="pagination.total"
+                            :isLoading.sync="mLoading"
                             :columns="columns"
                             :rows="members"
                             :search-options="{
@@ -55,6 +63,10 @@
                         </vue-good-table>
                     </md-card-content>
                 </md-card>
+                <member-import-component
+                    :show-dialog = "showImportDialog"
+                    @onDialogClose = "onDialogClosed"
+                ></member-import-component>
                 <member-create-component
                     :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
@@ -76,6 +88,7 @@
 <script>
 import MemberEditComponent from './MemberEditComponent.vue';
 import MemberCreateComponent from './MemberCreateComponent.vue';
+import MemberImportComponent from './MemberImportComponent.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -93,22 +106,27 @@ export default {
             'showCreateDialog',
             'showEditDialog',
             'showDeleteDialog',
+            'isLoading',
+            'pagination',
         ]),
+        mLoading: {
+            get() { return this.isLoading; },
+            set(value){
+                this.$store.commit('setLoading', value);
+            }
+        }
     },
     components: {
         'member-edit-component': MemberEditComponent,
         'member-create-component': MemberCreateComponent,
+        'member-import-component': MemberImportComponent,
     },
     data() {
         return {
             selected: [],
             showCreateModal: false,
+            showImportDialog: false,
             columns: [
-                {
-                label: 'ID',
-                field: 'id',
-                type: Number
-                },
                 {
                     label: 'Full Name',
                     field: 'fullName',
@@ -137,7 +155,9 @@ export default {
                 {
                     label: 'Action',
                     field: 'action',
-                    type: String
+                    type: String,
+                    filterable: false,
+                    sortable: false,
                 },
             ]
         };
@@ -150,13 +170,41 @@ export default {
             this.$store.commit('setShowCreateDialog', true);
         },
         onDialogClosed() {
+            this.showImportDialog = false;
             this.$store.commit('setShowDeleteDialog', false);
             this.$store.commit('setShowEditDialog', false);
             this.$store.commit('setShowCreateDialog', false);
             this.loadMembers();
         },
         loadMembers() {
-            this.$store.dispatch('getMembers');
+            this.$store.dispatch('getMembers', this.pagination);
+        },
+        onPageChange(params){
+            //console.log('onPageChange', params);
+            this.updateParams(params);
+        },
+        onSortChange(params) {
+            let pagination = this.pagination;
+            pagination.sortType = params[0].type;
+            pagination.sortField = params[0].field;
+            this.$store.commit('setPagination', pagination);
+            this.loadMembers();
+        },
+        onColumnFilter(params) {
+            console.log('onColumnFilter', params[0]);
+            //this.updateParams(params[]);
+        },
+        onPerPageChange(params) {
+            //console.log('onPerPageChange', params);
+            this.updateParams(params);
+        },
+        updateParams(params) {
+            let pagination = this.pagination;
+            pagination.currentPage = params.currentPage;
+            pagination.perPage = params.currentPerPage;
+            pagination.prevPage = params.prevPage;
+            this.$store.commit('setPagination', pagination);
+            this.loadMembers();
         },
         performAction(actionType, member) {
             switch(actionType) {
@@ -191,6 +239,9 @@ export default {
                     console.log(error);
                 });
             }
+        },
+        importMember() {
+            this.showImportDialog = true;
         }
     },
     created() {
