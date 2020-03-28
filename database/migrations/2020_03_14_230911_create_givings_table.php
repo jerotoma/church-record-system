@@ -18,7 +18,7 @@ class CreateGivingsTable extends Migration
             $table->unsignedBigInteger('member_id');
             $table->unsignedBigInteger('giving_type_id');
             $table->double('amount', 8, 2);
-            $table->dateTime('date_paid', 0);
+            $table->timestamp('date_paid');
             $table->foreign('member_id')
                 ->references('id')->on('members')
                 ->onDelete('cascade');
