@@ -13,6 +13,7 @@
                         <vue-good-table
                             :columns="columns"
                             :rows="users"
+                            :line-numbers="true"
                             :search-options="{
                                 enabled: true,
                                 placeholder: 'Search for a user',
@@ -26,6 +27,12 @@
                                 </span>
                                 <span v-else-if="props.column.field == 'zone'">
                                    {{props.row.community.zone.name}}
+                                </span>
+                                <span v-else-if="props.column.field == 'role'">
+                                   {{props.row.role ? props.row.role.name : ''}}
+                                </span>
+                                <span v-else-if="props.column.field == 'permissions'">
+                                   {{ props.row.role && props.row.role.permissions ? props.row.role.permissions : ''}}
                                 </span>
                                 <span v-else-if="props.column.field == 'action'">
                                     <md-menu md-size="small" md-align-trigger>
@@ -105,25 +112,15 @@ export default {
             showCreateModal: false,
             columns: [
                 {
-                label: 'ID',
-                field: 'id',
-                type: Number
+                    label: 'Full Name',
+                    field: 'fullName',
+                    type: String
                 },
                 {
                     label: 'Username',
                     field: 'username',
                     tdClass: 'text-primary',
                     type: String,
-                },
-                {
-                    label: 'Full Name',
-                    field: 'fullName',
-                    type: String
-                },
-                {
-                    label: 'Gender',
-                    field: 'gender',
-                    type: String
                 },
                 {
                     label: 'Phone Number',
@@ -134,6 +131,11 @@ export default {
                     label: 'Role',
                     field: 'role',
                     type: Object,
+                },
+                {
+                    label: 'Permissions',
+                    field: 'permissions',
+                    type: Object
                 },
                 {
                     label: 'Action',

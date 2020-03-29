@@ -1,5 +1,13 @@
+table.vgt-table {
+    font-size: 14px;
+    line-height: 40px;
+}
+.vgt-table th {
+    padding: .4em 1.5em .4em .6em;
+}
 table.vgt-table td {
-    padding: .25em .25em .25em .25em;
+    padding: .4em .4em .4em .4em;
+    font-weight: 400;
 }
 .md-tabs-content table thead {
     display: table-header-group;

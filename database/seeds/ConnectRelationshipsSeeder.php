@@ -23,5 +23,11 @@ class ConnectRelationshipsSeeder extends Seeder
         foreach ($permissions as $permission) {
             $roleAdmin->attachPermission($permission);
         }
+
+        $permission = config('roles.models.permission')::where('slug', '=', 'unverify')->first();
+        $roleOthers = config('roles.models.role')::where('name', '!=', 'Admin')->first();
+        foreach ($roleOthers as $role) {
+            $role->attachPermission($permission);
+        }
     }
 }

@@ -101,9 +101,10 @@ class UserController extends Controller
 
     public function loadUsers() {
         $items = array();
-        $users = User::all();
+        $users = User::with('role')->get();
 
         foreach ($users as $user) {
+           // dd($user->role);
           $items[] = UserUtility::mapUser($user);
         }
 
