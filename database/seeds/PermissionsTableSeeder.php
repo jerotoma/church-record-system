@@ -41,6 +41,12 @@ class PermissionsTableSeeder extends Seeder
                 'model'       => 'Permission',
             ],
             [
+                'name'        => 'Unverified',
+                'slug'        => 'unverified',
+                'description' => 'Can not login',
+                'model'       => 'Permission',
+            ],
+            [
                 'name'        => 'backup',
                 'slug'        => 'backup',
                 'description' => 'Access to data export and import',

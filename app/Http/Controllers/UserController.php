@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 use App\Helpers\UserUtility;
 use App\Helpers\HelperUtility;
@@ -35,6 +36,10 @@ class UserController extends Controller
     */
    public function index() {
        return view($this->baseDirViewPath . '.view');
+   }
+
+   public function loadLoggedInUser() {
+        return response()->json(['auth' => UserUtility::mapUser(Auth::user())]);
    }
 
     /**
@@ -101,11 +106,9 @@ class UserController extends Controller
 
     public function loadUsers() {
         $items = array();
-        $users = User::with('role')->get();
-
+        $users = User::all();
         foreach ($users as $user) {
-           // dd($user->role);
-          $items[] = UserUtility::mapUser($user);
+            $items[] = UserUtility::mapUser($user);
         }
 
         return response()->json(['users' => $items]);

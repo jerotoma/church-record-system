@@ -1,4 +1,5 @@
 const getters = {
+    auth: state => state.auth,
     isLoading: state => state.isLoading,
     isMessage: state => state.isMessage,
     message: state => state.message,

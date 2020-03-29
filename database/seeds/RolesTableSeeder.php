@@ -15,7 +15,7 @@ class RolesTableSeeder extends Seeder
          * Role Types
          *
          */
-        $RoleItems = [
+        $roleItems = [
             [
                 'name'        => 'Unverified',
                 'slug'        => 'unverified',
@@ -53,14 +53,14 @@ class RolesTableSeeder extends Seeder
          * Add Role Items
          *
          */
-        foreach ($RoleItems as $RoleItem) {
-            $newRoleItem = config('roles.models.role')::where('slug', '=', $RoleItem['slug'])->first();
+        foreach ($roleItems as $roleItem) {
+            $newRoleItem = config('roles.models.role')::where('slug', '=', $roleItem['slug'])->first();
             if ($newRoleItem === null) {
                 $newRoleItem = config('roles.models.role')::create([
-                    'name'          => $RoleItem['name'],
-                    'slug'          => $RoleItem['slug'],
-                    'description'   => $RoleItem['description'],
-                    'level'         => $RoleItem['level'],
+                    'name'          => $roleItem['name'],
+                    'slug'          => $roleItem['slug'],
+                    'description'   => $roleItem['description'],
+                    'level'         => $roleItem['level'],
                 ]);
             }
         }

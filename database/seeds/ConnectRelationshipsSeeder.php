@@ -19,15 +19,15 @@ class ConnectRelationshipsSeeder extends Seeder
         /**
          * Attach Permissions to Roles.
          */
-        $roleAdmin = config('roles.models.role')::where('name', '=', 'Admin')->first();
+        $roleAdmin = config('roles.models.role')::where('slug', '=', 'admin')->first();
         foreach ($permissions as $permission) {
             $roleAdmin->attachPermission($permission);
         }
 
-        $permission = config('roles.models.permission')::where('slug', '=', 'unverify')->first();
-        $roleOthers = config('roles.models.role')::where('name', '!=', 'Admin')->first();
+        $perm = config('roles.models.permission')::where('slug', '=', 'unverified')->get();
+        $roleOthers = config('roles.models.role')::where('slug', '!=', 'admin')->get();
         foreach ($roleOthers as $role) {
-            $role->attachPermission($permission);
+            $role->attachPermission($perm);
         }
     }
 }

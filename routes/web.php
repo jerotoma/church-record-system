@@ -68,6 +68,7 @@ Route::prefix('rest/secured')->group(function () {
     //Users
     Route::get('/users', 'UserController@loadUsers');
     Route::post('/users', 'UserController@store');
+    Route::get('/users/logged-in', 'UserController@loadLoggedInUser');
     Route::delete('/users/{id}', 'UserController@destroy');
     Route::put('/users', 'UserController@update');
 

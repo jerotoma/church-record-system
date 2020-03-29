@@ -1,10 +1,10 @@
 const actions =  {
 //User sections
-    loadCurrentUser(context){
-        axios.get('/api/users/loggedIn/')
+    loadLoggedInUser(context){
+        axios.get('/rest/secured/users/logged-in')
         .then((response) => {
-            // console.log(response);
-            context.commit("setUser", response.data.user);
+            console.log(response);
+            context.commit("setAuth", response.data.auth);
         }).catch((error) => {
             console.log(error);
         });

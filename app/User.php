@@ -63,7 +63,7 @@ class User extends Authenticatable
         return $this->where('username', $username)->first();
     }
 
-    public function role() {
-        return $this->belongsTo('\App\Role');
+    public function roles() {
+        return $this->belongsToMany('\App\Role', '\App\RoleUser', 'user_id', 'role_id');
     }
 }

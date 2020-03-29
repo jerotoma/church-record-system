@@ -20,20 +20,26 @@ class UserUtility {
             'username' => $user->username,
             'phoneNumber' => $user->phone_number,
             'gender' => $user->gender,
-            'role' => $user->role
+            'email' => $user->email,
+            'roles' => self::mapRoles($user->roles)
         ];
     }
-    public static function mapRole($role) {
-        if ($role == null) {
+    public static function mapRoles($roles) {
+        if ($roles == null) {
             return [];
         }
-        return  [
-            'id' => $role->id,
-            'name' => $role->name,
-            'slug' => $role->slug,
-            'description' => $role->description,
-            'level' => $role->level,
-        ];
+        $mRoles = array();
+        foreach($roles as $role) {
+            $mRoles[] = [
+                'id' => $role->id,
+                'name' => $role->name,
+                'slug' => $role->slug,
+                'description' => $role->description,
+                'level' => $role->level,
+                'permissions' => self::mapPermissions($role->permissions)
+            ];
+        }
+        return  $mRoles;
     }
 
     public static function mapPermissions($permissions) {

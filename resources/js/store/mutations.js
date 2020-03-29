@@ -19,6 +19,29 @@ const mutations =  {
     },
     setShowCreateDialog(state, showCreateDialog) {
         state.showCreateDialog= showCreateDialog;
+    },
+    setAuth(state, auth) {
+        let currentUser = {
+            userId: auth.id,
+            fullName: auth.firstName + ' ' + auth.lastName,
+            username: auth.username,
+            roles: auth.roles,
+            permissions: () => {
+                let permissions = [];
+                let roles = auth.roles;
+                if (roles) {
+                    roles.forEach(role => {
+                        if (role.permissions) {
+                            role.permissions.forEach(permission => {
+                                permissions.push(permission);
+                            });
+                        }
+                    });
+                }
+               return permissions;
+            },
+        }
+        state.auth = currentUser;
     }
 }
 

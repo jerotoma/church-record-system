@@ -57,5 +57,8 @@ const app = new Vue({
     },
     mounted() {
        this.hideGlobalSpinner();
+    },
+    created(){
+        this.$store.dispatch('loadLoggedInUser');
     }
 });

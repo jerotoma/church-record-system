@@ -24,6 +24,13 @@
                             :search-options="{
                                 enabled: true,
                                 placeholder: 'Search for a member',
+                            }"
+                            :pagination-options="{
+                                enabled: true,
+                                mode: 'records',
+                                setCurrentPage: pagination.currentPage,
+                                perPage: pagination.perPage,
+                                perPageDropdown: [15, 30, 45, 60],
                             }">
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'fullName'">
@@ -135,6 +142,11 @@ export default {
                 {
                     label: 'Gender',
                     field: 'gender',
+                    type: String
+                },
+                {
+                    label: 'Email',
+                    field: 'email',
                     type: String
                 },
                 {

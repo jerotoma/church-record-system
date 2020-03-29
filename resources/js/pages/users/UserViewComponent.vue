@@ -28,11 +28,8 @@
                                 <span v-else-if="props.column.field == 'zone'">
                                    {{props.row.community.zone.name}}
                                 </span>
-                                <span v-else-if="props.column.field == 'role'">
-                                   {{props.row.role ? props.row.role.name : ''}}
-                                </span>
                                 <span v-else-if="props.column.field == 'permissions'">
-                                   {{ props.row.role && props.row.role.permissions ? props.row.role.permissions : ''}}
+                                   {{getPermissions(props.row.roles)}}
                                 </span>
                                 <span v-else-if="props.column.field == 'action'">
                                     <md-menu md-size="small" md-align-trigger>
@@ -123,23 +120,33 @@ export default {
                     type: String,
                 },
                 {
+                    label: 'Email',
+                    field: 'email',
+                    type: String
+                },
+                {
                     label: 'Phone Number',
                     field: 'phoneNumber',
                     type: String
                 },
                 {
-                    label: 'Role',
-                    field: 'role',
-                    type: Object,
+                    label: 'Roles',
+                    field: 'roles',
+                    type: Array,
+                    formatFn: this.getRoles,
+                    width: '150px'
                 },
                 {
                     label: 'Permissions',
                     field: 'permissions',
-                    type: Object
+                    tdClass: 'text-primary',
+                    type: Array,
+                    width: '230px'
                 },
                 {
                     label: 'Action',
                     field: 'action',
+                    sortable: false,
                     type: String
                 },
             ]
@@ -151,6 +158,28 @@ export default {
         },
         createUserModal() {
             this.$store.commit('setShowCreateDialog', true);
+        },
+        getPermissions(roles) {
+            let permissionsToDisp = '';
+            for (var i = 0; i < roles.length; i++) {
+                for (var j = 0; j < roles[i].permissions.length; j++) {
+                    permissionsToDisp += roles[i].permissions[j].name;
+                    if (j !== roles[i].permissions.length - 1) {
+                        permissionsToDisp += ', ';
+                    }
+                }
+            }
+            return permissionsToDisp;
+        },
+        getRoles(roles) {
+            let rolesToDisp = '';
+            for (var i = 0; i < roles.length; i++) {
+                rolesToDisp += roles[i].name;
+                if (i !== roles.length - 1) {
+                   rolesToDisp += ', ';
+                }
+            }
+            return rolesToDisp;
         },
         onDialogClosed() {
             this.$store.commit('setShowDeleteDialog', false);

@@ -20,6 +20,13 @@ const state = {
         total: 0,
         sortType: 'desc',
         sortField: 'created_at',
+    },
+    auth: {
+        userId: null,
+        fullName: null,
+        username: null,
+        roles: null,
+        permissions: null,
     }
 };
 
