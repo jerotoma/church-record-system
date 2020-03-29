@@ -18,7 +18,6 @@ const SidebarPlugin = {
         };
       }
     });
-
     Object.defineProperty(Vue.prototype, "$sidebar", {
       get() {
         return this.$root.sidebarStore;

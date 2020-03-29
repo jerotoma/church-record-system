@@ -191,10 +191,6 @@ export default {
         margin-bottom: 0;
         width: 60vw;
     }
-    .md-dialog {
-        max-width: 100%;
-        max-height: 100%;
-    }
     .md-progress-bar {
         position: absolute;
         top: 0;

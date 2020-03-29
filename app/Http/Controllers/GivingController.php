@@ -10,6 +10,7 @@ use App\Member;
 use App\GivingType;
 use App\Community;
 use App\Zone;
+use Carbon\Carbon;
 
 class GivingController extends Controller
 {
@@ -68,13 +69,15 @@ class GivingController extends Controller
             'amount' => 'required|numeric',
             'datePaid' => 'required|date',
         ]);
-
+        //"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        $datePaid = Carbon::parse($request->datePaid, 'UTC');
+        //dd($datePaid->isoFormat('YYYY-MM-D h:mm:ss a'));
         foreach ($request->memberIds as $key =>  $memberId) {
             $giving = Giving::create([
                 'member_id' => $memberId,
                 'giving_type_id' => $request->givingTypeId,
                 'amount' => $request->amount,
-                'date_paid' => $request->datePaid,
+                'date_paid' =>$datePaid->isoFormat('YYYY-MM-DD hh:mm:ss'),
             ]);
         }
     return response()->json(['giving'=> $giving]);

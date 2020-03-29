@@ -1,6 +1,7 @@
 <template>
   <div>
         <md-dialog
+            @md-opened="$dialog.disableDocBodyOverflow()"
             @md-closed="closeDialog()"
             :md-click-outside-to-close="false"
             :md-active.sync="showDialog">
@@ -144,7 +145,8 @@ export default {
     },
     methods: {
         closeDialog() {
-        this.$emit("onDialogClose", {showDialog: false});
+            this.$emit("onDialogClose", {showDialog: false});
+            this.$dialog.enableDocBodyOverflow();
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];
@@ -216,15 +218,12 @@ export default {
     },
     created(){
         this.loadParishes();
+
     }
 }
 </script>
 
 <style lang="scss" scoped>
-  .md-dialog {
-    max-width: 100%;
-    max-height: 100%
-  }
   .md-progress-bar {
     position: absolute;
     top: 0;

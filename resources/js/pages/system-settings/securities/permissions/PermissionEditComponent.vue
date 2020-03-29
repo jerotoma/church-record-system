@@ -161,21 +161,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .md-dialog {
-    max-width: 100%;
-    max-height: 100%
-  }
-  .md-progress-bar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
-  .md-card {
-      width: 450px;
-      margin-bottom: 0;
-  }
-  .md-dialog-content{
-      padding: 0;
-  }
+    .md-progress-bar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    .md-card {
+        width: 450px;
+        margin-bottom: 0;
+    }
+    .md-dialog-content{
+        padding: 0;
+    }
 </style>

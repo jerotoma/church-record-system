@@ -136,10 +136,6 @@ export default {
     .md-card {
         margin-bottom: 0;
     }
-    .md-dialog {
-        max-width: 100%;
-        max-height: 100%
-    }
     .md-progress-bar {
         position: absolute;
         top: 0;
