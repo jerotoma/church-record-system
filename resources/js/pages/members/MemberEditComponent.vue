@@ -2,6 +2,7 @@
   <div>
         <md-dialog
             @md-closed="closeDialog()"
+            @md-opened="$dialog.disableDocBodyOverflow()"
             :md-click-outside-to-close="false"
             :md-active.sync="showDialog">
             <form novalidate class="md-layout" @submit.prevent="validateMember()">
@@ -212,7 +213,8 @@ export default {
     },
     methods: {
         closeDialog() {
-        this.$emit("onDialogClose", {showDialog: false});
+            this.$emit("onDialogClose", {showDialog: false});
+            this.$dialog.enableDocBodyOverflow();
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];

@@ -1,6 +1,7 @@
 <template>
   <div style="width:750px;">
         <md-dialog
+            @md-opened="$dialog.disableDocBodyOverflow()"
             @md-closed="closeDialog()"
             :md-click-outside-to-close="false"
             :md-active.sync="showEditDialog">
@@ -118,6 +119,7 @@ export default {
     methods: {
         closeDialog() {
             this.$emit("onDialogClose", {showEditDialog: false});
+            this.$dialog.enableDocBodyOverflow();
             this.clearForm();
         },
         getValidationClass (fieldName) {

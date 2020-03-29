@@ -2,6 +2,7 @@
   <div style="width:750px;">
         <md-dialog
             @md-closed="closeDialog()"
+            @md-opened="$dialog.disableDocBodyOverflow()"
             :md-click-outside-to-close="false"
             :md-active.sync="showDialog">
             <md-dialog-content>
@@ -113,6 +114,7 @@ export default {
     methods: {
         closeDialog() {
             this.$emit("onDialogClose", {showDialog: false});
+            this.$dialog.enableDocBodyOverflow();
         },
         getValidationClass (fieldName) {
             const field = this.$v.form[fieldName];
