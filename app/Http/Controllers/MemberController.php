@@ -15,8 +15,10 @@ use Illuminate\Support\Str;
 
 use App\Helpers\MemberUtility;
 use App\Helpers\HelperUtility;
+use App\Helpers\UserUtility;
 use App\Helpers\AddressUtility;
 use App\Helpers\PaginateUtility;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -37,7 +39,9 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view($this->baseDirViewPath . '.view');
+        return view($this->baseDirViewPath . '.view', [
+            'auth' => Auth::user()
+        ]);
     }
 
 

@@ -6,10 +6,16 @@
                     <template slot="content">
                         <md-tabs class="md-success" md-alignment="left">
                         <md-tab id="tab-role" md-label="Roles" md-icon="bug_report">
-                            <role-view-component></role-view-component>
+                            <role-view-component
+                                :auth="auth"
+                                :isAdmin="isAdmin"
+                            ></role-view-component>
                         </md-tab>
                         <md-tab id="tab-permission" md-label="Permissions" md-icon="code">
-                            <permission-view-component></permission-view-component>
+                            <permission-view-component
+                                :auth="auth"
+                                :isAdmin="isAdmin"
+                            ></permission-view-component>
                         </md-tab>
                         <md-tab id="tab-active-role" md-label="server" md-icon="cloud">
                             <nav-tabs-table></nav-tabs-table>
@@ -28,6 +34,16 @@ export default {
     components: {
         'permission-view-component': PermissionViewComponent,
         'role-view-component': RoleViewComponent,
+    },
+    props: {
+        auth: {
+            type: Object,
+            required: false
+        },
+        isAdmin: {
+            type: Boolean,
+            required: false
+        }
     },
     data() {
         return {

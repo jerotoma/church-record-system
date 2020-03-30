@@ -20,20 +20,20 @@ const actions = {
         const url = '/rest/secured/permissions';
         return new Promise((resolve, reject) => {
             axios.post(url, permission)
-        .then((response) => {
-            const data = response.data;
-            if(data){
+            .then((response) => {
+                const data = response.data;
+                if(data){
+                    commit('setLoading', false);
+                    resolve(data);
+                }
+            }).catch((error) => {
+            const resp = error.response;
+            //console.log(resp);
+                commit('setMessage', resp.data.message);
                 commit('setLoading', false);
-                resolve(data);
-            }
-        }).catch((error) => {
-        const resp = error.response;
-        //console.log(resp);
-            commit('setMessage', resp.data.message);
-            commit('setLoading', false);
-            commit('setHasMessage', true);
-            reject(resp);
-        });
+                commit('setHasMessage', true);
+                reject(resp);
+            });
         });
     },
     updatePermission({commit}, permission) {

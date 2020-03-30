@@ -11,7 +11,10 @@
     </head>
     <body>
         <div id="app">
-            <dashboard-layout-component>
+            <dashboard-layout-component
+                :auth='@json(auth()->user())'
+                :is-admin='@json(auth()->user()->hasRole("admin"))'
+                >
                 @include('layouts.sidebar-nav')
                 <div class="main-panel">
                     @include('layouts.navbar')

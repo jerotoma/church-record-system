@@ -160,7 +160,6 @@
                         </md-content>
                     </md-card-content>
                 </md-card>
-               <!-- <md-snackbar md-position="center" class="md-success" :md-active.sync="userSaved">The member {{ lastUser }} was saved with success!</md-snackbar> -->
             </form>
         </md-dialog>
   </div>

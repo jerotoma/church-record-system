@@ -52,14 +52,16 @@
                                                 <md-icon>visibility</md-icon>
                                                 <span>View</span>
                                             </md-menu-item>
-                                            <md-menu-item @click="performAction('edit', props.row)">
-                                                <md-icon>edit</md-icon>
-                                                <span>Edit</span>
-                                            </md-menu-item>
-                                            <md-menu-item @click="performAction('delete', props.row)">
-                                                <md-icon>delete</md-icon>
-                                                <span>Delete</span>
-                                            </md-menu-item>
+                                            <template v-if="isAdmin">
+                                                <md-menu-item @click="performAction('edit', props.row)">
+                                                    <md-icon>edit</md-icon>
+                                                    <span>Edit</span>
+                                                </md-menu-item>
+                                                <md-menu-item @click="performAction('delete', props.row)">
+                                                    <md-icon>delete</md-icon>
+                                                    <span>Delete</span>
+                                                </md-menu-item>
+                                            </template>
                                         </md-menu-content>
                                     </md-menu>
                                 </span>
@@ -102,9 +104,17 @@ export default {
     name: "member-view-component",
     props: {
             tableHeaderColor: {
-            type: String,
-            default: "green"
-        }
+                type: String,
+                default: "green"
+            },
+            auth: {
+                type: Object,
+                required: true
+            },
+            isAdmin: {
+                type: Boolean,
+                required: true
+            }
     },
     computed:{
         ...mapGetters([
