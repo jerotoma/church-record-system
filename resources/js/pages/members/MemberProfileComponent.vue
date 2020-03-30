@@ -28,7 +28,7 @@
                     <md-list-item>
                         <md-icon class="md-primary">phone</md-icon>
                         <div class="md-list-item-text">
-                            <span>{{member.phoneNumber}}</span>
+                            <span>{{member.phone}}</span>
                             <span>Mobile</span>
                         </div>
                     </md-list-item>

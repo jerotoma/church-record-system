@@ -42,6 +42,7 @@ export const userForm = {
     username: null,
     email: null,
     password: null,
+    phone: null,
     gender: '',
     roleId: null,
     confirmPassword: null,

@@ -21,7 +21,7 @@ export const memberRequiredFields = {
         required: required,
         email: email
     },
-    phoneNumber: {
+    phone: {
         required: required,
         minLength: minLength(3)
     },
@@ -59,7 +59,7 @@ export const memberForm = {
     lastName: null,
     middleName: null,
     email: null,
-    phoneNumber: null,
+    phone: null,
     gender: 'male',
     occupation: null,
     streetAddress: null,

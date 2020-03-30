@@ -80,7 +80,7 @@ class MemberController extends Controller
             'zoneId' => 'required|numeric',
             'parishId' => 'required|numeric',
             'email' => 'required|email',
-            'phoneNumber' => 'required',
+            'phone' => 'required',
             'gender' => 'required|max:6',
             'occupation' => 'required',
             'streetAddress' => 'required',
@@ -98,7 +98,7 @@ class MemberController extends Controller
             'email' => $request->email,
             'gender' => $request->gender,
             'occupation' => $request->occupation,
-            'phone_number' => $request->phoneNumber,
+            'phone' => $request->phone,
             'community_id' => $request->communityId,
         ]);
 
@@ -154,7 +154,7 @@ class MemberController extends Controller
             'zoneId' => 'required|numeric',
             'parishId' => 'required|numeric',
             'email' => 'required:email',
-            'phoneNumber' => 'required',
+            'phone' => 'required',
             'gender' => 'required:max:6',
             'occupation' => 'required',
             'streetAddress' => 'required',
@@ -173,7 +173,7 @@ class MemberController extends Controller
         $member->email = $request->email;
         $member->gender = $request->gender;
         $member->occupation = $request->occupation;
-        $member->phone_number = $request->phoneNumber;
+        $member->phone = $request->phone;
         $member->community_id = $request->communityId;
         $member->save();
 

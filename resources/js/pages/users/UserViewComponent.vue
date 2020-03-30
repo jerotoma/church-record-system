@@ -84,8 +84,24 @@
                 ></dialog-confirm-component>
             </div>
         </div>
-        <md-snackbar md-position="center" class="md-success" :md-active.sync="userCreated">The user has been created!</md-snackbar>
-        <md-snackbar md-position="center" class="md-success" :md-active.sync="userUpdated">The user has been updated!</md-snackbar>
+        <md-snackbar
+            md-position="center"
+            class="md-success md-position-top"
+            :md-active.sync="userCreated">
+            <span>The user has been created!</span>
+            <md-button class="md-primary md-just-icon md-simple" @click="closeSnackBar()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </md-snackbar>
+        <md-snackbar
+            md-position="center"
+            class="md-success md-position-top"
+            :md-active.sync="userUpdated">
+            <span>  The user has been updated! </span>
+            <md-button class="md-primary md-just-icon md-simple" @click="closeSnackBar()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </md-snackbar>
   </div>
 </template>
 <script>
@@ -139,8 +155,8 @@ export default {
                     type: String
                 },
                 {
-                    label: 'Phone Number',
-                    field: 'phoneNumber',
+                    label: 'Phone',
+                    field: 'phone',
                     type: String
                 },
                 {
@@ -169,6 +185,10 @@ export default {
     methods: {
         getFullName(user){
             return user.firstName + ' ' + user.lastName;
+        },
+        closeSnackBar() {
+            this.userCreated = false;
+            this.userUpdated = false;
         },
         createUserModal() {
             this.$store.commit('setShowCreateDialog', true);

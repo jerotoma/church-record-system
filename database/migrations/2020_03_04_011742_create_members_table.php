@@ -22,7 +22,7 @@ class CreateMembersTable extends Migration
             $table->string('email')->nullable();
             $table->string('gender');
             $table->string('occupation')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->string('phone')->nullable();
             $table->foreign('community_id')
                 ->references('id')->on('communities')
                 ->onDelete('cascade');

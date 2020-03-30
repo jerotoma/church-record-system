@@ -5,7 +5,12 @@
 .md-card .md-card-header {
     margin: 0;
 }
+.md-dialog {
+    max-width: 95%;
+    max-height: 95%;
+}
 
 .md-dialog-container {
-    overflow: scroll;
+    overflow: hidden;
 }
+

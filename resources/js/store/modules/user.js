@@ -68,7 +68,7 @@ const state = {
         return new Promise((resolve, reject) => {
                 axios({
                 method: 'PUT',
-                url: '/rest/secured/users',
+                url: '/rest/secured/users/'+ user.id,
                 data: user
             }).then((response) => {
                 const data = response.data;

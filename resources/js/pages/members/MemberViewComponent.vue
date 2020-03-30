@@ -150,8 +150,8 @@ export default {
                     type: String
                 },
                 {
-                    label: 'Phone Number',
-                    field: 'phoneNumber',
+                    label: 'Phone',
+                    field: 'phone',
                     type: String
                 },
                 {

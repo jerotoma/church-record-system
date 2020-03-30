@@ -1,5 +1,11 @@
+.main-panel > .content,
+.md-content {
+    margin-top: 14px;
+}
+
+.md-scrollbar,
 .md-content.md-scrollbar {
-    overflow: auto;
+    overflow-y: auto;
 }
 .text-success {
     color: $green;

@@ -32,7 +32,7 @@ class MemberUtility {
             'lastName' => $member->last_name,
             'middleName' => $member->middle_name,
             'email' => $member->email,
-            'phoneNumber' => $member->phone_number,
+            'phone' => $member->phone,
             'gender' => $member->gender,
             'occupation' => $member->occupation,
             'addressId' => $address->id,

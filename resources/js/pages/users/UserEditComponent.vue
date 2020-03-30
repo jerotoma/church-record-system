@@ -84,6 +84,13 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
+import {
+    required,
+    email,
+    minLength,
+    maxLength,
+    sameAs,
+} from 'vuelidate/lib/validators';
 import { userForm, userRequiredFields } from './user-form-criteria';
 import { mapGetters } from 'vuex';
 
@@ -125,7 +132,23 @@ export default {
         return data;
     },
     validations: {
-        form: userRequiredFields,
+        form: {
+            firstName: {
+                required: required,
+                minLength: minLength(3)
+            },
+            lastName: {
+                required: required,
+                minLength: minLength(3)
+            },
+            email: {
+                required: required,
+                email: email
+            },
+            roleId: {
+                required: required,
+            },
+        }
     },
     methods: {
         closeDialog() {

@@ -45,10 +45,10 @@
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('phoneNumber')">
-                                            <label for="form-phoneNumber">Phone number</label>
-                                            <md-input id="form-phoneNumber" v-model="form.phoneNumber" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.phoneNumber.required">The phone number is required</span>
+                                        <md-field :class="getValidationClass('phone')">
+                                            <label for="form-phone">Phone number</label>
+                                            <md-input id="form-phone" v-model="form.phone" type="text" :disabled="isLoading"></md-input>
+                                            <span class="md-error" v-if="!$v.form.phone.required">The phone number is required</span>
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
@@ -153,12 +153,12 @@
                                         </md-field>
                                     </div>
                                 </div>
+                                <md-card-actions>
+                                    <md-button class="md-danger" @click="closeDialog()">Close</md-button>
+                                    <md-button type="submit" class="md-primary" :disabled="isLoading">Create member</md-button>
+                                </md-card-actions>
                         </md-content>
                     </md-card-content>
-                    <md-card-actions>
-                        <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Create member</md-button>
-                    </md-card-actions>
                 </md-card>
                <!-- <md-snackbar md-position="center" class="md-success" :md-active.sync="userSaved">The member {{ lastUser }} was saved with success!</md-snackbar> -->
             </form>
@@ -225,7 +225,7 @@ export default {
             this.form.emailAddress = null;
             this.form.gender = "male"
             this.form.middleName = null;
-            this.form.phoneNumber = null;
+            this.form.phone = null;
             this.form.occupation = null;
             this.form.streetAddress = null;
             this.form.unitNumber = null;

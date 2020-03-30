@@ -85,7 +85,7 @@ class UserController extends Controller
                     'gender' => $request->gender,
                     'username' => $request->username,
                     'password' => Hash::make($request->password),
-                    'phone_number' => $request->phoneNumber,
+                    'phone' => $request->phoneNumber,
                     'community_id' => $request->communityId,
                 ]);
                 $user->attachRole($role);
@@ -95,15 +95,12 @@ class UserController extends Controller
                 'message' => 'The user ' .$request->firstName. ' ' . $request->lastName. ' has been created',
                 'hasMessage' => true,
             ], 200);
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(array(
                 'success' => false,
                 'errors' => $ex->getMessage()
             ), 400); // 400 being the HTTP code for an invalid request.
         }
-
-
     }
 
      /**
@@ -137,6 +134,44 @@ class UserController extends Controller
      */
     public function update(Request $request, $id) {
 
+        try {
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|numeric',
+                'firstName' => 'required',
+                'lastName' => 'required',
+                'roleId' => 'required|numeric',
+                'email' => 'required|email',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->getMessageBag()->toArray()
+                ], 422); // 400 being the HTTP code for an invalid request.
+            } else {
+                $role = config('roles.models.role')::find($request->roleId);
+
+                $user = User::find($request->id);
+                $user->first_name = $request->firstName;
+                $user->last_name = $request->lastName;
+                $user->middle_name = $request->middleName;
+                $user->email = $request->email;
+                $user->phone = $request->phoneNumber;
+                $user->save();
+                $user->detachAllRoles();
+                $user->attachRole($role);
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'The user ' .$request->firstName. ' ' . $request->lastName. ' has been created',
+                'hasMessage' => true,
+            ], 200);
+        } catch (\Exception $ex) {
+            return response()->json(array(
+                'success' => false,
+                'errors' => $ex->getMessage()
+            ), 400); // 400 being the HTTP code for an invalid request.
+        }
     }
 
     /**
