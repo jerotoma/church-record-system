@@ -18,7 +18,7 @@ export const userRequiredFields = {
         required: required,
         maxLength: minLength(3)
     },
-    emailAddress: {
+    email: {
         required: required,
         email: email
     },
@@ -31,30 +31,19 @@ export const userRequiredFields = {
         minLength: minLength(3),
         sameAsPassword: sameAs('password')
     },
-    streetAddress: {
+    roleId: {
         required: required,
     },
-    city: {
-        required: required,
-    },
-    country: {
-        required: required,
-    },
-    state: {
-        required: required,
-    },
-    postalCode: {
-        required: required,
-    }
 };
 
 export const userForm = {
     firstName: null,
     lastName: null,
     username: null,
-    emailAddress: null,
+    email: null,
     password: null,
-    gender: 'male',
+    gender: '',
+    roleId: null,
     confirmPassword: null,
     streetAddress: null,
     unitNumber: null,

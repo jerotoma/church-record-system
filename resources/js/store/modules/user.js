@@ -45,6 +45,7 @@ const state = {
         });
     },
     postUser({ commit }, user) {
+        commit("setSending", true);
         return new Promise((resolve, reject) => {
                 axios({
                 method: 'POST',
@@ -52,6 +53,7 @@ const state = {
                 data: user
             }).then((response) => {
                 const data = response.data;
+                commit("setSending", false);
                 resolve(data);
             }).catch((error) => {
                 const resp = error.response;

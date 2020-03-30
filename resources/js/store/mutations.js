@@ -2,6 +2,9 @@ const mutations =  {
     setLoading(state, isLoading) {
         state.isLoading = isLoading;
     },
+    setSending(state, isSending) {
+        state.isSending = isSending;
+    },
     setHasMessage(state, isMessage) {
         state.isMessage = isMessage;
     },

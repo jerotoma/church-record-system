@@ -21,6 +21,7 @@ class UserUtility {
             'phoneNumber' => $user->phone_number,
             'gender' => $user->gender,
             'email' => $user->email,
+            'roleId' => $user->roles[0]->id,
             'roles' => self::mapRoles($user->roles)
         ];
     }

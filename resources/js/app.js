@@ -15,6 +15,7 @@ import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
 import Notifications from "./shared/NotificationPlugin";
 import DialogPlugin from "./shared/dialog"
+import ChurchRecordPlugin from "./common"
 import MaterialDashboard from "./material-dashboard";
 import GlobalVueGoodTable from "./global-vue-good-table";
 import Chartist from "chartist";
@@ -23,6 +24,7 @@ Vue.prototype.$Chartist = Chartist;
 
 Vue.use(moment);
 Vue.use(DialogPlugin);
+Vue.use(ChurchRecordPlugin);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);

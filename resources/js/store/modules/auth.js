@@ -16,6 +16,7 @@ const state = {
   const actions = {
     postLogin({ commit }, userCredentials) {
         commit('setLoading', true);
+        commit('setSending', true);
         commit('setMessage', '');
         commit('setHasMessage', false);
         var url = '/auth/login';
@@ -25,7 +26,7 @@ const state = {
                 const data = response.data;
                 window.location.replace('/dashboard');
                 commit('setAuthUser', data.user)
-                //commit('setLoading', false);
+                commit('setSending', false);
             }
         }).catch((error) => {
             const resp = error.response;

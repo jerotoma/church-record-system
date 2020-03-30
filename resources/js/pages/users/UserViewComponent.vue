@@ -17,6 +17,13 @@
                             :search-options="{
                                 enabled: true,
                                 placeholder: 'Search for a user',
+                            }"
+                            :pagination-options="{
+                                enabled: true,
+                                mode: 'records',
+                                setCurrentPage: pagination.currentPage,
+                                perPage: pagination.perPage,
+                                perPageDropdown: pagination.perPageDropdown,
                             }">
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'fullName'">
@@ -62,11 +69,13 @@
                 <user-create-component
                     :show-dialog = "showCreateDialog"
                     @onDialogClose = "onDialogClosed"
+                    @onUserCreated = "onUserCreated($event)"
                 ></user-create-component>
                 <user-edit-component
                      v-if="user.id"
                     :show-dialog = "showEditDialog"
                     @onDialogClose = "onDialogClosed"
+                    @onUserUpdated = "onUserUpdated($event)"
                     :user="user"
                 ></user-edit-component>
                 <dialog-confirm-component
@@ -75,6 +84,8 @@
                 ></dialog-confirm-component>
             </div>
         </div>
+        <md-snackbar md-position="center" class="md-success" :md-active.sync="userCreated">The user has been created!</md-snackbar>
+        <md-snackbar md-position="center" class="md-success" :md-active.sync="userUpdated">The user has been updated!</md-snackbar>
   </div>
 </template>
 <script>
@@ -93,6 +104,7 @@ export default {
     computed:{
         ...mapGetters([
             'users',
+            'pagination',
             'user',
             'showCreateDialog',
             'showEditDialog',
@@ -107,6 +119,8 @@ export default {
         return {
             selected: [],
             showCreateModal: false,
+            userCreated: false,
+            userUpdated: false,
             columns: [
                 {
                     label: 'Full Name',
@@ -160,26 +174,16 @@ export default {
             this.$store.commit('setShowCreateDialog', true);
         },
         getPermissions(roles) {
-            let permissionsToDisp = '';
-            for (var i = 0; i < roles.length; i++) {
-                for (var j = 0; j < roles[i].permissions.length; j++) {
-                    permissionsToDisp += roles[i].permissions[j].name;
-                    if (j !== roles[i].permissions.length - 1) {
-                        permissionsToDisp += ', ';
-                    }
-                }
-            }
-            return permissionsToDisp;
+            return this.$churchRecord.getPermissions(roles);
+        },
+        onUserCreated(data){
+            this.userCreated = data.success;
+        },
+        onUserUpdated(data){
+            this.userUpdated = data.success;
         },
         getRoles(roles) {
-            let rolesToDisp = '';
-            for (var i = 0; i < roles.length; i++) {
-                rolesToDisp += roles[i].name;
-                if (i !== roles.length - 1) {
-                   rolesToDisp += ', ';
-                }
-            }
-            return rolesToDisp;
+            return this.$churchRecord.getRoles(roles);
         },
         onDialogClosed() {
             this.$store.commit('setShowDeleteDialog', false);

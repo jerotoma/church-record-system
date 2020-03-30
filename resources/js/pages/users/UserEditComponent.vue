@@ -17,7 +17,7 @@
                                     <div class="md-layout-item md-small-size-100 md-size-50">
                                         <md-field :class="getValidationClass('firstName')">
                                             <label for="form-firstName">First Name</label>
-                                            <md-input id="form-firstName" v-model="form.firstName" type="text" :disabled="isLoading"></md-input>
+                                            <md-input id="form-firstName" v-model="form.firstName" type="text" :disabled="isSending"></md-input>
                                             <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
                                             <span class="md-error" v-else-if="!$v.form.lastName.minlength">Invalid first name</span>
                                         </md-field>
@@ -25,139 +25,55 @@
                                     <div class="md-layout-item md-small-size-100 md-size-50">
                                         <md-field :class="getValidationClass('lastName')">
                                             <label for="form-lastName" >Last Name</label>
-                                            <md-input id="form-lastName" v-model="form.lastName" type="text" :disabled="isLoading"></md-input>
+                                            <md-input id="form-lastName" v-model="form.lastName" type="text" :disabled="isSending"></md-input>
                                             <span class="md-error" v-if="!$v.form.lastName.required">The last name is required</span>
                                             <span class="md-error" v-else-if="!$v.form.lastName.minlength">Invalid first name</span>
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('middleName')">
-                                            <label for="form-middleName">Middle Name</label>
-                                            <md-input id="form-middleName" v-model="form.middleName" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.middleName.required">The middleName is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
                                         <md-field :class="getValidationClass('email')">
-                                            <label for="form-emailAddress">Email Address</label>
-                                            <md-input id="form-emailAddress" v-model="form.email" type="email" :disabled="isLoading"></md-input>
+                                            <label for="form-emailAddress">Email</label>
+                                            <md-input id="form-emailAddress" v-model="form.email" type="email" :disabled="isSending"></md-input>
                                             <span class="md-error" v-if="!$v.form.email.required">The email address is required</span>
                                         </md-field>
                                     </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('phoneNumber')">
-                                            <label for="form-phoneNumber">Phone number</label>
-                                            <md-input id="form-phoneNumber" v-model="form.phoneNumber" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.phoneNumber.required">The phone number is required</span>
+                                    <div class="md-layout-item md-small-size-100 md-size-33" v-show="roles && roles.length > 0">
+                                        <md-field :class="getValidationClass('roleId')">
+                                            <label for="role-id">Roles</label>
+                                            <md-select
+                                                v-model="form.roleId"
+                                                name="form.roleId"
+                                                id="role-id">
+                                                <md-option
+                                                    v-for="(role, roleIndex) in roles" :key="roleIndex"
+                                                    :value="role.id">
+                                                        {{role.name}}
+                                                </md-option>
+                                            </md-select>
+                                            <span class="md-error" v-if="!$v.form.roleId.required">The role is required</span>
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('occupation')">
-                                            <label for="form-occupation">Occupation</label>
-                                            <md-input id="form-occupation" v-model="form.occupation" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.occupation.required">The occupation is required</span>
-                                        </md-field>
+                                       <p>Username: <span class="md-title">{{user.username}}</span></p>
+                                    </div>
+                                    <div class="md-layout-item md-small-size-100 md-size-50">
+                                        <p>Password: <span class="md-title"><span class="material-icons">more_horiz</span></span></p>
                                     </div>
                                 </div>
-                                <div class="md-layout">
-                                    <div class="md-layout-item md-small-size-100 md-size-33">
-                                        <md-field>
-                                            <label for="parish-id">Parish</label>
-                                            <md-select
-                                                v-model="form.parishId"
-                                                @md-selected="loadZones(form.parishId)"
-                                                name="form.parishId"
-                                                id="parish-id">
-                                                <md-option
-                                                    v-for="(parish, parishIndex) in parishes" :key="parishIndex"
-                                                    :value="parish.id">
-                                                        {{parish.name}}
-                                                </md-option>
-                                            </md-select>
-                                            <span class="md-error" v-if="!$v.form.parishId.required">The parish is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-33" v-show="zones && zones.length > 0">
-                                        <md-field>
-                                            <label for="zone-id">Zone</label>
-                                            <md-select
-                                                v-model="form.zoneId"
-                                                @md-selected="loadCommunities(form.parishId, form.zoneId)"
-                                                name="form.zoneId" id="zone-id">
-                                                <md-option
-                                                    v-for="(zone, zoneIndex) in zones" :key="zoneIndex"
-                                                    :value="zone.id">
-                                                        {{zone.name}}
-                                                </md-option>
-                                            </md-select>
-                                            <span class="md-error" v-if="!$v.form.zoneId.required">The zone is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-33" v-show="communities && communities.length > 0">
-                                        <md-field>
-                                            <label for="community-id">Community</label>
-                                            <md-select
-                                                v-model="form.communityId"
-                                                name="form.communityId"
-                                                id="community-id">
-                                                <md-option
-                                                    v-for="(community, communityIndex) in communities" :key="communityIndex"
-                                                    :value="community.id">
-                                                        {{community.name}}
-                                                </md-option>
-                                            </md-select>
-                                            <span class="md-error" v-if="!$v.form.communityId.required">The community is required</span>
-                                        </md-field>
-                                    </div>
-                                </div>
-                                <div class="md-layout">
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('streetAddress')">
-                                            <label for="form-streetAddress">Street Address</label>
-                                            <md-input id="form-streetAddress" v-model="form.streetAddress" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.streetAddress.required">The street address is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field>
-                                            <label for="form-unitNumber">Unit No</label>
-                                            <md-input id="form-unitNumber" v-model="form.unitNumber" type="text" :disabled="isLoading"></md-input>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('city')">
-                                            <label for="form-city">City</label>
-                                            <md-input id="form-city" v-model="form.city" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.city.required">The city is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('postalCode')">
-                                            <label for="form-postalCode">Postal Code</label>
-                                            <md-input id="form-postalCode" v-model="form.postalCode" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.postalCode.required">The postal code is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('state')">
-                                            <label for="form-state">State</label>
-                                            <md-input id="form-state" v-model="form.state" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.state.required">The state is required</span>
-                                        </md-field>
-                                    </div>
-                                    <div class="md-layout-item md-small-size-100 md-size-50">
-                                        <md-field :class="getValidationClass('state')">
-                                            <label for="form-country">Country</label>
-                                            <md-input id="form-country" v-model="form.country" type="text" :disabled="isLoading"></md-input>
-                                            <span class="md-error" v-if="!$v.form.country.required">The country is required</span>
-                                        </md-field>
+                                <div class="md-layout" v-if="errors.length > 0">
+                                    <div class="md-layout-item md-small-size-100 md-size-100">
+                                        <md-card class="md-accent">
+                                            <md-card-content>
+                                                <span class="md-error" v-for="(error, index) in errors" :key="index">{{error}}.<br></span>
+                                            </md-card-content>
+                                        </md-card>
                                     </div>
                                 </div>
                         </md-content>
                     </md-card-content>
                     <md-card-actions>
                         <md-button class="md-danger" @click="closeDialog()">Close</md-button>
-                        <md-button type="submit" class="md-primary" :disabled="isLoading">Save Changes</md-button>
+                        <md-button type="submit" class="md-primary" :disabled="isSending">Save Changes</md-button>
                     </md-card-actions>
                 </md-card>
                <!-- <md-snackbar md-position="center" class="md-success" :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar> -->
@@ -190,10 +106,8 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'parishes',
-            'communities',
-            'zones',
-            'isLoading',
+            'roles',
+            'isSending',
             'message',
             'isMessage'
         ]),
@@ -204,7 +118,9 @@ export default {
     },
 
     data(){
-       let data = {};
+       let data = {
+           errors: []
+       };
         data = Object.assign({}, data, {form: this.user});
         return data;
     },
@@ -231,29 +147,27 @@ export default {
             this.form.lastName = null;
             this.form.emailAddress = null;
             this.form.gender = "male"
-            this.form.middleName = null;
-            this.form.phoneNumber = null;
-            this.form.occupation = null;
-            this.form.streetAddress = null;
-            this.form.unitNumber = null;
-            this.form.city = null;
-            this.form.state = null;
-            this.form.country = null;
-            this.form.postalCode = null;
-            this.form.parishId = null;
-            this.form.zoneId = null;
-            this.form.communityId = null;
+            this.form.username = null;
+            this.form.password = null;
+            this.form.confirmPassword = null;
+            this.form.roleId = null;
         },
         editUser() {
-           this.$store.dispatch('updateUser', this.form).then((response) => {
-                this.clearForm();
-                this.$emit("onDialogClose", {showDialog: false});
-            }).catch((error) => {
-                this.$store.commit('setMessage', error.data.message);
+            this.$store.dispatch('updateUser', this.form).then(response => {
+                this.isSuccess = true;
+                this.$emit("onUserUpdated", {success: true});
+                this.closeDialog();
+            }).catch(error => {
+                if(!error.data.success) {
+                    const values = Object.values(error.data.errors)
+                    for (const value of values) {
+                        this.errors.push(value[0]);
+                    }
+                }
+                this.$store.commit('setSending', false);
             });
         },
         validateUser() {
-            console.log(this.$v);
             this.$v.$touch();
             if (!this.$v.$invalid) {
                 this.editUser();

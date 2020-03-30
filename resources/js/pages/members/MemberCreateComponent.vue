@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="md-layout">
                                     <div class="md-layout-item md-small-size-100 md-size-33">
-                                        <md-field>
+                                        <md-field :class="getValidationClass('parishId')">
                                             <label for="parish-id">Parish</label>
                                             <md-select
                                                 v-model="form.parishId"
@@ -78,7 +78,7 @@
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-33" v-show="zones && zones.length > 0">
-                                        <md-field>
+                                        <md-field :class="getValidationClass('zoneId')">
                                             <label for="zone-id">Zone</label>
                                             <md-select
                                                 v-model="form.zoneId"
@@ -94,7 +94,7 @@
                                         </md-field>
                                     </div>
                                     <div class="md-layout-item md-small-size-100 md-size-33" v-show="communities && communities.length > 0">
-                                        <md-field>
+                                        <md-field :class="getValidationClass('communityId')">
                                             <label for="community-id">Community</label>
                                             <md-select
                                                 v-model="form.communityId"
@@ -240,7 +240,7 @@ export default {
         createMember() {
            this.$store.dispatch('postMember', this.form).then((response) => {
                 this.clearForm();
-                this.$emit("onDialogClose", {showDialog: false});
+                this.closeDialog();
             }).catch((error) => {
                 this.$store.commit('setMessage', error.data.message);
             });

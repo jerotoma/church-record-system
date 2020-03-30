@@ -30,7 +30,7 @@
                                 mode: 'records',
                                 setCurrentPage: pagination.currentPage,
                                 perPage: pagination.perPage,
-                                perPageDropdown: [15, 30, 45, 60],
+                                perPageDropdown: pagination.perPageDropdown,
                             }">
                             <template slot="table-row" slot-scope="props">
                                 <span v-if="props.column.field == 'fullName'">

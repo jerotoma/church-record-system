@@ -1,5 +1,6 @@
 const state = {
     isLoading: false,
+    isSending: false,
     isMessage: false,
     message: '',
     showEditDialog: false,
@@ -20,6 +21,7 @@ const state = {
         total: 0,
         sortType: 'desc',
         sortField: 'created_at',
+        perPageDropdown: [15, 30, 45, 60],
     },
     auth: {
         userId: null,

@@ -58,6 +58,51 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        try {
+            $validator = Validator::make($request->all(), [
+                'firstName' => 'required',
+                'lastName' => 'required',
+                'roleId' => 'required|numeric',
+                'email' => 'required|email',
+                'username' => 'required|unique:users,username',
+                'password' => 'required|min:5',
+                'confirmPassword' => 'required|min:5|same:password',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->getMessageBag()->toArray()
+                ], 422); // 400 being the HTTP code for an invalid request.
+            } else {
+                $role = config('roles.models.role')::find($request->roleId);
+
+                $user = User::create([
+                    'first_name' => $request->firstName,
+                    'last_name' => $request->lastName,
+                    'middle_name' => $request->middleName,
+                    'email' => $request->email,
+                    'gender' => $request->gender,
+                    'username' => $request->username,
+                    'password' => Hash::make($request->password),
+                    'phone_number' => $request->phoneNumber,
+                    'community_id' => $request->communityId,
+                ]);
+                $user->attachRole($role);
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'The user ' .$request->firstName. ' ' . $request->lastName. ' has been created',
+                'hasMessage' => true,
+            ], 200);
+        }
+        catch (\Exception $ex) {
+            return response()->json(array(
+                'success' => false,
+                'errors' => $ex->getMessage()
+            ), 400); // 400 being the HTTP code for an invalid request.
+        }
+
 
     }
 

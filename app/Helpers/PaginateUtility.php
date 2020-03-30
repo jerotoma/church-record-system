@@ -21,6 +21,7 @@ class PaginateUtility {
             'total' => $paginate->total(),
             'sortField' => 'created_at',
             'sortType' => 'desc',
+            'perPageDropdown' => [15, 30, 45, 60],
         ];
     }
 }
