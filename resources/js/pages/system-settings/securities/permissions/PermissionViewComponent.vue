@@ -11,7 +11,7 @@
                         </div>
                         <vue-good-table
                             :columns="columns"
-                            :rows="permissions"
+                            :rows="mPermissions"
                             :search-options="{
                                 enabled: true,
                                 placeholder: 'Search this giving type',
@@ -68,16 +68,10 @@ import { mapGetters } from 'vuex';
 
 export default {
     name: "permission-view-component",
-    computed:{
-        ...mapGetters([
-            'permissions',
-            'permission',
-        ]),
-    },
     props: {
         tableHeaderColor: {
-        type: String,
-        default: "green"
+            type: String,
+            default: "green"
         },
         auth: {
             type: Object,
@@ -86,6 +80,19 @@ export default {
         isAdmin: {
             type: Boolean,
             required: true
+        }
+    },
+    computed:{
+        ...mapGetters([
+            'permission',
+        ]),
+        mPermissions: {
+           get(){
+             return this.$store.getters.permissions;
+           },
+           set(value){
+             return this.$store.commit('setPermissions', value);
+           }
         }
     },
     components: {
@@ -134,8 +141,6 @@ export default {
         onDialogClosed() {
             this.showCreateDialog = false;
             this.showEditDialog = false;
-            //this.$store.commit('setShowEditDialog', false);
-            //this.$store.commit('setShowCreateDialog', false);
             this.loadPermissions();
         },
         loadPermissions() {
